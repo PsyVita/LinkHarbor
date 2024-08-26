@@ -1,0 +1,31 @@
+{
+    "name": "LinkHarbor Demo",
+    "author": "Napat Worrasangasilp",
+    "version": "1.0.0", 
+    "description": "This is a demo version of LinkHarbor containing the main functions of the program.",
+
+    "manifest_version": 3,
+    "action": {
+        "default_popup": "addLink.html",
+        "default_title": "LinkHarbor Demo"
+    },
+
+
+    "permissions": ["tabs", "clipboardWrite","storage","activeTab","bookmarks"],
+    "background": {
+        "service_worker": "background.js"
+    },
+
+    "content_scripts": [{
+        "matches": [
+            "*://*/*"
+        ],
+        "js": ["contentScript.js"]
+    }],
+
+    "icons": {
+        "48": "images/anchor.png"
+    }
+
+
+}

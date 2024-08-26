@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+    <input type="text" id="name" name="name" value="">Write something</input>
+    <p><button onclick="receiveInformation()" type="button">note</button></p>
+    <p id="demo"></p>
+
+    <script>
+
+        function receiveInformation() {
+            var text = document.getElementById("name").value;
+                if (text != "") {
+                    localStorage.information = text;
+                } else {
+                    localStorage.information = "none";
+                }
+                
+                
+            document.getElementById("demo").innerHTML = localStorage.information;
+            
+        }
+
+        
+
+    </script>
+
+</body>
+</html>
