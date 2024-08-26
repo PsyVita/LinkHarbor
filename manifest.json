@@ -6,7 +6,7 @@
 
     "manifest_version": 3,
     "action": {
-        "default_popup": "addLink.html",
+        "default_popup": "startPage.html",
         "default_title": "LinkHarbor Demo"
     },
 

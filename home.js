@@ -44,8 +44,7 @@ document.addEventListener("DOMContentLoaded", function() {
         project1.style.color = "aliceblue";
         document.querySelectorAll('.project__button').forEach(button => {
             if (button !== project1) {
-                button.style.backgroundColor = "aliceblue";// Reset to original color
-                button.style.color = "black";
+                button.removeAttribute("style");// Reset to original color
             }
         });
     }
@@ -71,8 +70,7 @@ document.addEventListener("DOMContentLoaded", function() {
         project2.style.color = "aliceblue";
         document.querySelectorAll('.project__button').forEach(button => {
             if (button !== project2) {
-                button.style.backgroundColor = "aliceblue";// Reset to original color
-                button.style.color = "black";
+                button.removeAttribute("style");
             }
         });
     }
@@ -98,8 +96,7 @@ document.addEventListener("DOMContentLoaded", function() {
         project3.style.color = "aliceblue";
         document.querySelectorAll('.project__button').forEach(button => {
             if (button !== project3) {
-                button.style.backgroundColor = "aliceblue";// Reset to original color
-                button.style.color = "black";
+                button.removeAttribute("style");// 
             }
         });
     }
@@ -125,8 +122,7 @@ document.addEventListener("DOMContentLoaded", function() {
         project4.style.color = "aliceblue";
         document.querySelectorAll('.project__button').forEach(button => {
             if (button !== project4) {
-                button.style.backgroundColor = "aliceblue";// Reset to original color
-                button.style.color = "black";
+                button.removeAttribute("style");// 
             }
         });
     }
@@ -152,8 +148,7 @@ document.addEventListener("DOMContentLoaded", function() {
         project5.style.color = "aliceblue";
         document.querySelectorAll('.project__button').forEach(button => {
             if (button !== project5) {
-                button.style.backgroundColor = "aliceblue";// Reset to original color
-                button.style.color = "black";
+                button.removeAttribute("style");// 
             }
         });
     }
@@ -179,8 +174,7 @@ document.addEventListener("DOMContentLoaded", function() {
         project6.style.color = "aliceblue";
         document.querySelectorAll('.project__button').forEach(button => {
             if (button !== project6) {
-                button.style.backgroundColor = "aliceblue";// Reset to original color
-                button.style.color = "black";
+                button.removeAttribute("style");// 
             }
         });
     }
