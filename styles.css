@@ -61,10 +61,19 @@ html {
     width: 80%;
     padding: 1em;
     height: 10%;
-    margin: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
     background-color: var(--THIRD-COLOR);
     border-radius: 20px;
     box-shadow: var(--DARK-COLOR) 0px 2px 8px 0px;
+}
+
+.noleftmargin {
+    margin-right: 15px;
+}
+
+.norightmargin {
+    margin-left: 15px;
 }
 
 .section__p2 {
@@ -76,6 +85,7 @@ html {
 
 .header__space {
    display: flex;
+   justify-content: center;
    align-items: center;
 }
 
@@ -152,13 +162,36 @@ html {
 
 .stamp__button {
     padding: 1em;
-    background-color: var(--THIRD-COLOR);
-    border-radius: 0%;
-    box-shadow: var(--DARK-COLOR) 0px 2px 8px 0px;
-    user-select: none;
-    border-style: outset;
-    border-color: papayawhip;
-    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    height: 52px;
+    margin: 2 em;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    text-decoration: bold;
+    outline: none;
+    color: var(--DOMINANT-COLOR);
+    background-color: aliceblue;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px var(--DARK-COLOR);
+}
+
+.stamp__button__blue {
+    padding: 1em;
+    height: 52px;
+    margin: 2 em;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    text-decoration: bold;
+    outline: none;
+    color: aliceblue;
+    background-color: rgb(116, 176, 216);
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px var(--DARK-COLOR);
 }
 
 .stamp__button__tutorial {
@@ -170,7 +203,7 @@ html {
     user-select: none;
     border-style: outset;
     border-color: papayawhip;
-    font-size: var(--FS-LARGE);
+    text-wrap: nowrap;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
 
@@ -181,18 +214,7 @@ html {
     
 }
 
-.stamp__button:hover, .stamp__button:focus-visible {
-    background: var(--SECONDARY-COLOR-DARK);
-    color: papayawhip;
-    box-shadow: 5px 5px 10px lightskyblue;
-    
-}
 
-.stamp__button:active {
-    background: var(--SECONDARY-COLOR);
-    color: papayawhip;
-    box-shadow: 5px 5px 10px lightskyblue;
-}
 
 .body__space {
     user-select: none;
@@ -253,11 +275,28 @@ html {
     background-color: var(--SECONDARY-COLOR-DARK);
     color: aliceblue;
 }
+
+
       
 .project__button:active {
     box-shadow: 0 5px #778da5;
     transform: translateY(4px);
 }
+
+.stamp__button:hover, .stamp__button:focus-visible, 
+.stamp__button__blue:hover, .stamp__button__blue:focus-visible {
+    background-color: var(--SECONDARY-COLOR-DARK);
+    color: aliceblue;
+}
+
+
+      
+.stamp__button:active, 
+.stamp__button__blue:active {
+    box-shadow: 0 5px #778da5;
+    transform: translateY(4px);
+}
+
 
 .logo {
     width: 100px;
