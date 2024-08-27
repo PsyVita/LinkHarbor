@@ -57,12 +57,13 @@ html {
 }
 
 .header {
+    display: flex;
+    justify-content: center;
     user-select: none;
     width: 80%;
     padding: 1em;
     height: 10%;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin: 15px;
     background-color: var(--THIRD-COLOR);
     border-radius: 20px;
     box-shadow: var(--DARK-COLOR) 0px 2px 8px 0px;
@@ -122,6 +123,7 @@ html {
     border-style: none;
     user-select: none;
     margin-bottom: 5px;
+    margin-right: 15px;
     background-color: transparent;
     color: var(--THIRD-COLOR);
     text-decoration: underline;
@@ -131,10 +133,24 @@ html {
     color: var(--SECONDARY-COLOR-DARK);
 }
 
+.editableTitle {
+    display: flex;
+    width: inherit;
+    height: inherit;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--FS-LARGE);
+    border-style: none;
+    background-color: aliceblue;
+    font-weight: bold;
+}
 
 .tutorial-myaccount {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .stamp__button__import {
@@ -372,9 +388,6 @@ html {
     color: white;
 }
 
-#project1 {
-    background-color: white;
-};
 
 .sources__button {
     width: 140%;
