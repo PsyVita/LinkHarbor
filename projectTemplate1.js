@@ -1,8 +1,11 @@
 document.addEventListener("DOMContentLoaded", function() {
     
     const project1Title = document.getElementById("project1Title");
-    if (project1Title !== localStorage.getItem("LHproject1TitleStorage"))
+    
+
+    if (project1Title.value !== localStorage.getItem("LHproject1TitleStorage"))
         project1Title.value = localStorage.getItem("LHproject1TitleStorage");
+
 
     // Event listener for Enter key press
     project1Title.addEventListener("keydown", function(event) {
