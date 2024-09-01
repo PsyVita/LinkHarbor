@@ -81,6 +81,7 @@ html {
     font-size: var(--FS-MEDIUM);
     border-style: dotted;
     border-radius: 10%;
+    padding: 1em;
 }
 
 
@@ -230,6 +231,11 @@ html {
     
 }
 
+.stamp__button__tutorial:active {
+    background: var(--SECONDARY-COLOR);
+    
+}
+
 
 
 .body__space {
@@ -309,6 +315,7 @@ html {
       
 .stamp__button:active, 
 .stamp__button__blue:active {
+    background-color: var(--SECONDARY-COLOR);
     box-shadow: 0 5px #778da5;
     transform: translateY(4px);
 }
@@ -569,7 +576,7 @@ html {
 
 
 .f3B:hover, .f3B:focus-visible {
-    background: var(--SECONDARY-COLOR);
+    background: var(--SECONDARY-COLOR-DARK);
     color: papayawhip;
     box-shadow: 0px 5px 10px lightskyblue;
     
@@ -583,6 +590,10 @@ html {
     font-size: var(--FS-MEDIUM);
 }
 
+.f3B:active {
+    background-color: var(--SECONDARY-COLOR);
+    color: papayawhip;
+}
 
 .save-method {
     display: flex;
