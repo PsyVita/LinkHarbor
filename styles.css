@@ -168,19 +168,21 @@ html {
     user-select: none;
     border-style: none;
     border-color: papayawhip;
-    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    box-shadow: 0 5px var(--DARK-COLOR);
 }
 
 .stamp__button__import:hover, .stamp__button__import:focus-visible {
     background: var(--SECONDARY-COLOR-DARK);
     color: papayawhip;
-    box-shadow: 5px 5px 10px rgb(162, 219, 255);
+    box-shadow: 0 5px var(--DARK-COLOR);
 }
 
 .stamp__button__import:active {
     background: var(--SECONDARY-COLOR);
     box-shadow: none;
     color: papayawhip;
+    box-shadow: 0 2px #778da5;
+    transform: translateY(4px);
 }
 
 .stamp__button {

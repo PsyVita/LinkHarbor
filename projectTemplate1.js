@@ -4,7 +4,12 @@ document.addEventListener("DOMContentLoaded", function() {
     
 
     if (project1Title.value !== localStorage.getItem("LHproject1TitleStorage"))
-        project1Title.value = localStorage.getItem("LHproject1TitleStorage");
+        if (localStorage.getItem("LHproject1TitleStorage") === null) {
+            project1Title.value = "Project #1";
+        } else {
+            project1Title.value = localStorage.getItem("LHproject1TitleStorage");
+        }
+        
 
 
     // Event listener for Enter key press
