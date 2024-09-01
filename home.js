@@ -6,6 +6,15 @@ document.addEventListener("DOMContentLoaded", function() {
     const project5 = document.getElementById("project5");
     const project6 = document.getElementById("project6");
     let clickTimeout;
+
+    //Check project name update
+
+    if (project1.value !== localStorage.getItem("LHproject1TitleStorage"))
+        project1.innerHTML = localStorage.getItem("LHproject1TitleStorage");
+
+    //project highlighting
+
+    //project 1
    
     if (localStorage.selectedProject === "" || localStorage.selectedProject === null) {
         selectProject1();

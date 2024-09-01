@@ -49,10 +49,12 @@ html {
 .body {
     min-height: var(--MIN-HEIGHT); 
     margin: 5px;
+    height: auto;
     background-image: var(--DOMINANT-COLOR);
     border-radius: 20px;
     border-style: solid;
     border-color: var(--DARK-COLOR);
+    user-select: none;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
 
@@ -61,8 +63,9 @@ html {
     justify-content: center;
     user-select: none;
     width: 80%;
-    padding: 1em;
     height: 10%;
+    color: rgb(85, 146, 184);
+    padding: 1em;
     margin: 15px;
     background-color: var(--THIRD-COLOR);
     border-radius: 20px;
@@ -91,10 +94,12 @@ html {
    align-items: center;
 }
 
+
 .header__h1 {
     display: flex;
     justify-content: center;
     align-items: center;
+    color: var(--DOMINANT-COLOR);
     font-size: var(--FS-LARGE);
 }
 
@@ -144,6 +149,7 @@ html {
     font-size: var(--FS-LARGE);
     border-style: none;
     background-color: aliceblue;
+    color:rgb(35, 158, 235);
     font-weight: bold;
 }
 
@@ -157,10 +163,10 @@ html {
 .stamp__button__import {
     padding: 1em;
     background-color: var(--THIRD-COLOR);
-    border-radius: 80%;
+    border-radius: 20%;
     box-shadow: var(--DARK-COLOR) 0px 2px 8px 0px;
     user-select: none;
-    border-style: ridge;
+    border-style: none;
     border-color: papayawhip;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
@@ -255,7 +261,7 @@ html {
 .body__home {
     display: flex;
     user-select: none;
-    height: 10%;
+    height: auto;
     padding: 1em;
     margin-left: 1em;
     margin-right: 1em;
@@ -274,7 +280,8 @@ html {
 
 .home {
     width: auto;
-    height: 200px;
+    height: auto;
+    max-height: 600px;
 }
 
 .project_previews {
@@ -375,15 +382,16 @@ html {
 }
 
 .project__button {
+    min-width: 9em; 
     padding: 1em;
-    margin: 2 em;
+    margin: 1em;
     display: inline-block;
     cursor: pointer;
     text-align: center;
     font-weight: bold;
     text-decoration: bold;
     outline: none;
-    color: var(--DOMINANT-COLOR);
+    color: grey;
     background-color: aliceblue;
     border: none;
     border-radius: 15px;
@@ -392,7 +400,14 @@ html {
 
 .description {
     font-style: italic;
+    margin-top: 10px;
+    margin-bottom: 5px;
     color: white;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 
@@ -402,12 +417,22 @@ html {
     margin: 5px;
     margin-top: 20px;
     background-color: var(--THIRD-COLOR);
-    border-radius: 5%;
+    border-radius: 0%;
     box-shadow: var(--DARK-COLOR) 0px 2px 8px 0px;
     user-select: none;
-    border-style: dotted;
+    border-style: outset;
     border-color: var(--DARK-COLOR);
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+.hr {
+    border: none;
+    border-top: dotted;
+    border-color: var(--DOMINANT-COLOR);
+    height: 0.5px;
+    width: 60%;
+    margin: auto;
+    padding: 6px;
 }
 
 .tips {
@@ -417,6 +442,7 @@ html {
     margin-left: 1em;
     margin-right: 1em;
     justify-content: center;
+    color: grey;
     align-items: center;
     font-size: var(--FS-MEDIUM);
 }
