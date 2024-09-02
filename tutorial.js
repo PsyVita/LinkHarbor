@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
         startOrganizingButton.innerText = "Back to Home";
     } else {
         localStorage.setItem("LHVisitedTimes", "LHalreadyVisited");
+        startOrganizingButton.innerText = "Start Organizing!";
     }
     
 
