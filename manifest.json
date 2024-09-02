@@ -16,7 +16,7 @@
         {
             "matches": ["<all_urls>"],
             "js": ["contentScript.js"],
-            "css": ["styles.css"]
+            "css": ["floatingButton.css"]
         }
     ],
     "icons": {
