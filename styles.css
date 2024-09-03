@@ -299,6 +299,7 @@ html {
       
 .start__button:active {
     box-shadow: 0 5px #778da5;
+    background-color: var(--SECONDARY-COLOR);
     transform: translateY(5px);
 }
       

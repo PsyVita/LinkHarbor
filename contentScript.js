@@ -2,7 +2,11 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log("Content script loaded");
 
     // Create the floating button
-    const floatingButton = document.createElement("button");
+    
+});
+
+
+const floatingButton = document.createElement("button");
     floatingButton.id = "floatingButton";
     floatingButton.innerText = "+";
     document.body.appendChild(floatingButton);
@@ -19,4 +23,3 @@ document.addEventListener("DOMContentLoaded", function() {
     floatingButton.addEventListener("focusout", function() {
         floatingButton.focus();
     });
-});
