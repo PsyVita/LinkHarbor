@@ -1,5 +1,6 @@
 
 
+
     // Create the floating button
     const floatingButton = document.createElement("button");
     floatingButton.id = "floatingButton";
@@ -7,19 +8,16 @@
     document.body.appendChild(floatingButton);
     console.log("Floating button created");
 
-
-    document.addEventListener("DOMContentLoaded", function() {
         // Add event listener for button click
-        floatingButton.addEventListener("click", function() {
-            // Send a message to the background script
-            chrome.runtime.sendMessage({ type: "buttonClicked" });
-            floatingButton.value = "Clicked!";
+    floatingButton.addEventListener("click", function() {
+        // Send a message to the background script
+        chrome.runtime.sendMessage({ type: "buttonClicked" });
+        floatingButton.innerText = "Clicked";
+        alert("Button clicked");
         });
     
 
         // Ensure the button is always in focus
-        floatingButton.addEventListener("focusout", function() {
-            floatingButton.focus();
-        });
-
+    floatingButton.addEventListener("focusout", function() {
+        floatingButton.focus();
     });
