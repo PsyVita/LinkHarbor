@@ -1,10 +1,6 @@
 
 
 
-    // Create the floating button
-    
-});
-
 
 const floatingButton = document.createElement("button");
     floatingButton.id = "floatingButton";
