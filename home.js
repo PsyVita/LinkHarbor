@@ -9,6 +9,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
     //Check project name update
 
+    if (localStorage.getItem("LHproject1TitleStorage") === null) {
+        localStorage.setItem("LHproject1TitleStorage", "Project #1");
+    }
+
+
     if (project1.value !== localStorage.getItem("LHproject1TitleStorage"))
         project1.innerHTML = localStorage.getItem("LHproject1TitleStorage");
 

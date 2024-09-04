@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+
+/*
+#floatingButton {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 50px;
+    height: 50px;
+    padding: 1em;
+    margin: 1em;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    text-decoration: bold;
+    outline: none;
+    color: grey;
+    background-color: aliceblue;
+    border: none;
+    border-radius: 100%;
+    box-shadow: 0 9px var(--DARK-COLOR);
+}
+
+#floatingButton:hover, #floatingButton:focus-visible {
+    background-color: var(--SECONDARY-COLOR-DARK);
+    color: aliceblue;
+}
+
+#floatingButton:active {
+    box-shadow: 0 5px #778da5;
+    transform: translateY(4px);
+}
+
+*/
+
+
+
+#floatingButton {
+  position: fixed;
+  bottom: 50%;
+  right: 10px;
+  z-index: 9999;
+  align-items: center;
+  appearance: none;
+  background-color: #FCFCFD;
+  border-width: 0;
+  border-radius: 100%;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #36395A;
+  cursor: copy;
+  display: inline-flex;
+  font-family: "JetBrains Mono",monospace;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding: 1em;
+  text-decoration: none;
+  transition: box-shadow .15s,transform .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow,transform;
+  font-size: 18px;
+}
+
+
+
+#floatingButton:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+#floatingButton:active {
+  box-shadow: #D6D6E7 0 3px 7px inset;
+  transform: translateY(2px);
+}
+
+
+:root {
+    --DOMINANT-COLOR: linear-gradient(to bottom, #6abfff, #51d3f9, #66e2e9, #92eed6, #c2f7c9, #d3f1b7);
+    --SECONDARY-COLOR: #f57761;
+    --SECONDARY-COLOR-DARK: #765e8a;
+    --THIRD-COLOR: aliceblue;
+    --DARK-COLOR: #3a485633;
+    --BLUE: #61a1f5;
+
+    --FF: "Rubik", sans-serif;
+    --FS-SMALL: 5px;
+    --FS-MEDIUM: 14px;
+    --FS-LARGE: 24px;
+
+    --MIN-HEIGHT: 300px;
+
+}
