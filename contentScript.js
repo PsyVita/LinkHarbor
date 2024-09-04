@@ -16,8 +16,8 @@ const floatingButton = document.createElement("button");
     floatingButton.addEventListener("click", function() {
         // Send a message to the background script
         chrome.runtime.sendMessage({ type: "buttonClicked" });
-        floatingButton.innerText = "Clicked";
-        alert("Button clicked");
+        floatingButton.innerText = "Saved!";
+        floatingButton.disabled = true;
         });
     
 
@@ -25,3 +25,4 @@ const floatingButton = document.createElement("button");
     floatingButton.addEventListener("focusout", function() {
         floatingButton.focus();
     });
+
