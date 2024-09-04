@@ -12,8 +12,8 @@
     floatingButton.addEventListener("click", function() {
         // Send a message to the background script
         chrome.runtime.sendMessage({ type: "buttonClicked" });
-        floatingButton.innerText = "Clicked";
-        alert("Button clicked");
+        floatingButton.innerText = "Saved!";
+        floatingButton.disabled = true;
         });
     
 
@@ -21,3 +21,4 @@
     floatingButton.addEventListener("focusout", function() {
         floatingButton.focus();
     });
+
