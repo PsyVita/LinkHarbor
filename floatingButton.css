@@ -39,8 +39,8 @@
 
 #floatingButton {
   position: fixed;
-  top: 60px;
-  right: 20px;
+  bottom: 30px;
+  right: 30px;
   width: 50px; /* Fixed width */
   height: 50px; /* Fixed height */
   transform: scale(1);
@@ -64,13 +64,14 @@
   overflow: hidden;
   padding: 1em;
   text-decoration: none;
-  transition: box-shadow .15s,transform .15s;
+  transition: box-shadow .15s,transform .15s, opacity 1s ease-out;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
   white-space: nowrap;
   will-change: box-shadow,transform;
   font-size: 18px;
+  
 
 }
 
