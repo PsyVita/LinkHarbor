@@ -10,6 +10,15 @@ const floatingButton = document.createElement("button");
 
         // Add event listener for button click
     floatingButton.addEventListener("click", function() {
+        if (localStorage.selectedProject === "projectOneSelected" ){
+            chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+                const current_url = tabs[0].url;
+                const listItem = document.createElement('li');
+                listItem.textContent = current_url;
+                document.getElementById('thelist').appendChild(listItem);
+                localStorage.setItem("listItem", JSON.stringify(thelist));
+            });
+        } 
         // Send a message to the background script
         chrome.runtime.sendMessage({ type: "buttonClicked" });
         floatingButton.innerText = "Saved!";
@@ -23,9 +32,5 @@ const floatingButton = document.createElement("button");
             
         });
     
-
-        // Ensure the button is always in focus
-    floatingButton.addEventListener("focusout", function() {
-        floatingButton.focus();
-    });
-
+//check if project 1 is highlighted
+//send array of local storage to project 1
