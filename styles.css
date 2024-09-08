@@ -414,9 +414,13 @@ html {
     flex-direction: column;
 }
 
+.article__summary {
+    width: 200px;
+    max-width: 200px;
+}
 
 .sources__button {
-    width: 140%;
+    width: auto;
     padding: 0.6em;
     margin: 5px;
     margin-top: 20px;
@@ -501,6 +505,12 @@ html {
     width: 125px;
 }
 
+.article__reliability {
+    width: 30px;
+    padding-top: 14px;
+    padding-left: 10px;
+}
+
 .icon_default {
     height: 90px;
     width: 90px;
@@ -576,9 +586,15 @@ html {
 }
 
 .article_complete {
+    width: 400px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+}
+
+#numberCounter {
+    padding-top: 14px;
 }
 
 .checked-icon {
