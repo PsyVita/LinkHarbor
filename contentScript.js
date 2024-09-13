@@ -8,15 +8,21 @@ const floatingButton = document.createElement("button");
     document.body.appendChild(floatingButton);
     console.log("Floating button created");
 
+    let Project1Article = [];
+    let Project1URL = JSON.parse(localStorage.getItem("LHProject1URL")) || [];
+    localStorage.setItem("LHProject1Article", JSON.stringify(Project1Article));
+    localStorage.setItem("LHProject1URL", JSON.stringify(Project1URL));
+    
+
         // Add event listener for button click
     floatingButton.addEventListener("click", function() {
         if (localStorage.selectedProject === "projectOneSelected" ){
             chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
                 const current_url = tabs[0].url;
-                const listItem = document.createElement('li');
-                listItem.textContent = current_url;
-                document.getElementById('thelist').appendChild(listItem);
-                localStorage.setItem("listItem", JSON.stringify(thelist));
+                Project1URL.push(current_url);
+                console.log(Project1URL);
+
+                localStorage.setItem("LHProject1URL", JSON.stringify(Project1URL));
             });
         } 
         // Send a message to the background script

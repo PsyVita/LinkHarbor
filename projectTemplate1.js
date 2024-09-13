@@ -25,18 +25,22 @@ document.addEventListener("DOMContentLoaded", function() {
 
     //convert array to array length
     //extract array values into the code
+    let Project1URL = JSON.parse(localStorage.getItem("LHProject1URL")) || [];
+    let Project1URLNumber = Project1URL.length;
 
-    localStorage.setItem("LHProject1ArticleNumber", 4);
-    const Project1ArticleNumber = localStorage.getItem("LHProject1ArticleNumber");
+
+    Project1URLNumber = JSON.parse(localStorage.getItem("LHProject1URL")) || [];
+    localStorage.setItem("LHProject1URLNumber", Project1URLNumber);
+
+
     const addMoreSources = document.getElementById("add__more__sources");
 0
-    if (localStorage.getItem("LHProject1ArticleNumber") === null || (localStorage.getItem("LHProject1ArticleNumber") === "0")) {
-        
+    if (localStorage.getItem("LHProject1URLNumber") === null || (localStorage.getItem("LHProject1ArticleNumber") === "0")) {
         addMoreSources.style.display = "visible";
     } else {
             addMoreSources.style.display = "none";
 
-            for (let i = 0; i < Project1ArticleNumber; i++) {
+            for (let i = 0; i < Project1URLNumber; i++) {
             const numberCounter = document.createElement("span");
             numberCounter.textContent = i + 1 + ".";
             numberCounter.className = "space";
@@ -60,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function() {
             articleSummary.className = "article__summary";
     
             const articleURL = document.createElement("p");
-            articleURL.textContent = "Article URL";
+            articleURL.textContent = Project1URL[i];
             articleURL.id = "article__URL" + i;
 
             //remove this later
