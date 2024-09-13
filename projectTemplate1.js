@@ -28,8 +28,6 @@ document.addEventListener("DOMContentLoaded", function() {
     let Project1URL = JSON.parse(localStorage.getItem("LHProject1URL")) || [];
     let Project1URLNumber = Project1URL.length;
 
-
-    Project1URLNumber = JSON.parse(localStorage.getItem("LHProject1URL")) || [];
     localStorage.setItem("LHProject1URLNumber", Project1URLNumber);
 
 
