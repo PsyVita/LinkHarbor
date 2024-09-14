@@ -12,6 +12,7 @@ const floatingButton = document.createElement("button");
     let Project1URL = JSON.parse(localStorage.getItem("LHProject1URL")) || [];
     localStorage.setItem("LHProject1Article", JSON.stringify(Project1Article));
     
+
     
         // Add event listener for button click
         floatingButton.addEventListener("click", function() {
@@ -21,6 +22,7 @@ const floatingButton = document.createElement("button");
                     Project1URL.push(current_url);
                     console.log(Project1URL);
 
+ 
                     const testing = document.createElement("p");
                     testing.textContent = Project1URL.join(", ");
                     document.body.appendChild(testing);
