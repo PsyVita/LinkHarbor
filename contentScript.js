@@ -9,17 +9,14 @@ const floatingButton = document.createElement("button");
     console.log("Floating button created");
 
   
-    const project1port = chrome.runtime.connect({ name: "project1" });
+    var project1port = chrome.runtime.connect({ name: "project1" });
 
-    document.addEventListener('DOMContentLoaded', function() {
+
     
         // Add event listener for button click
         floatingButton.addEventListener("click", function() {
-            if (selectedProject === "projectOneSelected" ){
-                project1port.postMessage({ data: "savetheURL" });
-                
-                
-            } 
+            project1port.postMessage({ data: "savetheURL" });
+
             floatingButton.innerText = "Saved!";
             floatingButton.disabled = true;
             setTimeout(() => {
@@ -31,7 +28,6 @@ const floatingButton = document.createElement("button");
                 
             });
 
-    });
 
         // Send a message to the background script
 //check if project 1 is highlighted
