@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let Project1URL = JSON.parse(localStorage.getItem("LHProject1URL")) || [];
     let Project1URLNumber = Project1URL.length;
 
-    localStorage.setItem("LHProject1URLNumber", Project1URLNumber);
+    localStorage.setItem("LHProject1URLNumber", "4");
 
 
     const addMoreSources = document.getElementById("add__more__sources");
@@ -96,7 +96,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     
+});
 
+document.addEventListener("DOMContentLoaded", function() {
+    const clearProject1URL = document.getElementById("delete");
 
-
+    clearProject1URL.addEventListener("click", function(event) {
+        localStorage.removeItem("LHProject1URL");
+        console.log("Project 1 URL Cleared");
+        console.log(localStorage.getItem("LHProject1URL"));
+    });
 });
