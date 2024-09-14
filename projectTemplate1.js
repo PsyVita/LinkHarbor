@@ -23,9 +23,9 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
 
-    //convert array to array length
-    //extract array values into the code
+    let Project1Article = [];
     let Project1URL = JSON.parse(localStorage.getItem("LHProject1URL")) || [];
+    localStorage.setItem("LHProject1Article", JSON.stringify(Project1Article));
     let Project1URLNumber = Project1URL.length;
 
     localStorage.setItem("LHProject1URLNumber", "4");
@@ -96,6 +96,26 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+        if (message.type === "saveURL") {
+            chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+                const current_url = tabs[0].url;
+                Project1URL.push(current_url);
+                console.log(Project1URL);
+
+
+                const testing = document.createElement("p");
+                testing.textContent = Project1URL.join(", ");
+                document.body.appendChild(testing);
+
+
+                localStorage.setItem("LHProject1URL", JSON.stringify(Project1URL));
+            });
+        }
+    });
 });
 
 document.addEventListener("DOMContentLoaded", function() {
