@@ -9,30 +9,30 @@ const floatingButton = document.createElement("button");
     console.log("Floating button created");
 
   
-    
+    const project1port = chrome.runtime.connect({ name: "project1" });
 
+    document.addEventListener('DOMContentLoaded', function() {
     
         // Add event listener for button click
         floatingButton.addEventListener("click", function() {
-            if (localStorage.selectedProject === "projectOneSelected" ){
-                chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-                    chrome.runtime.sendMessage({ type: "saveURLto1" });
-                });
+            if (selectedProject === "projectOneSelected" ){
+                project1port.postMessage({ data: "savetheURL" });
+                
+                
             } 
-  
+            floatingButton.innerText = "Saved!";
+            floatingButton.disabled = true;
+            setTimeout(() => {
+                floatingButton.style.opacity = "0"; // Hide the button
+            }, 5000);
+            setTimeout(() => {
+                floatingButton.style.display = "none"; // Hide the button
+            }, 6000);
+                
+            });
+
+    });
 
         // Send a message to the background script
-        chrome.runtime.sendMessage({ type: "buttonClicked" });
-        floatingButton.innerText = "Saved!";
-        floatingButton.disabled = true;
-        setTimeout(() => {
-            floatingButton.style.opacity = "0"; // Hide the button
-        }, 5000);
-        setTimeout(() => {
-            floatingButton.style.display = "none"; // Hide the button
-        }, 6000);
-            
-        });
-
 //check if project 1 is highlighted
 //send array of local storage to project 1

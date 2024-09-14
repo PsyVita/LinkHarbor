@@ -20,8 +20,10 @@ document.addEventListener("DOMContentLoaded", function() {
             project1Title.blur();
             localStorage.setItem("LHproject1TitleStorage", project1CurrentTitle);
         }
-    });
 
+    });
+    // Remove one of the closing curly braces
+    
 
     let Project1Article = [];
     let Project1URL = JSON.parse(localStorage.getItem("LHProject1URL")) || [];
@@ -32,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     const addMoreSources = document.getElementById("add__more__sources");
-0
+
     if (localStorage.getItem("LHProject1URLNumber") === null || (localStorage.getItem("LHProject1ArticleNumber") === "0")) {
         addMoreSources.style.display = "visible";
     } else {
@@ -93,32 +95,25 @@ document.addEventListener("DOMContentLoaded", function() {
         
     }
 
+    const project1port = chrome.runtime.connect({ name: "project1" });
+        project1port.onMessage.addListener(function(message) {
+            if (message.data === "savetheURL") {
+                chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+                    const current_url = tabs[0].url;
+                    Project1URL.push(current_url);
+                    console.log(Project1URL);
 
 
-    
-});
+                    const testing = document.getElementById("testing");
+                    testing.innerHTML = Project1URL.join(", ");
 
-document.addEventListener("DOMContentLoaded", function() {
-    chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-        if (message.type === "saveURL") {
-            chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-                const current_url = tabs[0].url;
-                Project1URL.push(current_url);
-                console.log(Project1URL);
+                    localStorage.setItem("LHProject1URL", JSON.stringify(Project1URL));
+                });
+            };
+            project1port.postMessage({ data: "urlSaved" });
+        });
+        
 
-
-                const testing = document.createElement("p");
-                testing.textContent = Project1URL.join(", ");
-                document.body.appendChild(testing);
-
-
-                localStorage.setItem("LHProject1URL", JSON.stringify(Project1URL));
-            });
-        }
-    });
-});
-
-document.addEventListener("DOMContentLoaded", function() {
     const clearProject1URL = document.getElementById("delete");
 
     clearProject1URL.addEventListener("click", function(event) {
@@ -126,4 +121,5 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log("Project 1 URL Cleared");
         console.log(localStorage.getItem("LHProject1URL"));
     });
+
 });
