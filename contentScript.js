@@ -12,30 +12,17 @@ const floatingButton = document.createElement("button");
     var projectPort = chrome.runtime.connect({ name: "contentScript-background" });
  // Add event listener for button click
     floatingButton.addEventListener("click", function() {
-        chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-            const current_url = tabs[0].url;
-            //project1port.postMessage({ WebsiteArticle: current_title });
-            const websiteInfoSet = {
-                URL: current_url
-               // title: current_title
-            };
+        projectPort.postMessage({ type: "savingSignal" });
+        console.log("Message sent to background.js");
 
-            const websiteInfoSetString = JSON.stringify(websiteInfoSet);
-
-            projectPort.postMessage({ articleDataSet: websiteInfoSetString });
-
-            }
-           
-        );
-
-    floatingButton.innerText = "Saved!";
-    floatingButton.disabled = true;
-    setTimeout(() => {
-        floatingButton.style.opacity = "0"; // Hide the button
-    }, 5000);
-    setTimeout(() => {
-        floatingButton.style.display = "none"; // Hide the button   
-    }, 6000);
+        floatingButton.innerText = "Saved!";
+        floatingButton.disabled = true;
+        setTimeout(() => {
+            floatingButton.style.opacity = "0"; // Hide the button
+        }, 5000);
+        setTimeout(() => {
+            floatingButton.style.display = "none"; // Hide the button   
+        }, 6000);
         
     });
 

@@ -660,6 +660,48 @@ html {
     font-size: var(--FS-MEDIUM);
 }
 
+
+
+.fixed {
+    position: fixed;
+}
+
+.fixed__footer {
+   bottom: 0;
+   right: 0;
+   opacity: 0.5;
+   
+}
+
+.border {
+    background-color: rgba(108, 133, 153, 0.466);
+    padding: 1em;
+}
+
+.fixed__footer:hover .export__footer{
+    opacity: 1;
+}
+
+.fixed__footer:hover {
+    opacity: 1;
+}
+
+#testing {
+    height: 50px;
+}
+
+.export__footer {
+    opacity: 0;
+    font-size: var(--FS-MEDIUM);
+    align-self: center;
+    text-align: center;
+    width: 100%;
+    font-style: italic;
+    color: aliceblue;
+    background-color: #ffab3d91;
+}
+
+
 .f3B:active {
     background-color: var(--SECONDARY-COLOR);
     color: papayawhip;

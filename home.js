@@ -7,44 +7,42 @@ document.addEventListener("DOMContentLoaded", function() {
     const project6 = document.getElementById("project6");
     let clickTimeout;
 
-    //Check project name update
+    // Check project name update using chrome.storage.local
+    chrome.storage.local.get("LHproject1TitleStorage", function(result) {
+        if (!result.LHproject1TitleStorage) {
+            chrome.storage.local.set({ "LHproject1TitleStorage": "Project #1" });
+            project1.innerHTML = "Project #1";
+        } else {
+            project1.innerHTML = result.LHproject1TitleStorage;
+        }
+    });
 
-    if (localStorage.getItem("LHproject1TitleStorage") === null) {
-        localStorage.setItem("LHproject1TitleStorage", "Project #1");
-    }
+    // Load selected project from chrome.storage.local and highlight
+    chrome.storage.local.get("selectedProject", function(result) {
+        if (!result.selectedProject) {
+            selectProject1();
+        } else if (result.selectedProject === "projectOneSelected") {
+            selectProject1();
+        } else if (result.selectedProject === "projectTwoSelected") {
+            selectProject2();
+        } else if (result.selectedProject === "projectThreeSelected") {
+            selectProject3();
+        } else if (result.selectedProject === "projectFourSelected") {
+            selectProject4();
+        } else if (result.selectedProject === "projectFiveSelected") {
+            selectProject5();
+        } else if (result.selectedProject === "projectSixSelected") {
+            selectProject6();
+        }
+    });
 
-
-    if (project1.value !== localStorage.getItem("LHproject1TitleStorage"))
-        project1.innerHTML = localStorage.getItem("LHproject1TitleStorage");
-
-    //project highlighting
-
-    //project 1
-   
-    if (localStorage.selectedProject === "" || localStorage.selectedProject === null) {
-        selectProject1();
-    } else if (localStorage.selectedProject === "projectOneSelected" ){
-        selectProject1();
-    } else if (localStorage.selectedProject === "projectTwoSelected" ){
-        selectProject2();
-    } else if (localStorage.selectedProject === "projectThreeSelected" ){
-        selectProject3();
-    } else if (localStorage.selectedProject === "projectFourSelected" ){
-        selectProject4();
-    } else if (localStorage.selectedProject === "projectFiveSelected" ){
-        selectProject5();
-    } else if (localStorage.selectedProject === "projectSixSelected" ){
-        selectProject6();
-    }
-
-    //project 1
-
+    // Handle project 1 click and double-click
     project1.addEventListener("click", function(event) {
         clearTimeout(clickTimeout); // Clear any previous timeout
 
         clickTimeout = setTimeout(function() {
             selectProject1(); // Handle single click
-        }, 100); // 300ms delay to distinguish between single and double click
+        }, 100); // 100ms delay to distinguish between single and double click
     });
 
     project1.addEventListener("dblclick", function(event) {
@@ -53,34 +51,33 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     function selectProject1() {
-        localStorage.setItem("selectedProject", "projectOneSelected");
+        chrome.storage.local.set({ "selectedProject": "projectOneSelected" });
         project1.style.backgroundColor = "#f57761"; // Change button color
         project1.style.color = "aliceblue";
         document.querySelectorAll('.project__button').forEach(button => {
             if (button !== project1) {
-                button.removeAttribute("style");// Reset to original color
+                button.removeAttribute("style"); // Reset to original color
             }
         });
     }
 
-    //project 2
-
+    // Handle project 2 click and double-click
     project2.addEventListener("click", function(event) {
-        clearTimeout(clickTimeout); // Clear any previous timeout
+        clearTimeout(clickTimeout);
 
         clickTimeout = setTimeout(function() {
-            selectProject2(); // Handle single click
-        }, 100); // 300ms delay to distinguish between single and double click
+            selectProject2();
+        }, 100);
     });
 
     project2.addEventListener("dblclick", function(event) {
-        clearTimeout(clickTimeout); // Cancel the single-click action
-        window.location.href = "projectTemplate2.html"; // Navigate to the template page
+        clearTimeout(clickTimeout);
+        window.location.href = "projectTemplate2.html";
     });
 
     function selectProject2() {
-        localStorage.setItem("selectedProject", "projectTwoSelected");
-        project2.style.backgroundColor = "#f57761"; // Change button color
+        chrome.storage.local.set({ "selectedProject": "projectTwoSelected" });
+        project2.style.backgroundColor = "#f57761";
         project2.style.color = "aliceblue";
         document.querySelectorAll('.project__button').forEach(button => {
             if (button !== project2) {
@@ -89,109 +86,103 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    //project 3
-
+    // Handle project 3 click and double-click
     project3.addEventListener("click", function(event) {
-        clearTimeout(clickTimeout); // Clear any previous timeout
+        clearTimeout(clickTimeout);
 
         clickTimeout = setTimeout(function() {
-            selectProject3(); // Handle single click
-        }, 100); // 300ms delay to distinguish between single and double click
+            selectProject3();
+        }, 100);
     });
 
     project3.addEventListener("dblclick", function(event) {
-        clearTimeout(clickTimeout); // Cancel the single-click action
-        window.location.href = "projectTemplate3.html"; // Navigate to the template page
+        clearTimeout(clickTimeout);
+        window.location.href = "projectTemplate3.html";
     });
 
     function selectProject3() {
-        localStorage.setItem("selectedProject", "projectThreeSelected");
-        project3.style.backgroundColor = "#f57761"; // Change button color
+        chrome.storage.local.set({ "selectedProject": "projectThreeSelected" });
+        project3.style.backgroundColor = "#f57761";
         project3.style.color = "aliceblue";
         document.querySelectorAll('.project__button').forEach(button => {
             if (button !== project3) {
-                button.removeAttribute("style");// 
+                button.removeAttribute("style");
             }
         });
     }
 
-    //project 4
-
+    // Handle project 4 click and double-click
     project4.addEventListener("click", function(event) {
-        clearTimeout(clickTimeout); // Clear any previous timeout
+        clearTimeout(clickTimeout);
 
         clickTimeout = setTimeout(function() {
-            selectProject4(); // Handle single click
-        }, 100); // 300ms delay to distinguish between single and double click
+            selectProject4();
+        }, 100);
     });
 
     project4.addEventListener("dblclick", function(event) {
-        clearTimeout(clickTimeout); // Cancel the single-click action
-        window.location.href = "projectTemplate4.html"; // Navigate to the template page
+        clearTimeout(clickTimeout);
+        window.location.href = "projectTemplate4.html";
     });
 
     function selectProject4() {
-        localStorage.setItem("selectedProject", "projectFourSelected");
-        project4.style.backgroundColor = "#f57761"; // Change button color
+        chrome.storage.local.set({ "selectedProject": "projectFourSelected" });
+        project4.style.backgroundColor = "#f57761";
         project4.style.color = "aliceblue";
         document.querySelectorAll('.project__button').forEach(button => {
             if (button !== project4) {
-                button.removeAttribute("style");// 
+                button.removeAttribute("style");
             }
         });
     }
 
-    //project 5
-
+    // Handle project 5 click and double-click
     project5.addEventListener("click", function(event) {
-        clearTimeout(clickTimeout); // Clear any previous timeout
+        clearTimeout(clickTimeout);
 
         clickTimeout = setTimeout(function() {
-            selectProject5(); // Handle single click
-        }, 100); // 300ms delay to distinguish between single and double click
+            selectProject5();
+        }, 100);
     });
 
     project5.addEventListener("dblclick", function(event) {
-        clearTimeout(clickTimeout); // Cancel the single-click action
-        window.location.href = "projectTemplate5.html"; // Navigate to the template page
+        clearTimeout(clickTimeout);
+        window.location.href = "projectTemplate5.html";
     });
 
     function selectProject5() {
-        localStorage.setItem("selectedProject", "projectFiveSelected");
-        project5.style.backgroundColor = "#f57761"; // Change button color
+        chrome.storage.local.set({ "selectedProject": "projectFiveSelected" });
+        project5.style.backgroundColor = "#f57761";
         project5.style.color = "aliceblue";
         document.querySelectorAll('.project__button').forEach(button => {
             if (button !== project5) {
-                button.removeAttribute("style");// 
+                button.removeAttribute("style");
             }
         });
     }
 
-    //project 6
-
+    // Handle project 6 click and double-click
     project6.addEventListener("click", function(event) {
-        clearTimeout(clickTimeout); // Clear any previous timeout
+        clearTimeout(clickTimeout);
 
         clickTimeout = setTimeout(function() {
-            selectProject6(); // Handle single click
-        }, 100); // 300ms delay to distinguish between single and double click
+            selectProject6();
+        }, 100);
     });
 
     project6.addEventListener("dblclick", function(event) {
-        clearTimeout(clickTimeout); // Cancel the single-click action
-        window.location.href = "projectTemplate6.html"; // Navigate to the template page
+        clearTimeout(clickTimeout);
+        window.location.href = "projectTemplate6.html";
     });
 
     function selectProject6() {
-        localStorage.setItem("selectedProject", "projectSixSelected");
-        project6.style.backgroundColor = "#f57761"; // Change button color
+        chrome.storage.local.set({ "selectedProject": "projectSixSelected" });
+        project6.style.backgroundColor = "#f57761";
         project6.style.color = "aliceblue";
         document.querySelectorAll('.project__button').forEach(button => {
             if (button !== project6) {
-                button.removeAttribute("style");// 
+                button.removeAttribute("style");
             }
         });
     }
-
 });
-

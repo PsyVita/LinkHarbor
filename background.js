@@ -1,27 +1,41 @@
-
 chrome.runtime.onConnect.addListener(function(port) {
+    console.log("Connected port name:", port.name); // Log the port name for debugging
     console.assert(port.name === "contentScript-background");
+
     port.onMessage.addListener(function(message) {
+        console.log("Message received from contentScript.js:", message);
+        if (message.type === "savingSignal") {
+            console.log("Inside if statement");
+            chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+                const current_url = tabs[0].url;
+                console.log("Current URL:", current_url);
+                const websiteInfoSet = {
+                    URL: current_url
+                    // title: current_title
+                };
 
-        if (message.type === "articleDataSet") {
-            // Deserialize the JSON data
-            const websiteInfoSet = JSON.parse(message.data);
+                chrome.storage.local.get(["selectedProject", "LHProject1URL", "LHProject1Article"], function(result) {
 
+                    console.log("Result:", result);
+                    let Project1URL = result.LHProject1URL || [];
+                    let Project1Article = result.LHProject1Article || [];
 
-            //change these
-            // Push each piece of data into the respective arrays
-            urls.push(websiteInfoSet.URL);
-            titles.push(websiteInfoSet.title);
+                    console.log("Project1URL:", Project1URL);
 
-            // Optionally store arrays in localStorage
-            localStorage.setItem("savedUrls", JSON.stringify(urls));
-            localStorage.setItem("savedTitles", JSON.stringify(titles));
-            localStorage.setItem("savedTimestamps", JSON.stringify(timestamps));
+                    if (result.selectedProject === "projectOneSelected") {
+                        Project1URL.push(websiteInfoSet.URL);
+                        // Assuming you want to save the title as well
+                        // Project1Article.push(websiteInfoSet.title);
 
-            // Optionally send a response back to the content script
-            port.postMessage({ response: "Data saved successfully!" });
+                        chrome.storage.local.set({
+                            LHProject1URL: Project1URL,
+                            LHProject1Article: Project1Article
+                        }, function() {
+                            console.log("URLs and articles updated in storage");
+                        });
+                    }
+                });
+            });
         }
     });
-
 });
-        
