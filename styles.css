@@ -457,6 +457,8 @@ html {
 
 #add__more__sources {
     user-select: none;
+    width: 100%;
+    text-align: center;
     height: 10%;
     padding: 1em;
     margin-top: 3em;
@@ -687,7 +689,8 @@ html {
 }
 
 #testing {
-    height: 60px;
+    height: 70px;
+    width: 100%;
 }
 
 .export__footer {

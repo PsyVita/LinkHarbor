@@ -17,13 +17,14 @@ document.addEventListener("DOMContentLoaded", function() {
             localStorage.setItem("LHproject1TitleStorage", project1CurrentTitle);
         }
     });
+    
 
     // Add more sources
     const addMoreSources = document.getElementById("add__more__sources");
 
-    const testing = document.getElementById("testing");
-    testing.innerHTML = "Saved!";
-    console.log("Saved!");
+    //const testing = document.getElementById("testing");
+    //testing.innerHTML = "Saved!";
+    //console.log("Saved!");
                 
                 chrome.storage.local.get(["selectedProject", "LHProject1URL", "LHProject1Article"], function(result) {
                     let Project1URL = result.LHProject1URL || [];
@@ -82,19 +83,29 @@ document.addEventListener("DOMContentLoaded", function() {
                     }
                 });
             
-        });
+       
 
     // Clear Project1URL when the delete button is clicked
-    const clearProject1URL = document.getElementById("delete");
+    const clearProject1URL = document.getElementById("clearButton");
     clearProject1URL.addEventListener("click", function() {
-        chrome.storage.local.remove("LHProject1URL", function() {
-            console.log("Project 1 URL Cleared");
-            
-            chrome.storage.local.get("LHProject1URL", function(result) {
-                console.log(result.LHProject1URL);
-                Project1URL = result.LHProject1URL || [];
-            });
-        });
         
-    });
+        const userConfirmed = confirm("Are you sure you want to reset the entire project? All saved URLs will be permanently lost. Once cleared, the extension will close automatically.");
 
+        if (userConfirmed) {
+            chrome.storage.local.set({
+                LHProject1URL: [],
+                LHProject1Article: []
+            }, function() {
+                console.log("URLs and articles are cleared.");
+                chrome.runtime.reload();
+            });
+            
+
+            chrome.storage.local.get(["LHProject1URL", "LHProject1Article"], function(result) {
+                console.log(result.LHProject1URL);
+                Project1URL = result.LHProject1URL;
+                //the other two for articles
+            });
+        }
+});
+});
