@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     const project1Title = document.getElementById("project1Title");
+    let clickTimeout;
 
     // Set title value from localStorage or default to "Project #1"
     if (localStorage.getItem("LHproject1TitleStorage") === null) {
@@ -48,6 +49,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             const articleButton = document.createElement("button");
                             articleButton.className = "sources__button";
                             articleButton.id = "sources__button" + i;
+                            
 
                             const articleSummary = document.createElement("h4");
                             articleSummary.textContent = "Article Summary";
@@ -81,9 +83,27 @@ document.addEventListener("DOMContentLoaded", function() {
                     } else {
                         addMoreSources.style.display = "visible";
                     }
+
+                    const cancelButton = document.getElementById("cancelButton");
+
+
+                    //selecting projects
+                    for (let i = 0; i < Project1URL.length; i++) {
+                        document.getElementById("sources__button" + i).addEventListener("click", function(event) {
+                            clearTimeout(clickTimeout);
+                
+                            clickTimeout = setTimeout(function() {
+                                document.getElementById("sources__button" + i).style.color = "orange";
+                                project1Title.style.display = "none";
+                                cancelButton.style.display = "block";
+                            }, 100);
+                        });
+                    }
                 });
             
-       
+
+
+    
 
     // Clear Project1URL when the delete button is clicked
     const clearProject1URL = document.getElementById("clearButton");
