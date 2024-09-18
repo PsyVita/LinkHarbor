@@ -333,11 +333,8 @@ html {
 
 
 .logo {
-    width: 100px;
-    height: 100px;
-    padding-top: 15px;
+    width: 35%;
     padding-bottom: 15px;
-    padding-left: 15px;
 }
 
 .center {
@@ -345,6 +342,7 @@ html {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
 }
 
 .start__button {
@@ -369,6 +367,9 @@ html {
 
 .title {
     color: var(--BLUE);
+    font-size: 40px;
+    width: 250px;
+    text-align: center;
 }
 
 .start {
