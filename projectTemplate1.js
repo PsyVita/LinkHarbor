@@ -58,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                             const articleURL = document.createElement("p");
                             articleURL.textContent = Project1URL[i];
+                            articleURL.className = "article__URL";
                             articleURL.id = "article__URL" + i;
 
                             localStorage.setItem("LHProject1ArticleReliability" + i, "reliable");
@@ -84,8 +85,18 @@ document.addEventListener("DOMContentLoaded", function() {
                         addMoreSources.style.display = "visible";
                     }
 
-                    const cancelButton = document.getElementById("cancelButton");
+                    
 
+                    const cancelButton = document.getElementById("cancelButton");
+                    cancelButton.addEventListener("click", function() {
+                        cancelButton.style.display = "none";
+                        project1Title.style.display = "block";
+                        for (let i = 0; i < Project1URL.length; i++) {
+                            document.getElementById("sources__button" + i).style.color = "black";
+                        }
+                    });
+
+                    cancelButton.style.display = "none";
 
                     //selecting projects
                     for (let i = 0; i < Project1URL.length; i++) {
@@ -93,9 +104,22 @@ document.addEventListener("DOMContentLoaded", function() {
                             clearTimeout(clickTimeout);
                 
                             clickTimeout = setTimeout(function() {
-                                document.getElementById("sources__button" + i).style.color = "orange";
-                                project1Title.style.display = "none";
                                 cancelButton.style.display = "block";
+
+                                if (document.getElementById("sources__button" + i).style.color === "orange") {
+                                    document.getElementById("sources__button" + i).style.color = "black";
+                                    
+                                } else {
+                                    document.getElementById("sources__button" + i).style.color = "orange";
+                                }
+
+
+                                for (let i = 0; i < Project1URL.length; i++) {
+                                    if (document.getElementById("sources__button" + i).style.color === "orange") {
+                                        //count the highlighted sources (if none then hide button)
+                                    }
+                                }
+                                
                             }, 100);
                         });
                     }

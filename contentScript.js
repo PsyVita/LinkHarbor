@@ -8,6 +8,10 @@ const floatingButton = document.createElement("button");
     document.body.appendChild(floatingButton);
     console.log("Floating button created");
 
+    if (window.location.href.startsWith("https://www.google.com/search?")) {
+            floatingButton.style.display = "none"; }
+    
+
   
     var projectPort = chrome.runtime.connect({ name: "contentScript-background" });
  // Add event listener for button click

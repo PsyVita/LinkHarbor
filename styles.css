@@ -416,14 +416,26 @@ html {
 }
 
 .article__summary {
+    width: 230px;
+    text-align: center;
+}
+
+.article__URL {
     width: 200px;
-    max-width: 200px;
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
 }
 
 .sources__button {
-    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
     padding: 0.6em;
     margin: 5px;
+    color: black;
     margin-top: 20px;
     background-color: var(--THIRD-COLOR);
     border-radius: 0%;
