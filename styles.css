@@ -374,7 +374,7 @@ html {
 
 .start {
     display: flex;
-    height: 100%;
+    height: 210px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
