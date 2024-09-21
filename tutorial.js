@@ -9,13 +9,13 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
 
-    if (localStorage.getItem("LHVisitedTimes") === "LHalreadyVisited") { 
-        startOrganizingButton.innerText = "Back to Home";
-    } else {
-        localStorage.setItem("LHVisitedTimes", "LHalreadyVisited");
-        startOrganizingButton.innerText = "Start Organizing!";
-    }
-    
-
+    chrome.storage.local.get(["LHVisitedTimes"], function(result) {
+        if (result.LHVisitedTimes === undefined) {
+            chrome.storage.local.set({ "LHVisitedTimes": "LHalreadyVisited" });
+            startOrganizingButton.innerText = "Start Organizing!";
+        } else if (result.LHVisitedTimes === "LHalreadyVisited") {
+            startOrganizingButton.innerText = "Back to Home";
+        }
+    });
 
 });

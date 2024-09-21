@@ -185,4 +185,14 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
+
+    clearAllStorage = document.getElementById("clearAllStorage");
+    clearAllStorage.addEventListener("click", function() {
+        const userConfirmed = confirm("Are you sure you want to reset everything? All saved work will be lost. Once cleared, the extension will close automatically.");
+
+        if (userConfirmed) {
+            chrome.storage.local.clear();
+            window.close();
+        }
+    });
 });

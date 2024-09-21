@@ -7,15 +7,15 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     startButton.addEventListener("mouseup", function(event) {
-        if (localStorage.getItem("LHVisitedTimes") === "LHalreadyVisited") { 
-            window.location.href = "home.html";
-        } else {
-            window.location.href = "introduction.html";
-            localStorage.setItem("LHVisitedTimes", "LHalreadyVisited");
-        }
-    
+        chrome.storage.local.get(["LHVisitedTimes"], function(result) {
+            if (result.LHVisitedTimes === undefined) {
+                window.location.href = "introduction.html";
+                chrome.storage.local.set({ "LHVisitedTimes": "LHalreadyVisited" });
+            } else if (result.LHVisitedTimes === "LHalreadyVisited") {
+                window.location.href = "home.html";
+            }
+        });
     });
-
 });
 
 

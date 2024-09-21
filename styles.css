@@ -594,9 +594,6 @@ html {
     }
 }
 
-.move {
-    transition: 1s;
-}
 
 .wave:before {
     background: url(wave.png);
@@ -653,6 +650,8 @@ html {
     
     
 }
+
+
 
 .delete {
     color: white;

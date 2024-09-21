@@ -3,25 +3,40 @@ document.addEventListener("DOMContentLoaded", function() {
     let clickTimeout;
 
     // Set title value from localStorage or default to "Project #1"
-    if (localStorage.getItem("LHproject1TitleStorage") === null) {
-        project1Title.value = "Project #1";
-    } else {
-        project1Title.value = localStorage.getItem("LHproject1TitleStorage");
-    }
-
-    // Event listener for Enter key press to save the title to localStorage
-    project1Title.addEventListener("keydown", function(event) {
-        if (event.key === "Enter") {
-            const project1CurrentTitle = event.target.value;
-            project1Title.value = project1CurrentTitle;
-            project1Title.blur();
-            localStorage.setItem("LHproject1TitleStorage", project1CurrentTitle);
+    chrome.storage.local.get(["LHproject1TitleStorage"], function(result) {
+        if (result.LHproject1TitleStorage === undefined) {
+            chrome.storage.local.set({ "LHproject1TitleStorage": "Project #1" });
+            project1Title.value = "Project #1";
+        } else {
+            project1Title.value = result.LHproject1TitleStorage;
         }
+
+        project1Title.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                project1Title.blur();
+            }
+
+            project1Title.addEventListener("blur", function(event) {
+                const project1CurrentTitle = event.target.value;
+                project1Title.value = project1CurrentTitle;
+                chrome.storage.local.set({ "LHproject1TitleStorage": project1CurrentTitle });
+            });
+        });
+
     });
+
+    
+    // Event listener for Enter key press to save the title to localStorage
+    
     
 
     // Add more sources
     const addMoreSources = document.getElementById("add__more__sources");
+
+    const deleteProject1URL = document.getElementById("deleteButton");
+    deleteProject1URL.style.display = "none";
+
+    const clearProject1URL = document.getElementById("clearButton");
 
     //const testing = document.getElementById("testing");
     //testing.innerHTML = "Saved!";
@@ -89,6 +104,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
                     const cancelButton = document.getElementById("cancelButton");
                     cancelButton.addEventListener("click", function() {
+                        clearProject1URL.style.display = "block";
+                        deleteProject1URL.style.display = "none";
                         cancelButton.style.display = "none";
                         project1Title.style.display = "block";
                         for (let i = 0; i < Project1URL.length; i++) {
@@ -104,7 +121,11 @@ document.addEventListener("DOMContentLoaded", function() {
                             clearTimeout(clickTimeout);
                 
                             clickTimeout = setTimeout(function() {
+                                clearProject1URL.style.display = "none";
+                                deleteProject1URL.style.display = "block";
+
                                 cancelButton.style.display = "block";
+                                project1Title.style.display = "none";
 
                                 if (document.getElementById("sources__button" + i).style.color === "orange") {
                                     document.getElementById("sources__button" + i).style.color = "black";
@@ -126,14 +147,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
             
 
-
     
-
     // Clear Project1URL when the delete button is clicked
-    const clearProject1URL = document.getElementById("clearButton");
     clearProject1URL.addEventListener("click", function() {
         
-        const userConfirmed = confirm("Are you sure you want to reset the entire project? All saved URLs will be permanently lost. Once cleared, the extension will close automatically.");
+        const userConfirmed = confirm("Are you sure you want to reset the entire project? All saved URLs in this project will be permanently lost. Once cleared, the extension will close automatically.");
 
         if (userConfirmed) {
             chrome.storage.local.set({
@@ -152,4 +170,6 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         }
 });
+
+    
 });
