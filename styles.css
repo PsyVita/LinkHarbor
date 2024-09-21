@@ -64,12 +64,15 @@ html {
     user-select: none;
     width: 80%;
     height: 10%;
-    color: rgb(85, 146, 184);
     padding: 1em;
     margin: 15px;
-    background-color: var(--THIRD-COLOR);
     border-radius: 20px;
     box-shadow: var(--DARK-COLOR) 0px 2px 8px 0px;
+}
+
+.header__home {
+    color: rgb(85, 146, 184);
+    background-color: var(--THIRD-COLOR);
 }
 
 .noleftmargin {
@@ -153,6 +156,8 @@ html {
     font-weight: bold;
 }
 
+
+
 .tutorial-myaccount {
     display: flex;
     flex-direction: column;
@@ -200,6 +205,18 @@ html {
     border: none;
     border-radius: 15px;
     box-shadow: 0 9px var(--DARK-COLOR);
+}
+
+.cancel__button {
+    all: unset;
+    font-size: 18px;
+    font-style: italic;
+    color: aliceblue;
+    height: 32px;
+}
+
+.cancel__button:hover, .cancel__button:focus-visible {
+    text-decoration: underline;
 }
 
 .stamp__button__blue {
@@ -309,7 +326,14 @@ html {
     color: aliceblue;
 }
 
+.cancel__button:hover .project__header {
+    height: 211px;
+    background-color: #51d3f9;
+}
 
+.project__header {
+    background-color: var(--THIRD-COLOR);
+}
       
 .project__button:active {
     box-shadow: 0 5px #778da5;
@@ -333,8 +357,9 @@ html {
 
 
 .logo {
-    width: 35%;
+    width: 30%;
     padding-bottom: 15px;
+    padding-top: 5px;
 }
 
 .center {
@@ -375,6 +400,7 @@ html {
 .start {
     display: flex;
     height: 210px;
+    width: 300px;
     flex-direction: column;
     align-items: center;
     justify-content: center;

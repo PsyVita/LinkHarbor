@@ -37,6 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
     deleteProject1URL.style.display = "none";
 
     const clearProject1URL = document.getElementById("clearButton");
+    const changeBackground = document.getElementById("project__header");
 
     //const testing = document.getElementById("testing");
     //testing.innerHTML = "Saved!";
@@ -105,8 +106,10 @@ document.addEventListener("DOMContentLoaded", function() {
                     const cancelButton = document.getElementById("cancelButton");
                     cancelButton.addEventListener("click", function() {
                         clearProject1URL.style.display = "block";
+                        
                         deleteProject1URL.style.display = "none";
                         cancelButton.style.display = "none";
+                        changeBackground.style.backgroundColor = "#f0f8ff";
                         project1Title.style.display = "block";
                         for (let i = 0; i < Project1URL.length; i++) {
                             document.getElementById("sources__button" + i).style.color = "black";
@@ -125,7 +128,9 @@ document.addEventListener("DOMContentLoaded", function() {
                                 deleteProject1URL.style.display = "block";
 
                                 cancelButton.style.display = "block";
+                                changeBackground.style.backgroundColor = "#a293ad";
                                 project1Title.style.display = "none";
+    
 
                                 if (document.getElementById("sources__button" + i).style.color === "orange") {
                                     document.getElementById("sources__button" + i).style.color = "black";
