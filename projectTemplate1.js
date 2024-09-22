@@ -67,10 +67,10 @@ document.addEventListener("DOMContentLoaded", function() {
                             articleButton.id = "sources__button" + i;
                             
 
-                            const articleSummary = document.createElement("h4");
-                            articleSummary.textContent = Project1Article[i];;
-                            articleSummary.id = "article__summary" + i;
-                            articleSummary.className = "article__summary";
+                            const articleTitle = document.createElement("h4");
+                            articleTitle.textContent = Project1Article[i];;
+                            articleTitle.id = "article__title" + i;
+                            articleTitle.className = "article__title";
 
                             const articleURL = document.createElement("p");
                             articleURL.textContent = Project1URL[i];
@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             document.getElementById('article_complete').appendChild(articleRow);
                             document.getElementById('article_complete' + i).append(numberCounter);
                             document.getElementById('article_complete' + i).appendChild(articleButton);
-                            document.getElementById('sources__button' + i).appendChild(articleSummary);
+                            document.getElementById('sources__button' + i).appendChild(articleTitle);
                             document.getElementById('sources__button' + i).appendChild(articleURL);
                             document.getElementById('article_complete' + i).appendChild(articleReliability);
                             

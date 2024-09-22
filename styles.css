@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap');
 
 /* || OVERALL ADJUSTMENTS ||*/
 
@@ -453,6 +454,16 @@ html {
     text-overflow: ellipsis;
 }
 
+.article__title {
+    width: 250px;
+    display: -webkit-box;
+   -webkit-line-clamp: 3; 
+           line-clamp: 3; 
+   -webkit-box-orient: vertical;
+    overflow: hidden; 
+    text-overflow: ellipsis;
+}
+
 .sources__button {
     display: flex;
     flex-direction: column;
@@ -651,6 +662,9 @@ html {
 
 #numberCounter {
     padding-top: 14px;
+    font-weight: bold;
+    font-family: "Oswald";
+
 }
 
 .checked-icon {
