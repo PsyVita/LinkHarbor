@@ -10,7 +10,8 @@
     },
     "permissions": ["scripting", "tabs", "clipboardWrite", "storage", "activeTab", "bookmarks"],
     "background": {
-        "service_worker": "background.js"
+        "service_worker": "background.js",
+        "type": "module"
     },
     "content_scripts": [
         {
@@ -22,4 +23,5 @@
     "icons": {
         "48": "images/full anchor.png"
     }
+
 }

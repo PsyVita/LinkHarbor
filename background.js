@@ -1,4 +1,5 @@
-import { MY_API_KEY } from "./config";
+
+
 
 chrome.runtime.onConnect.addListener(function(port) {
     console.log("Connected port name:", port.name); // Log the port name for debugging
@@ -12,39 +13,18 @@ chrome.runtime.onConnect.addListener(function(port) {
                 const current_url = tabs[0].url;
                 console.log("Current URL:", current_url);
 
-                const url = 'https://article-parser-and-summary-free-1000-requests.p.rapidapi.com/';
-                const options = {
-                    method: 'POST',
-                    headers: {
-                        'x-rapidapi-key': MY_API_KEY,
-                        'x-rapidapi-host': 'article-parser-and-summary-free-1000-requests.p.rapidapi.com',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        url: current_url
-                    })
-                };
                 
-                (async () => {
-                    try {
-                        const response = await fetch(url, options);
-                        const articleData = await response.json();
-                        console.log(result);
 
-                        const current_author = articleData.author || "Anonymous";
-                        const current_title = articleData.title || "No title found";
-                        const current_published_date = articleData.date || "n.d.";
-                        const current_summary = articleData.summary || "No summary found";
 
-                        const websiteInfoSet = {
-                            URL: current_url,
-                            title: current_title,
-                            author: current_author,
-                            published_date: current_published_date,
-                            summary: current_summary
-                        };
+                    const websiteInfoSet = {
+                        URL: current_url,
+                        title: current_title || "No title found",
+                        author: current_author || "Anonymous",
+                        published_date: current_published_date || "n.d.",
+                        summary: current_summary || "No summary found"
+                    };
 
-                        console.log("Website Info Set:", websiteInfoSet);
+                    console.log("Website Info Set:", websiteInfoSet);
 
                         chrome.storage.local.get(["selectedProject", "LHProject1URL", "LHProject1Article"], function(result) {
                             console.log("Result:", result);
@@ -66,11 +46,7 @@ chrome.runtime.onConnect.addListener(function(port) {
                                 });
                             }
                         });
-                    } catch (error) {
-                        console.error(error);
-                    }
-                })();
-            });
-        }
-    });
-});
+                    }); 
+                } 
+            }); 
+        }); 

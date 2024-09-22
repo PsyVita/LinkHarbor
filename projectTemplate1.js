@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             
 
                             const articleSummary = document.createElement("h4");
-                            articleSummary.textContent = "Article Summary";
+                            articleSummary.textContent = Project1Article[i];;
                             articleSummary.id = "article__summary" + i;
                             articleSummary.className = "article__summary";
 
