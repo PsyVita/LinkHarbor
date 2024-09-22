@@ -23,9 +23,9 @@ const floatingButton = document.createElement("button");
         console.log("Current URL:", current_url);
 
         if (window.location.href.startsWith("https://www.youtube.com/watch?")) {
-            projectPort.postMessage({ type: "YouTubeSavingSignal" });
+            chrome.storage.local.set({ "SavedType": "YouTube" });
         } else {
-
+                chrome.storage.local.set({ "SavedType": "normal" });
                 let current_author, current_published_date, current_summary, current_title;
 
                 const metaInfo = document.getElementsByTagName("meta");
@@ -33,25 +33,88 @@ const floatingButton = document.createElement("button");
                     if (metaInfo[i].getAttribute("name") == null) {
                         continue;
                     } else {
-                    if (metaInfo[i].getAttribute("name").toLowerCase().includes("author") 
-                        || metaInfo[i].getAttribute("name").toLowerCase().includes("writer") 
-                        || metaInfo[i].getAttribute("name").toLowerCase().includes("publisher")) {
-                        current_author = metaInfo[i].getAttribute("content");
-                        console.log("Current Author:", current_author);
-                    } else if (metaInfo[i].getAttribute("name").includes("date") ) {
-                        current_published_date = metaInfo[i].getAttribute("content");
-                        console.log("Current Published Date:", current_published_date);
-                    } else if (metaInfo[i].getAttribute("name").includes("description") 
-                        || metaInfo[i].getAttribute("name").includes("summary")) {
-                        current_summary = metaInfo[i].getAttribute("content");
-                        console.log("Current Summary:", current_summary);
-                    } else if (metaInfo[i].getAttribute("name").includes("title")) {
-                        current_title = metaInfo[i].getAttribute("content");
-                        console.log("Current Title:", current_title);
-                    }
+                        if (metaInfo[i].getAttribute("name").toLowerCase().includes("author") 
+                            || metaInfo[i].getAttribute("name").toLowerCase().includes("writer") 
+                            || metaInfo[i].getAttribute("name").toLowerCase().includes("publisher")) {
+                            current_author = metaInfo[i].getAttribute("content");
+                            console.log("Current Author:", current_author);
+                        } else if (metaInfo[i].getAttribute("name").includes("date") ) {
+                            current_published_date = metaInfo[i].getAttribute("content");
+                            console.log("Current Published Date:", current_published_date);
+                        } else if (metaInfo[i].getAttribute("name").includes("description") 
+                            || metaInfo[i].getAttribute("name").includes("summary")) {
+                            current_summary = metaInfo[i].getAttribute("content");
+                            console.log("Current Summary:", current_summary);
+                        } else if (metaInfo[i].getAttribute("name").includes("title")) {
+                            current_title = metaInfo[i].getAttribute("content");
+                            console.log("Current Title:", current_title);
+                        }
                     }
 
-            }
+                
+                }
+
+                if (current_author == null) {
+                    for (let i = 0; i < metaInfo.length; i++) {
+                        if (metaInfo[i].getAttribute("property") == null) {
+                            continue;
+                        } else {
+                            if (metaInfo[i].getAttribute("property").toLowerCase().includes("author") 
+                            || metaInfo[i].getAttribute("property").toLowerCase().includes("writer") 
+                            || metaInfo[i].getAttribute("property").toLowerCase().includes("publisher")) {
+                                current_author = metaInfo[i].getAttribute("content");
+                                console.log("Current Author:", current_author);
+                            }
+                        }
+                    }
+
+                }
+
+                if (current_published_date == null) {
+                    for (let i = 0; i < metaInfo.length; i++) {
+                        if (metaInfo[i].getAttribute("property") == null) {
+                            continue;
+                        } else {
+                            if (metaInfo[i].getAttribute("property").toLowerCase().includes("date") ) {
+                                current_published_date = metaInfo[i].getAttribute("content");
+                                console.log("Current Published Date:", current_published_date);
+                            }
+                        }
+                    }
+
+                }
+
+
+                if (current_summary == null) {
+                    for (let i = 0; i < metaInfo.length; i++) {
+                        if (metaInfo[i].getAttribute("property") == null) {
+                            continue;
+                        } else {
+                            if (metaInfo[i].getAttribute("property").toLowerCase().includes("description") 
+                            || metaInfo[i].getAttribute("property").toLowerCase().includes("summary")) {
+                                current_summary = metaInfo[i].getAttribute("content");
+                                console.log("Current Summary:", current_summary);
+                            }
+                        }
+                    }
+
+                }
+
+                if (current_title == null) {
+                    for (let i = 0; i < metaInfo.length; i++) {
+                        if (metaInfo[i].getAttribute("property") == null) {
+                            continue;
+                        } else {
+                            if (metaInfo[i].getAttribute("property").toLowerCase().includes("title")) {
+                                current_title = metaInfo[i].getAttribute("content");
+                                console.log("Current Title:", current_title);
+                            }
+                        }
+                    }
+
+                }
+
+                
                     
             const websiteInfoSet = {
                 URL: current_url,
@@ -79,10 +142,8 @@ const floatingButton = document.createElement("button");
                 floatingButton.style.display = "none"; // Hide the button   
             }, 6000);
                            
-            
-        }
-
         
+        }
     });
 
     

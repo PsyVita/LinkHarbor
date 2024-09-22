@@ -42,10 +42,17 @@ document.addEventListener("DOMContentLoaded", function() {
     //const testing = document.getElementById("testing");
     //testing.innerHTML = "Saved!";
     //console.log("Saved!");
+
+    const toggleProject1 = document.getElementById("switch");
+
+   
                 
-                chrome.storage.local.get(["selectedProject", "LHProject1URL", "LHProject1Article"], function(result) {
+                chrome.storage.local.get(["selectedProject", "LHProject1URL", "LHProject1Article", "LHProjectAuthor", "LHProjectPublishedDate", "LHProjectSummary", "LHProject1"], function(result) {
                     let Project1URL = result.LHProject1URL || [];
                     let Project1Article = result.LHProject1Article || [];
+                    let Project1Author = result.LHProjectAuthor || [];
+                    let Project1PublishedDate = result.LHProjectPublishedDate || [];
+                    let Project1Summary = result.LHProjectSummary || [];
 
                     if (Project1URL.length > 0 || Project1Article.length > 0) {
                         addMoreSources.style.display = "none";
@@ -67,34 +74,83 @@ document.addEventListener("DOMContentLoaded", function() {
                             articleButton.id = "sources__button" + i;
                             
 
+                            const articleSummary = document.createElement("button");
+                            articleSummary.id = "article__summary" + i;
+                            articleSummary.className = "article__summary";
+
+                            const articleTextSummary = document.createElement("p");
+                            articleTextSummary.textContent = Project1Summary[i];
+                            articleTextSummary.className = "article__text__summary";
+                            articleTextSummary.id = "article__text__summary" + i;
+
+                            
+
+                            document.getElementById('article_complete').appendChild(articleRow);
+                            document.getElementById('article_complete' + i).append(numberCounter);
+                            document.getElementById('article_complete' + i).appendChild(articleButton);
+                            
+                            
+                            document.getElementById('article_complete' + i).appendChild(articleSummary);
+
+
+                            articleSummary.addEventListener("click", function() {
+                                if (articleTextSummary.style.display === "none") {
+                                    articleTextSummary.style.display = "block";
+                                    APAformat.style.display = "none";
+                                    articleTitle.style.display = "none";
+                                    articleURL.style.display = "none";
+                                    document.getElementById('article_complete' + i).appendChild(articleTextSummary);
+                                } else { 
+                                    articleTextSummary.style.display = "none";
+
+                                }
+                            });
+
                             const articleTitle = document.createElement("h4");
                             articleTitle.textContent = Project1Article[i];;
                             articleTitle.id = "article__title" + i;
                             articleTitle.className = "article__title";
+                            document.getElementById('sources__button' + i).appendChild(articleTitle);
 
                             const articleURL = document.createElement("p");
                             articleURL.textContent = Project1URL[i];
                             articleURL.className = "article__URL";
                             articleURL.id = "article__URL" + i;
-
-                            localStorage.setItem("LHProject1ArticleReliability" + i, "reliable");
-
-                            const articleReliability = document.createElement("img");
-                            articleReliability.id = "article__reliability" + i;
-                            articleReliability.className = "article__reliability";
-
-                            if (localStorage.getItem("LHProject1ArticleReliability" + i) === "reliable") {
-                                articleReliability.src = "images/checked.png";
-                            } else {
-                                articleReliability.src = "images/no.png";
-                            }
-
-                            document.getElementById('article_complete').appendChild(articleRow);
-                            document.getElementById('article_complete' + i).append(numberCounter);
-                            document.getElementById('article_complete' + i).appendChild(articleButton);
-                            document.getElementById('sources__button' + i).appendChild(articleTitle);
                             document.getElementById('sources__button' + i).appendChild(articleURL);
-                            document.getElementById('article_complete' + i).appendChild(articleReliability);
+
+                            const APAformat = document.createElement("p");
+                            APAformat.id = "APA__format" + i;
+                            APAformat.className = "APA__format";
+                            document.getElementById('article_complete' + i).appendChild(APAformat);
+
+                            if (toggleProject1.checked === true) {
+                                articleTitle.style.display = "block";
+                                articleURL.style.display = "block";
+                                APAformat.style.display = "none";
+                                articleTextSummary.style.display = "none";
+
+                            } else if (toggleProject1.checked === false) {
+
+                                chrome.storage.local.get(["SavedType"], function(result) {
+
+                                    
+                                    
+                                    if (result.SavedType === "normal") {
+                                        APAformat.innerHTML = Project1Author[i] + ". (" + Project1PublishedDate[i] + "). " + Project1Article[i] + ". " + Project1URL[i];
+                                        
+                                    } else if (result.SavedType === "YouTube") {
+                                        APAformat.innerHTML = Project1Author[i] + ". (" + Project1PublishedDate[i] + "). <i>" + Project1Article[i] + "</i> [Video]. YouTube. " + Project1URL[i];
+                                    
+                                    }
+
+                                 });
+
+                                articleTitle.style.display = "none";
+                                articleURL.style.display = "none";
+                                APAformat.style.display = "block";
+                                articleTextSummary.style.display = "none";
+                                
+                            }
                             
                         }
                     } else {
@@ -161,17 +217,23 @@ document.addEventListener("DOMContentLoaded", function() {
         if (userConfirmed) {
             chrome.storage.local.set({
                 LHProject1URL: [],
-                LHProject1Article: []
+                LHProject1Article: [],
+                LHProjectAuthor: [],
+                LHProjectPublishedDate: [],
+                LHProjectSummary: []
+                
             }, function() {
                 console.log("URLs and articles are cleared.");
                 chrome.runtime.reload();
             });
             
 
-            chrome.storage.local.get(["LHProject1URL", "LHProject1Article"], function(result) {
-                console.log(result.LHProject1URL);
+            chrome.storage.local.get(["LHProject1URL", "LHProject1Article", "LHProjectAuthor", "LHProjectPublishedDate", "LHProjectSummary"], function(result) {
                 Project1URL = result.LHProject1URL;
-                //the other two for articles
+                Project1Article = result.LHProject1Article;
+                Project1Author = result.LHProjectAuthor;
+                Project1PublishedDate = result.LHProjectPublishedDate;
+                Project1Summary = result.LHProjectSummary;
             });
         }
 });
