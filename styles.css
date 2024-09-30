@@ -7,6 +7,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-style: --FF;
 }
 
 input,
@@ -442,9 +443,21 @@ html {
     flex-direction: column;
 }
 
+.article__text__summary {
+    font-style: italic;
+}
+
 .article__summary {
-    width: 230px;
+    width: 30px;
+    height: 30px;
+    margin: 0.5em;
+    border-style: dotted;
+    border-color: grey;
+    border-radius: 50%;
     text-align: center;
+    text-align: center;
+    color: grey;
+    margin-top: 20px;
 }
 
 .article__URL {

@@ -47,12 +47,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
    
                 
-                chrome.storage.local.get(["selectedProject", "LHProject1URL", "LHProject1Article", "LHProjectAuthor", "LHProjectPublishedDate", "LHProjectSummary", "LHProject1"], function(result) {
+                chrome.storage.local.get(["selectedProject", "LHProject1URL", "LHProject1Article", "LHProject1Author", "LHProject1PublishedDate", "LHProject1Summary", "LHProject1"], function(result) {
                     let Project1URL = result.LHProject1URL || [];
                     let Project1Article = result.LHProject1Article || [];
-                    let Project1Author = result.LHProjectAuthor || [];
-                    let Project1PublishedDate = result.LHProjectPublishedDate || [];
-                    let Project1Summary = result.LHProjectSummary || [];
+                    let Project1Author = result.LHProject1Author || [];
+                    let Project1PublishedDate = result.LHProject1PublishedDate || [];
+                    let Project1Summary = result.LHProject1Summary || [];
 
                     if (Project1URL.length > 0 || Project1Article.length > 0) {
                         addMoreSources.style.display = "none";
@@ -77,12 +77,10 @@ document.addEventListener("DOMContentLoaded", function() {
                             const articleSummary = document.createElement("button");
                             articleSummary.id = "article__summary" + i;
                             articleSummary.className = "article__summary";
+                            articleSummary.textContent = "S"
+                            
 
-                            const articleTextSummary = document.createElement("p");
-                            articleTextSummary.textContent = Project1Summary[i];
-                            articleTextSummary.className = "article__text__summary";
-                            articleTextSummary.id = "article__text__summary" + i;
-
+                            
                             
 
                             document.getElementById('article_complete').appendChild(articleRow);
@@ -96,15 +94,32 @@ document.addEventListener("DOMContentLoaded", function() {
                             articleSummary.addEventListener("click", function() {
                                 if (articleTextSummary.style.display === "none") {
                                     articleTextSummary.style.display = "block";
-                                    APAformat.style.display = "none";
+                                    //APAformat.style.display = "none";
                                     articleTitle.style.display = "none";
                                     articleURL.style.display = "none";
-                                    document.getElementById('article_complete' + i).appendChild(articleTextSummary);
+                                    articleSummary.style.backgroundColor = "lightblue";
+                                    articleSummary.style.color = "aliceblue";
+                                   
+                                    
                                 } else { 
                                     articleTextSummary.style.display = "none";
+                                    articleTitle.style.display = "block";
+                                    articleURL.style.display = "block";
+                                    
+                                    articleSummary.style.backgroundColor = "aliceblue";
+                                    articleSummary.style.color = "grey"
+
 
                                 }
                             });
+
+                            const articleTextSummary = document.createElement("p");
+                            articleTextSummary.textContent = Project1Summary[i];
+                            articleTextSummary.className = "article__text__summary";
+                            articleTextSummary.id = "article__text__summary" + i;
+                            document.getElementById('sources__button' + i).appendChild(articleTextSummary);
+                            articleTextSummary.style.display = "none";
+
 
                             const articleTitle = document.createElement("h4");
                             articleTitle.textContent = Project1Article[i];;
@@ -174,36 +189,39 @@ document.addEventListener("DOMContentLoaded", function() {
 
                     cancelButton.style.display = "none";
 
+                    if (document.getElementById("sources__button" + "0") !== null) {
                     //selecting projects
-                    for (let i = 0; i < Project1URL.length; i++) {
-                        document.getElementById("sources__button" + i).addEventListener("click", function(event) {
-                            clearTimeout(clickTimeout);
-                
-                            clickTimeout = setTimeout(function() {
-                                clearProject1URL.style.display = "none";
-                                deleteProject1URL.style.display = "block";
+                        for (let i = 0; i < Project1URL.length; i++) {
+                            document.getElementById("sources__button" + i).addEventListener("click", function(event) {
+                                clearTimeout(clickTimeout);
+                    
+                                clickTimeout = setTimeout(function() {
+                                    clearProject1URL.style.display = "none";
+                                    deleteProject1URL.style.display = "block";
 
-                                cancelButton.style.display = "block";
-                                changeBackground.style.backgroundColor = "#a293ad";
-                                project1Title.style.display = "none";
-    
-
-                                if (document.getElementById("sources__button" + i).style.color === "orange") {
-                                    document.getElementById("sources__button" + i).style.color = "black";
+                                    cancelButton.style.display = "block";
+                                    changeBackground.style.backgroundColor = "#a293ad";
+                                    project1Title.style.display = "none";
                                     
-                                } else {
-                                    document.getElementById("sources__button" + i).style.color = "orange";
-                                }
+        
 
-
-                                for (let i = 0; i < Project1URL.length; i++) {
                                     if (document.getElementById("sources__button" + i).style.color === "orange") {
-                                        //count the highlighted sources (if none then hide button)
+                                        document.getElementById("sources__button" + i).style.color = "black";
+                                        
+                                    } else {
+                                        document.getElementById("sources__button" + i).style.color = "orange";
                                     }
-                                }
-                                
-                            }, 100);
-                        });
+
+
+                                    for (let i = 0; i < Project1URL.length; i++) {
+                                        if (document.getElementById("sources__button" + i).style.color === "orange") {
+                                            //count the highlighted sources (if none then hide button)
+                                        }
+                                    }
+                                    
+                                }, 100);
+                            });
+                        }
                     }
                 });
             
