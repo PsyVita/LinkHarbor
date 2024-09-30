@@ -256,38 +256,72 @@ document.addEventListener("DOMContentLoaded", function() {
         Project1PublishedDate = result.LHProject1PublishedDate;
         Project1Summary = result.LHProject1Summary;
 
-    
-
-        copyToClipboardButton.addEventListener("click", function() {
+        function exportingBasics() {
             if (Project1URL.length > 0) {
                 let copiedPlainText = '';
                 let copiedHTMLText = '';
 
-                for (let i = 0; i < Project1URL.length; i++) {
-                    copiedPlainText += `${i+1}. ${Project1Article[i]}\n(${Project1Summary[i]})\n${Project1URL[i]}/\n\n`;
-                    copiedHTMLText += `${i+1}. <strong>${Project1Article[i]}</strong><br><i>${Project1Summary[i]}</i><br><a href="${Project1URL[i]}">${Project1URL[i]}/</a><br><br>`; 
+                let entries = Project1URL.map((url, index) => ({
+                    author: Project1Author[index],
+                    publishedDate: Project1PublishedDate[index],
+                    article: Project1Article[index],
+                    summary: Project1Summary[index],
+                    url: url,
+                    isYouTube: url.includes("https://youtube.com/watch?")
+                }));
+
+                entries.sort((a, b) => a.author.localeCompare(b.author));
+
+                for (let i = 0; i < entries.length; i++) {
+                    const entry = entries[i];
+                    if (entry.isYouTube) {
+                        if (toggleProject1.checked) {
+                            copiedHTMLText += `<div style="margin-left: 0px; text-indent: -40px; line-height: 2;"><span style="color:black;">${entry.author}. (${entry.publishedDate}). <i>${entry.article}. </i>[Video]. YouTube. </span><a href="${entry.url}">${entry.url}</a><br></div>`;
+                            copiedPlainText += `${entry.author}. (${entry.publishedDate}). ${entry.url}. [Video]. YouTube. ${entry.url}\n\n`;
+                        } else if (!toggleProject1.checked) {
+                            copiedPlainText += `${i+1}. ${entry.article}\n(${entry.summary})\n${entry.url}/\n\n`;
+                            copiedHTMLText += `<span style="color:black;">${i+1}. <strong>${entry.article}</strong><br><i>${entry.summary}</i><br></span><a href="${entry.url}">${entry.url}/</a><br><br>`; 
+                        }
+                    } else {
+                        if (toggleProject1.checked) {
+                            copiedHTMLText += `<div style="margin-left: 0px; text-indent: -40px; line-height: 2;"><span style="color:black;">${entry.author}. (${entry.publishedDate}). <i>${entry.article}. </i></span><a href="${entry.url}">${entry.url}</a><br></div>`;
+                            copiedPlainText += `${entry.author}. (${entry.publishedDate}). ${entry.article}. ${entry.url}\n\n`;
+                        } else if (!toggleProject1.checked) {
+                            copiedPlainText += `${i+1}. ${entry.article}\n(${entry.summary})\n${entry.url}/\n\n`;
+                            copiedHTMLText += `<span style="color:black;">${i+1}. <strong>${entry.article}</strong><br><i>${entry.summary}</i><br></span><a href="${entry.url}">${entry.url}/</a><br><br>`; 
+                        }
+                    }
+                    
                 }
                 const HTMLblob = new Blob([copiedHTMLText], { type: 'text/html' });
                 const TEXTblob = new Blob([copiedPlainText], { type: 'text/plain' });
 
+                return {
+                    HTMLblob,
+                    TEXTblob
+                };
+            } else {
+                alert("There are no sources to export.");
+
+            }
+        };
+        
+
+
+        copyToClipboardButton.addEventListener("click", function() {
+            if (Project1URL.length > 0) {
+                const blobs = exportingBasics();
                 const clipboardItem = new ClipboardItem({ 
-                    'text/html': HTMLblob, 
-                    'text/plain': TEXTblob
+                    'text/html': blobs.HTMLblob, 
+                    'text/plain': blobs.TEXTblob
                 });
 
-
-                if (toggleProject1.clicked) {
-                    navigator.clipboard.write([clipboardItem]);
-                } else if (!toggleProject1.clicked) {
-                    //navigator.clipboard.write([APAclipboardItem]);
-                }
+                navigator.clipboard.write([clipboardItem]);
                 
                 copyToClipboardButton.textContent = "Copied!";
                 setTimeout(function() {
                     copyToClipboardButton.textContent = "Copy to Clipboard";
                 }, 2000);
-            } else {
-                alert("There are no sources to copy.");
 
             }
         });
