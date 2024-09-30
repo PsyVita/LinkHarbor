@@ -5,6 +5,13 @@
 const floatingButton = document.createElement("button");
     floatingButton.id = "floatingButton";
     floatingButton.innerText = "+";
+//const imgElement = document.createElement("img");
+   // imgElement.src = chrome.runtime.getURL("images/full anchor.png"); // Use chrome.runtime.getURL to get the correct path
+   // imgElement.style.width = "30px"; // Set the width of the image
+   // imgElement.style.height = "30px"; // Set the height of the image
+
+// Append the img element to the button
+   // floatingButton.appendChild(imgElement);
     document.body.appendChild(floatingButton);
     console.log("Floating button created");
 
@@ -24,6 +31,56 @@ const floatingButton = document.createElement("button");
 
         if (window.location.href.startsWith("https://www.youtube.com/watch?")) {
             chrome.storage.local.set({ "SavedType": "YouTube" });
+
+            let current_author, current_published_date, current_title, shortenedPublishedDate;
+
+            const metaInfo = document.getElementsByTagName("meta");
+            for (let i = 0; i < metaInfo.length; i++) {
+                if (metaInfo[i].getAttribute("itemprop") == null) {
+                    continue;
+                } else {
+                    if (metaInfo[i].getAttribute("itemprop") === ("datePublished") ) {
+                        current_published_date = metaInfo[i].getAttribute("content");
+                        shortenedPublishedDate =  current_published_date.slice(0, 4);
+                        console.log("Current Published Date:", shortenedPublishedDate);
+                    } else if (metaInfo[i].getAttribute("itemprop") === ("name")) {
+                        current_title = metaInfo[i].getAttribute("content");
+                        console.log("Current Title:", current_title);
+                    }
+                }
+            }
+
+            const linkInfo = document.getElementsByTagName("link");
+            for (let i = 0; i < linkInfo.length; i++) {
+                if (linkInfo[i].getAttribute("itemprop") == null) {
+                    continue;
+                } else {
+                    if (linkInfo[i].getAttribute("itemprop") === ("name")) {
+                        current_author = linkInfo[i].getAttribute("content");
+                        console.log("Current Author:", current_author);
+                }
+            }
+                
+            }
+
+            
+            
+            
+                
+        const websiteInfoSet = {
+            URL: current_url,
+            title: current_title || "No title found",
+            author: current_author || "Anonymous",
+            published_date: shortenedPublishedDate || "n.d.",
+            summary: "Summary not available for YouTube videos."
+        };
+
+        console.log("Website Info Set:", websiteInfoSet);
+
+
+
+        chrome.storage.local.set({ "websiteInfoSet": websiteInfoSet });
+    
         } else {
                 chrome.storage.local.set({ "SavedType": "normal" });
                 let current_author, current_published_date, current_summary, current_title;
@@ -128,9 +185,10 @@ const floatingButton = document.createElement("button");
     
             chrome.storage.local.set({ "websiteInfoSet": websiteInfoSet });
     
-            projectPort.postMessage({ type: "normalSavingSignal" });
-    
             
+        }
+    
+            projectPort.postMessage({ type: "normalSavingSignal" });
             console.log("Message sent to background.js");
             
             floatingButton.innerText = "Saved!";
@@ -143,8 +201,10 @@ const floatingButton = document.createElement("button");
             }, 6000);
                            
         
-        }
+        
     });
 
-    
+
+
+ 
     

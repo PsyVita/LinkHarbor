@@ -17,11 +17,19 @@
         {
             "matches": ["<all_urls>"],
             "js": ["contentScript.js"],
-            "css": ["floatingButton.css"]
+            "css": ["floatingButton.css"],
+            "images": ["/images/full anchor.png"]
         }
     ],
     "icons": {
         "48": "images/full anchor.png"
-    }
+    },
+
+    "web_accessible_resources": [
+        {
+            "resources": ["images/full anchor.png"],
+            "matches": ["<all_urls>"]
+        }
+    ]
 
 }

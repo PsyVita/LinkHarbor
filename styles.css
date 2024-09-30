@@ -553,6 +553,10 @@ html {
 
 /* || INDEPENDENT ADJUSTMENTS ||*/
 
+.APA__format {
+    width: 250px;
+    text-align: start;
+}
 
 .floating-btn {
     width: 1em;
@@ -688,6 +692,7 @@ html {
 }
 
 .f3B {
+    height: 53.19px;
     padding: 0.4em 1em 0.4em 1em;
     margin: auto;
     background-color: var(--THIRD-COLOR);
