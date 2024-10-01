@@ -52,8 +52,8 @@ document.addEventListener("DOMContentLoaded", function() {
             for (let i = 0; i < Project1URL.length; i++) {
                 const numberCounter = document.createElement("span");
                 numberCounter.textContent = i + 1 + ".";
-                numberCounter.className = "space";
-                numberCounter.id = "numberCounter";
+                numberCounter.className = "numberCounter";
+                numberCounter.id = "numberCounter" + i;
 
                 const articleRow = document.createElement("div");
                 articleRow.className = "article_complete";
@@ -70,14 +70,18 @@ document.addEventListener("DOMContentLoaded", function() {
                 articleSummary.className = "article__summary";
                 articleSummary.textContent = "S";
 
+                const selectedButton = document.createElement("img");
+                selectedButton.src = "images/checked.png";
+                selectedButton.className = "selected__button";
+                selectedButton.id = "selected__button" + i;
+                selectedButton.style.display = "none";
+
                 document.getElementById('article_complete').appendChild(articleRow);
+                document.getElementById('article_complete' + i).appendChild(selectedButton);
                 document.getElementById('article_complete' + i).append(numberCounter);
                 document.getElementById('article_complete' + i).appendChild(articleButton);
                 document.getElementById('article_complete' + i).appendChild(articleSummary);
 
-                
-
-                
 
                 const articleTextSummary = document.createElement("p");
                 articleTextSummary.textContent = Project1Summary[i];
@@ -184,6 +188,7 @@ document.addEventListener("DOMContentLoaded", function() {
             cancelButton.style.display = "none";
             changeBackground.style.backgroundColor = "#f0f8ff";
             project1Title.style.display = "block";
+            selectedButtons.style.display = "none";
             for (let i = 0; i < Project1URL.length; i++) {
                 document.getElementById("sources__button" + i).style.color = "black";
             }
@@ -207,15 +212,27 @@ document.addEventListener("DOMContentLoaded", function() {
 
                         if (document.getElementById("sources__button" + i).style.color === "orange") {
                             document.getElementById("sources__button" + i).style.color = "black";
+                            document.getElementById("selected__button" + i).style.display = "none";
+                            document.getElementById("numberCounter" + i).style.display = "block";
+
+                            const selectedButtons = document.querySelectorAll(".selected__button");
+                            const allHidden = Array.from(selectedButtons).every(button => button.style.display === "none");
+
+                            if (allHidden) {
+                                clearProject1URL.style.display = "block";
+                                deleteProject1URL.style.display = "none";
+                                cancelButton.style.display = "none";
+                                changeBackground.style.backgroundColor = "#f0f8ff";
+                                project1Title.style.display = "block";
+                            }
                         } else {
                             document.getElementById("sources__button" + i).style.color = "orange";
+                            document.getElementById("selected__button" + i).style.display = "block";
+                            document.getElementById("numberCounter" + i).style.display = "none";
                         }
 
-                        for (let j = 0; j < Project1URL.length; j++) {
-                            if (document.getElementById("sources__button" + j).style.color === "orange") {
-                                // Count the highlighted sources (if none then hide button)
-                            }
-                        }
+                        //const allSourcesButtons = document.querySelectorAll(".sources__button");
+
                     }, 100);
                 });
             }

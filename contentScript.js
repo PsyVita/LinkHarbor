@@ -2,6 +2,18 @@
 
 
 
+function capitalizer(title) {
+    const capitalizationExceptions = ['a', 'an', 'the', 'so', 'and', 'but', 'or', 'nor', 'for', 'yet', 'as', 'at', 'by', 'down', 'from', 'if', 'in', 'into', 'like', 'near', 'of', 'off', 'on', 'once', 'onto', 'over', 'than', 'to', 'upon', 'with']
+
+    return title.split(/\s+/).map((word, index) => {
+        if (index === 0 || !capitalizationExceptions.includes(word)) {
+            return word.charAt(0).toUpperCase() + word.slice(1);
+        } else {
+            return word;
+        }
+    }).join(" ");
+}
+
 const floatingButton = document.createElement("button");
     floatingButton.id = "floatingButton";
     floatingButton.innerText = "LH";
@@ -32,7 +44,7 @@ const floatingButton = document.createElement("button");
         if (window.location.href.startsWith("https://www.youtube.com/watch?")) {
             chrome.storage.local.set({ "SavedType": "YouTube" });
 
-            let current_author, current_published_date, current_title, shortenedPublishedDate;
+            let current_author, current_published_date, current_title, shortenedPublishedDate, capitalizedTitle;
 
             const metaInfo = document.getElementsByTagName("meta");
             for (let i = 0; i < metaInfo.length; i++) {
@@ -45,7 +57,9 @@ const floatingButton = document.createElement("button");
                         console.log("Current Published Date:", shortenedPublishedDate);
                     } else if (metaInfo[i].getAttribute("itemprop") === ("name")) {
                         current_title = metaInfo[i].getAttribute("content");
-                        console.log("Current Title:", current_title);
+
+                        capitalizedTitle = capitalizer(current_title);
+                        console.log("Current Title:", capitalizedTitle);
                     }
                 }
             }
@@ -69,7 +83,7 @@ const floatingButton = document.createElement("button");
                 
         const websiteInfoSet = {
             URL: current_url,
-            title: current_title || "No title found",
+            title: capitalizedTitle || "No title found.",
             author: current_author || "Anonymous",
             published_date: shortenedPublishedDate || "n.d.",
             summary: "Summary not available for YouTube videos."
@@ -83,7 +97,7 @@ const floatingButton = document.createElement("button");
     
         } else {
                 chrome.storage.local.set({ "SavedType": "normal" });
-                let current_author, current_published_date, current_summary, current_title;
+                let current_author, current_published_date, current_summary, current_title, capitalizedTitle;
 
                 const metaInfo = document.getElementsByTagName("meta");
                 for (let i = 0; i < metaInfo.length; i++) {
@@ -104,7 +118,8 @@ const floatingButton = document.createElement("button");
                             console.log("Current Summary:", current_summary);
                         } else if (metaInfo[i].getAttribute("name").includes("title")) {
                             current_title = metaInfo[i].getAttribute("content");
-                            console.log("Current Title:", current_title);
+                            capitalizedTitle = capitalizer(current_title);
+                            console.log("Current Title:", capitalizedTitle);
                         }
                     }
 
@@ -164,7 +179,8 @@ const floatingButton = document.createElement("button");
                         } else {
                             if (metaInfo[i].getAttribute("property").toLowerCase().includes("title")) {
                                 current_title = metaInfo[i].getAttribute("content");
-                                console.log("Current Title:", current_title);
+                                capitalizedTitle = capitalizer(current_title);
+                                console.log("Current Title:", capitalizedTitle);
                             }
                         }
                     }
@@ -175,10 +191,10 @@ const floatingButton = document.createElement("button");
                     
             const websiteInfoSet = {
                 URL: current_url,
-                title: current_title || "No title found",
+                title: capitalizedTitle || "No title found.",
                 author: current_author || "Anonymous",
                 published_date: current_published_date || "n.d.",
-                summary: current_summary || "No summary found"
+                summary: current_summary || "No summary found."
             };
     
             console.log("Website Info Set:", websiteInfoSet);

@@ -48,6 +48,10 @@ html {
     margin-top: 1em;
 }
 
+.colorWhite {
+    background-color: aliceblue;
+}
+
 .body {
     min-height: var(--MIN-HEIGHT); 
     margin: 5px;
@@ -214,7 +218,7 @@ html {
     font-size: 18px;
     font-style: italic;
     color: aliceblue;
-    height: 32px;
+    height: 28px;
 }
 
 .cancel__button:hover, .cancel__button:focus-visible {
@@ -677,12 +681,20 @@ html {
     justify-content: center;
 }
 
-#numberCounter {
+.numberCounter {
     padding-top: 14px;
     font-weight: bold;
     font-family: "Oswald";
     color: grey;
+    margin: 1em;
+}
 
+.selected__button {
+    width: 20px;
+    height: 20px;
+    margin-top: 14px;
+    margin-left: 9px;
+    margin-right: 9px;
 }
 
 .checked-icon {
