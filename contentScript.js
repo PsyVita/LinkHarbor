@@ -4,14 +4,14 @@
 
 const floatingButton = document.createElement("button");
     floatingButton.id = "floatingButton";
-    floatingButton.innerText = "+";
-//const imgElement = document.createElement("img");
-   // imgElement.src = chrome.runtime.getURL("images/full anchor.png"); // Use chrome.runtime.getURL to get the correct path
-   // imgElement.style.width = "30px"; // Set the width of the image
-   // imgElement.style.height = "30px"; // Set the height of the image
+    floatingButton.innerText = "LH";
+  // const imgElement = document.createElement("img");
+  // imgElement.src = chrome.runtime.getURL("images/full anchor.png"); // Use chrome.runtime.getURL to get the correct path
+  // imgElement.style.width = "30px"; // Set the width of the image
+  // imgElement.style.height = "30px"; // Set the height of the image
 
 // Append the img element to the button
-   // floatingButton.appendChild(imgElement);
+ //  floatingButton.appendChild(imgElement);
     document.body.appendChild(floatingButton);
     console.log("Floating button created");
 

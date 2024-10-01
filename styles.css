@@ -13,7 +13,7 @@
 input,
 button,
 textarea {
-    font: inherit;
+    font: "Rubik", sans-serif;
 }
 
 html {

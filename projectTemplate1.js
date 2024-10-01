@@ -260,6 +260,16 @@ document.addEventListener("DOMContentLoaded", function() {
             if (Project1URL.length > 0) {
                 let copiedPlainText = '';
                 let copiedHTMLText = '';
+                let subject = "Sources for your project";
+                const LHurl = "https://chrome.google.com/webstore/detail/linkharbor/";
+                let advertisementHTML = `This source list was generated using the <strong>LinkHarbor</strong> Chrome Extension. <a href="${LHurl}"><br>Download the extension today</a> to save your sources and generate APA citations with ease!`;
+                let advertisementPlainText = "This source list was generated using the LinkHarbor Chrome Extension.\nDownload the extension today to save your sources and generate APA citations with ease! Click the link below!\n" + LHurl;
+                
+                if (toggleProject1.checked) {
+                    subject = project1Title.value + " [APA Citations]\n\n";
+                } else if (!toggleProject1.checked) {
+                    subject = project1Title.value + " [Sources]\n\n";
+                }
 
                 let entries = Project1URL.map((url, index) => ({
                     author: Project1Author[index],
@@ -298,7 +308,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 return {
                     HTMLblob,
-                    TEXTblob
+                    TEXTblob, 
+                    subject, 
+                    advertisementHTML,
+                    advertisementPlainText
                 };
             } else {
                 alert("There are no sources to export.");
@@ -311,9 +324,24 @@ document.addEventListener("DOMContentLoaded", function() {
         copyToClipboardButton.addEventListener("click", function() {
             if (Project1URL.length > 0) {
                 const blobs = exportingBasics();
+
+                const combinedHTMLblob = new Blob(
+                    [
+                        `<div style="text-align: center;"><strong>${blobs.subject}</strong></div><br>`, blobs.HTMLblob, `<i>${blobs.advertisementHTML}</i>`
+                    ], 
+                    {type: 'text/html'}
+                );
+
+                const combinedPlainTextBlob = new Blob(
+                    [
+                        blobs.subject, blobs.TEXTblob, blobs.advertisementPlainText
+                    ],
+                    {type: 'text/plain'}
+                );
+
                 const clipboardItem = new ClipboardItem({ 
-                    'text/html': blobs.HTMLblob, 
-                    'text/plain': blobs.TEXTblob
+                    'text/html': combinedHTMLblob, 
+                    'text/plain': combinedPlainTextBlob
                 });
 
                 navigator.clipboard.write([clipboardItem]);
@@ -326,5 +354,30 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
 
+        const emailButton = document.getElementById("emailButton");
+
+        emailButton.addEventListener("click", function() {
+            if (Project1URL.length > 0) {
+                const blobs = exportingBasics();
+
+                const reader = new FileReader();
+                reader.readAsText(blobs.TEXTblob);
+
+                reader.onload = function() {
+                    const emailBody = blobs.subject + reader.result + blobs.advertisementPlainText;
+                    const emailSubject = blobs.subject;
+
+                    const emailURL = `https://mail.google.com/mail/?view=cm&fs=1&tf=1&su=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+
+                    window.open(emailURL);
+                }
+
+                emailButton.textContent = "Opening Gmail...";
+                setTimeout(function() {
+                    emailButton.textContent = "Share via Gmail";
+                }, 2000);
+            }
+
+        });
     });
 });

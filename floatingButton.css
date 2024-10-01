@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+
 
 
 /*
@@ -40,6 +42,7 @@
 #floatingButton {
   position: fixed;
   bottom: 30px;
+  font-weight: bold;
   right: 30px;
   width: 50px; /* Fixed width */
   height: 50px; /* Fixed height */
@@ -54,10 +57,10 @@
   border-style: double;
   border-width: 3px;
   border-color: #6abfff;
-  color: #36395A;
+  color: #6abfff;
   cursor: copy;
   display: inline-flex;
-  font-family: inherit;
+  font-family: 'Quicksand', sans-serif;
   justify-content: center;
   line-height: 1;
   list-style: none;
@@ -80,6 +83,7 @@
 #floatingButton:hover {
   box-shadow: var(--SECONDARY-COLOR-DARK) 0 4px 8px, var(--BLUE) 0 7px 13px -3px, #a196b9 0 -3px 0 inset;
   transform: translateY(-2px) scale(1);
+  color: var(--SECONDARY-COLOR-DARK);
   border-color: var(--SECONDARY-COLOR-DARK);
 }
 
@@ -96,6 +100,7 @@
   box-shadow:var(--SECONDARY-COLOR) 0 0px 3px;
   transform: translateY(15px) scale(1);
   border-color: var(--SECONDARY-COLOR);
+  color: var(--SECONDARY-COLOR);
   border-width: 1px;
 }
 
@@ -108,7 +113,7 @@
     --DARK-COLOR: #3a485633;
     --BLUE: #61a1f5;
 
-    --FF: "Rubik", sans-serif;
+    --FF: 'Quicksand', sans-serif;
     --FS-SMALL: 5px;
     --FS-MEDIUM: 14px;
     --FS-LARGE: 24px;

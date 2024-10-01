@@ -23,13 +23,6 @@
     ],
     "icons": {
         "48": "images/full anchor.png"
-    },
-
-    "web_accessible_resources": [
-        {
-            "resources": ["images/full anchor.png"],
-            "matches": ["<all_urls>"]
-        }
-    ]
+    }
 
 }
