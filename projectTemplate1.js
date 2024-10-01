@@ -277,6 +277,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (Project1URL.length > 0) {
                 let copiedPlainText = '';
                 let copiedHTMLText = '';
+                let copiedforPDF = '';
                 let subject = "Sources for your project";
                 const LHurl = "https://chrome.google.com/webstore/detail/linkharbor/";
                 let advertisementHTML = `This source list was generated using the <strong>LinkHarbor</strong> Chrome Extension. <a href="${LHurl}"><br>Download the extension today</a> to save your sources and generate APA citations with ease!`;
@@ -303,19 +304,25 @@ document.addEventListener("DOMContentLoaded", function() {
                     const entry = entries[i];
                     if (entry.isYouTube) {
                         if (toggleProject1.checked) {
-                            copiedHTMLText += `<div style="margin-left: 0px; text-indent: -40px; line-height: 2;"><span style="color:black;">${entry.author}. (${entry.publishedDate}). <i>${entry.article}. </i>[Video]. YouTube. </span><a href="${entry.url}">${entry.url}</a><br></div>`;
-                            copiedPlainText += `${entry.author}. (${entry.publishedDate}). ${entry.url}. [Video]. YouTube. ${entry.url}\n\n`;
+                            copiedHTMLText += `<div style="margin-left: 0px; text-indent: -40px; line-height: 2;"><span style="color:black;">${entry.author}. (${entry.publishedDate}). <i>${entry.article}. </i>[Video]. YouTube. </span><a href="${entry.url}" style="text-decoration: none; color: black;">${entry.url}/</a><br></div>`;
+                            copiedPlainText += `${entry.author}. (${entry.publishedDate}). ${entry.article}. [Video]. YouTube. ${entry.url}/\n\n`;
+                            
+                            copiedforPDF += `<div style="margin-left: 40px; text-indent: -40px; line-height: 2;"><span style="color:black;">${entry.author}. (${entry.publishedDate}). <i>${entry.article}. </i>[Video]. YouTube. </span>${entry.url}/<br></div>`;
+
                         } else if (!toggleProject1.checked) {
                             copiedPlainText += `${i+1}. ${entry.article}\n(${entry.summary})\n${entry.url}/\n\n`;
                             copiedHTMLText += `<span style="color:black;">${i+1}. <strong>${entry.article}</strong><br><i>${entry.summary}</i><br></span><a href="${entry.url}">${entry.url}/</a><br><br>`; 
+                            copiedforPDF += `<span style="color:black;">${i+1}. <strong>${entry.article}</strong><br><i>${entry.summary}</i><br></span>${entry.url}/<br><br>`; 
                         }
                     } else {
                         if (toggleProject1.checked) {
-                            copiedHTMLText += `<div style="margin-left: 0px; text-indent: -40px; line-height: 2;"><span style="color:black;">${entry.author}. (${entry.publishedDate}). <i>${entry.article}. </i></span><a href="${entry.url}">${entry.url}</a><br></div>`;
-                            copiedPlainText += `${entry.author}. (${entry.publishedDate}). ${entry.article}. ${entry.url}\n\n`;
+                            copiedHTMLText += `<div style="margin-left: 0px; text-indent: -40px; line-height: 2;"><span style="color:black;">${entry.author}. (${entry.publishedDate}). <i>${entry.article}. </i></span><a href="${entry.url}" style="text-decoration: none; color: black;">${entry.url}/</a><br></div>`;
+                            copiedPlainText += `${entry.author}. (${entry.publishedDate}). ${entry.article}. ${entry.url}/\n\n`;
+                            copiedforPDF += `<div style="margin-left: 40px; text-indent: -40px; line-height: 2;"><span style="color:black;">${entry.author}. (${entry.publishedDate}). <i>${entry.article}. </i></span>${entry.url}/<br></div>`;
                         } else if (!toggleProject1.checked) {
                             copiedPlainText += `${i+1}. ${entry.article}\n(${entry.summary})\n${entry.url}/\n\n`;
                             copiedHTMLText += `<span style="color:black;">${i+1}. <strong>${entry.article}</strong><br><i>${entry.summary}</i><br></span><a href="${entry.url}">${entry.url}/</a><br><br>`; 
+                            copiedforPDF += `<span style="color:black;">${i+1}. <strong>${entry.article}</strong><br><i>${entry.summary}</i><br></span>${entry.url}/<br><br>`; 
                         }
                     }
                     
@@ -323,12 +330,17 @@ document.addEventListener("DOMContentLoaded", function() {
                 const HTMLblob = new Blob([copiedHTMLText], { type: 'text/html' });
                 const TEXTblob = new Blob([copiedPlainText], { type: 'text/plain' });
 
+
+    
+
+
                 return {
                     HTMLblob,
                     TEXTblob, 
                     subject, 
                     advertisementHTML,
-                    advertisementPlainText
+                    advertisementPlainText, 
+                    copiedforPDF
                 };
             } else {
                 alert("There are no sources to export.");
@@ -410,26 +422,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 const blobs = exportingBasics();
                 
 
-                const combinedHTML = `
-                <html>
-                    <head>
-                        <title>${blobs.subject}</title>
-                        <style>
-                             Add any styles you want for your PDF here 
-                            body { font-family: Arial, sans-serif; margin: 20px; }
-                            h1 { text-align: center; }
-                            p { font-size: 14px; }
-                        </style>
-                    </head>
-                    <body>
-                        <div style="text-align: center;">
-                            <strong>${blobs.subject}</strong>
-                        </div>
-                        <br>
-                        ${blobs.HTMLblob}
-                    </body>
-                </html>
-                `;
+                const combinedHTML = `<div style="font-family: 'Times New Roman', Times, serif; margin: 40px; line-height: 2; font-size: 12pt; color: black;"><strong><div style="text-align: center; font-size: 16pt;">${blobs.subject}</div></strong><br>${blobs.copiedforPDF}</div>`;
 /*
                 const iframe = document.createElement("iframe");
                 iframe.style.display = "none";
@@ -443,12 +436,20 @@ document.addEventListener("DOMContentLoaded", function() {
                 iframe.onload = function() {
                     iframe.contentWindow.focus();
                     iframe.contentWindow.print();
-                    document.body.removeChild(iframe);
                 }
-                */
+            
+*/
                 
+                const printWindow = window.open('','_blank');
+                printWindow.document.open();
+                printWindow.document.write(combinedHTML);
+
+                printWindow.onload = function() {
+                    printWindow.focus();
+                }
+                printWindow.print();
+                printWindow.close();
                 
-               
                 
 
                 pdfButton.textContent = "Downloading PDF...";
