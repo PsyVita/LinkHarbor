@@ -682,11 +682,14 @@ html {
 }
 
 .numberCounter {
-    padding-top: 14px;
+    width: 19px;
+    text-align: center;
     font-weight: bold;
     font-family: "Oswald";
     color: grey;
-    margin: 1em;
+    margin-top: 14px;
+    margin-left: 9px;
+    margin-right: 9px;
 }
 
 .selected__button {

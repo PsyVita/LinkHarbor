@@ -384,9 +384,15 @@ document.addEventListener("DOMContentLoaded", function() {
                     const emailBody = blobs.subject + reader.result + blobs.advertisementPlainText;
                     const emailSubject = blobs.subject;
 
-                    const emailURL = `https://mail.google.com/mail/?view=cm&fs=1&tf=1&su=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-
-                    window.open(emailURL);
+                    if (emailBody.length > 380000 || emailSubject.length > 78) {
+                        alert("The email body is too long. Please reduce the number of sources or export in separate groups.");
+                    } else if (emailSubject.length > 78) {
+                        alert("The project title is too long. Please shorten the title then export again.");
+                    } else {
+                        const emailURL = `https://mail.google.com/mail/?view=cm&fs=1&tf=1&su=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+                        window.open(emailURL);
+                    }
+                    
                 }
 
                 emailButton.textContent = "Opening Gmail...";
@@ -395,6 +401,61 @@ document.addEventListener("DOMContentLoaded", function() {
                 }, 2000);
             }
 
+        });
+
+        const pdfButton = document.getElementById("pdfButton");
+        
+        pdfButton.addEventListener("click", function() {
+            if (Project1URL.length > 0) {
+                const blobs = exportingBasics();
+                
+
+                const combinedHTML = `
+                <html>
+                    <head>
+                        <title>${blobs.subject}</title>
+                        <style>
+                             Add any styles you want for your PDF here 
+                            body { font-family: Arial, sans-serif; margin: 20px; }
+                            h1 { text-align: center; }
+                            p { font-size: 14px; }
+                        </style>
+                    </head>
+                    <body>
+                        <div style="text-align: center;">
+                            <strong>${blobs.subject}</strong>
+                        </div>
+                        <br>
+                        ${blobs.HTMLblob}
+                    </body>
+                </html>
+                `;
+/*
+                const iframe = document.createElement("iframe");
+                iframe.style.display = "none";
+                document.body.appendChild(iframe);
+                
+                const iframeDoc = iframe.contentWindow.document;
+                iframeDoc.open();
+                iframeDoc.write(combinedHTML);
+                iframeDoc.close();
+
+                iframe.onload = function() {
+                    iframe.contentWindow.focus();
+                    iframe.contentWindow.print();
+                    document.body.removeChild(iframe);
+                }
+                */
+                
+                
+               
+                
+
+                pdfButton.textContent = "Downloading PDF...";
+                    setTimeout(function() {
+                        pdfButton.textContent = "Export to PDF";
+                    }, 2000);
+            }
         });
     });
 });
