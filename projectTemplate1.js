@@ -380,7 +380,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     subject = project1Title.value + " [Sources]\n\n";
                 }
             
-                if (selectedButtons) {
+                if (selectedURL.length > 0) {
                     entries = selectedURL.map((url, index) => ({
                         author: selectedAuthor[index],
                         publishedDate: selectedPublishedDate[index],
