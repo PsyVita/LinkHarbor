@@ -361,32 +361,52 @@ document.addEventListener("DOMContentLoaded", function() {
         Project1PublishedDate = result.LHProject1PublishedDate;
         Project1Summary = result.LHProject1Summary;
 
+        selectedButtons = document.querySelectorAll(".selected__button");
+
         function exportingBasics() {
+            let copiedPlainText = '';
+            let copiedHTMLText = '';
+            let copiedforPDF = '';
+            let subject = "Sources for your project";
+            const LHurl = "https://chrome.google.com/webstore/detail/linkharbor/";
+            let advertisementHTML = `This source list was generated using the <strong>LinkHarbor</strong> Chrome Extension. <a href="${LHurl}"><br>Download the extension today</a> to save your sources and generate APA citations with ease!`;
+            let advertisementPlainText = "This source list was generated using the LinkHarbor Chrome Extension.\nDownload the extension today to save your sources and generate APA citations with ease! Click the link below!\n" + LHurl;
+            let entries;
+            
             if (Project1URL.length > 0) {
-                let copiedPlainText = '';
-                let copiedHTMLText = '';
-                let copiedforPDF = '';
-                let subject = "Sources for your project";
-                const LHurl = "https://chrome.google.com/webstore/detail/linkharbor/";
-                let advertisementHTML = `This source list was generated using the <strong>LinkHarbor</strong> Chrome Extension. <a href="${LHurl}"><br>Download the extension today</a> to save your sources and generate APA citations with ease!`;
-                let advertisementPlainText = "This source list was generated using the LinkHarbor Chrome Extension.\nDownload the extension today to save your sources and generate APA citations with ease! Click the link below!\n" + LHurl;
-                
                 if (toggleProject1.checked) {
                     subject = project1Title.value + " [APA Citations]\n\n";
                 } else if (!toggleProject1.checked) {
                     subject = project1Title.value + " [Sources]\n\n";
                 }
-
-                let entries = Project1URL.map((url, index) => ({
-                    author: Project1Author[index],
-                    publishedDate: Project1PublishedDate[index],
-                    article: Project1Article[index],
-                    summary: Project1Summary[index],
-                    url: url,
-                    isYouTube: url.includes("https://youtube.com/watch?")
-                }));
+            
+                if (selectedButtons) {
+                    entries = selectedURL.map((url, index) => ({
+                        author: selectedAuthor[index],
+                        publishedDate: selectedPublishedDate[index],
+                        article: selectedArticle[index],
+                        summary: selectedSummary[index],
+                        url: url,
+                        isYouTube: url.includes("https://youtube.com/watch?")
+                    }));
+                } else {
+                        
+                        
+        
+                        entries = Project1URL.map((url, index) => ({
+                            author: Project1Author[index],
+                            publishedDate: Project1PublishedDate[index],
+                            article: Project1Article[index],
+                            summary: Project1Summary[index],
+                            url: url,
+                            isYouTube: url.includes("https://youtube.com/watch?")
+                        }));
+                
+                }
 
                 entries.sort((a, b) => a.author.localeCompare(b.author));
+
+                console.log("Entries:", entries);
 
                 for (let i = 0; i < entries.length; i++) {
                     const entry = entries[i];
@@ -418,10 +438,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 const HTMLblob = new Blob([copiedHTMLText], { type: 'text/html' });
                 const TEXTblob = new Blob([copiedPlainText], { type: 'text/plain' });
 
-
-    
-
-
                 return {
                     HTMLblob,
                     TEXTblob, 
@@ -430,11 +446,13 @@ document.addEventListener("DOMContentLoaded", function() {
                     advertisementPlainText, 
                     copiedforPDF
                 };
+
             } else {
                 alert("There are no sources to export.");
 
             }
         };
+    
         
 
 
