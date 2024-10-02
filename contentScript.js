@@ -35,12 +35,12 @@ const floatingButton = document.createElement("button");
     var projectPort = chrome.runtime.connect({ name: "contentScript-background" });
  
     projectPort.onDisconnect.addListener(function() {
-        console.error("Port disconnected. Reconnecting...");
+        console.log("Port disconnected. Reconnecting...");
         reconnectPort();
         if (projectPort) {
             console.log("Reconnected");
         } else {
-            console.error("Reconnection failed");
+            console.log("Reconnection failed");
         }
     });
  
@@ -48,6 +48,13 @@ const floatingButton = document.createElement("button");
     floatingButton.addEventListener("click", function() {
 
         console.log("clicked");
+
+        projectPort = chrome.runtime.connect({ name: "contentScript-background" });
+
+        if (!projectPort) {
+            alert("LinkHarbor timeout. Please refresh the page and try again.");
+        }
+
 
         const current_url = window.location.href;
         console.log("Current URL:", current_url);
