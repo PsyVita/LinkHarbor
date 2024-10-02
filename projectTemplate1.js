@@ -1,4 +1,44 @@
 document.addEventListener("DOMContentLoaded", function() {
+
+    const savingSelect = document.getElementById("saving_select");
+    let savableTabs = [];
+
+    savingSelect.addEventListener("focus", function() {
+        savableTabs = [];
+
+        chrome.tabs.query({}, function(tabs) {
+            tabs.forEach(tab => {
+                savableTabs.push(tab.url);
+                const option = document.createElement("option");
+                option.value = tab.url;
+                option.textContent = tab.title;
+                savingSelect.appendChild(option);
+                
+            });
+        });
+
+        console.log("Savable Tabs:", savableTabs);
+
+        
+    });
+
+    var projectPort = chrome.runtime.connect({ name: "project1-background" });
+
+    savingSelect.addEventListener("change", function() {
+        if (savingSelect.value === "Add All Tabs") {
+            chrome.tabs.query({}, function(tabs) {
+                tabs.forEach(tab => {
+                    projectPort.postMessage({ type: "bundleSavingSignal", current_url: savingSelect.value });
+                });
+            });
+        } else if (savableTabs.includes(savingSelect.value)) {
+            projectPort.postMessage({ type: "bundleSavingSignal", current_url: savingSelect.value });
+        }
+      
+    });
+
+
+
     const project1Title = document.getElementById("project1Title");
     let clickTimeout;
 

@@ -43,11 +43,30 @@ const floatingButton = document.createElement("button");
             console.log("Reconnection failed");
         }
     });
+
+    let current_url;
+
+    chrome.runtime.onConnect.addListener(function(port) {
+        if (port.name === "background-contentScript") {
+            port.onMessage.addListener(function(message) {
+                console.log("Message received from background.js:", message);
+                if (message.type === "backtoContentScript") {
+                    current_url = message.current_url;
+                }
+
+                console.log("Entering scrapeInfo function");
+                scrapeInfo();
+                projectPort.postMessage({ type: "normalSavingSignal" });
+            });
+        }
+        
+    });
  
     // Add event listener for button click
     floatingButton.addEventListener("click", function() {
 
         console.log("clicked");
+        current_url = window.location.href;
 
         projectPort = chrome.runtime.connect({ name: "contentScript-background" });
 
@@ -55,11 +74,27 @@ const floatingButton = document.createElement("button");
             alert("LinkHarbor timeout. Please refresh the page and try again.");
         }
 
+        scrapeInfo();
 
-        const current_url = window.location.href;
-        console.log("Current URL:", current_url);
+        projectPort.postMessage({ type: "normalSavingSignal" });
+        console.log("Message sent to background.js");
+        
+        floatingButton.innerText = "Saved!";
+        floatingButton.disabled = true;
+        setTimeout(() => {
+            floatingButton.style.opacity = "0"; // Hide the button
+        }, 5000);
+        setTimeout(() => {
+            floatingButton.style.display = "none"; // Hide the button   
+        }, 6000);
 
-        if (window.location.href.startsWith("https://www.youtube.com/watch?")) {
+    });
+
+
+function scrapeInfo() {
+    console.log("Current URL:", current_url);
+
+        if (current_url.startsWith("https://www.youtube.com/watch?")) {
             chrome.storage.local.set({ "SavedType": "YouTube" });
 
             let current_author, current_published_date, current_title, shortenedPublishedDate, capitalizedTitle;
@@ -222,21 +257,10 @@ const floatingButton = document.createElement("button");
             
         }
     
-            projectPort.postMessage({ type: "normalSavingSignal" });
-            console.log("Message sent to background.js");
-            
-            floatingButton.innerText = "Saved!";
-            floatingButton.disabled = true;
-            setTimeout(() => {
-                floatingButton.style.opacity = "0"; // Hide the button
-            }, 5000);
-            setTimeout(() => {
-                floatingButton.style.display = "none"; // Hide the button   
-            }, 6000);
+           
                            
-        
-        
-    });
+        }  
+    
 
 
 

@@ -64,6 +64,18 @@ html {
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
 
+#saving_select {
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--FS-MEDIUM);
+    padding: 5px;
+    margin: 10px;
+    border-radius: 20px;
+    box-shadow: var(--DARK-COLOR) 0px 2px 8px 0px;
+}
+
 .header {
     display: flex;
     justify-content: center;
@@ -798,7 +810,7 @@ html {
 
 .save-method {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
 }
 
@@ -831,8 +843,9 @@ html {
     font-size: var(--FS-MEDIUM);
     position: relative;
     display: inline-block;
-    width: 9em;
-    height: 2em;
+    width: 100px;
+    height: 30px;
+    box-shadow: var(--DARK-COLOR) 0px 2px 8px 0px;
    }
    
    /* Hide default HTML checkbox */

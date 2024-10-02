@@ -31,21 +31,17 @@
     <hr >
     
     <div class="body__project__template move">
-        <div class="row">
-            <div class="column save-method">
-                <label class="space"for="save-method">Add current websites:</label>
-                <select  class="lrbspace" name="saving-methods" id="saving-methods">     <option value="Select All Open Tabs">Select All Open Tabs</option>
-                    <option value="tab1">tab1</option>
-                    <option value="tab2">tab2</option>
-                    <option value="tab3">tab3</option>
+            <div class="save-method">
+                <select class="lrbspace" name="saving-methods" id="saving_select">     <option value="Add more sources" disabled selected>Add more sources...</option>
+                <option value="Add All Tabs">Add All Tabs</option>
                 </select>
-            </div>
-                <button id="stamp__button__import" class="stamp__button__import">Import Sources</button>
+                <button id="stamp__button__import" class="stamp__button__import">Import</button>
                 <label class="switch space">
-                    <input  type="checkbox" id="toggleProject1">
+                    <input type="checkbox" id="toggleProject1">
                     <span id="switch" class="slider"></span>
-                    </label>
+                </label>
             </div>
+        
         <main class="main lrspace projects">
             <div class="article_complete" id="article_complete">
                <p id="add__more__sources">Sources will appear here once anchored!</p>

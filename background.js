@@ -9,6 +9,18 @@ chrome.runtime.onConnect.addListener(function(port) {
         console.log("Port disconnected");
     });
 
+    var port = chrome.runtime.connect({ name: "background-contentScript" });
+
+if (port.name === "project1-background") {
+    port.onMessage.addListener(function(message) {
+        console.log("Message received from project.js:", message);
+        if (message.type === "bundleSavingSignal") {
+            port.postmessage({ type: "backtoContentScript", current_url: message.current_url });
+        }
+    });
+}
+
+if (port.name === "contentScript-background") {
     port.onMessage.addListener(function(message) {
         console.log("Message received from contentScript.js:", message);
         if (message.type === "normalSavingSignal") {
@@ -49,7 +61,8 @@ chrome.runtime.onConnect.addListener(function(port) {
                 }); 
             } 
         }); 
-    }); 
+    }; 
+});
 
     async function createOffscreen() {
         await chrome.offscreen.createDocument({
