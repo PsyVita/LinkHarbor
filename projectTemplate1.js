@@ -206,6 +206,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     };
 
+//const selectedButtons = document.querySelectorAll(".selected__button") || null;
+
 
         const cancelButton = document.getElementById("cancelButton");
         cancelButton.addEventListener("click", function() {
@@ -214,15 +216,28 @@ document.addEventListener("DOMContentLoaded", function() {
             cancelButton.style.display = "none";
             changeBackground.style.backgroundColor = "#f0f8ff";
             project1Title.style.display = "block";
-            if (selectedButtons) {
-                selectedButtons.style.display = "none";
+            /*
+            if (selectedButtons && selectedButtons.length > 0) {
+                selectedButtons.forEach(button => {
+                    button.style.display = "none";
+                });
             }
+                */
             for (let i = 0; i < Project1URL.length; i++) {
                 document.getElementById("sources__button" + i).style.color = "black";
+                const selectedButton = document.getElementById("selected__button" + i);
+                if (selectedButton) {
+                    if (selectedButton.style.display === "block") {
+                        document.getElementById("selected__button" + i).style.display = "none";
+                        document.getElementById("numberCounter" + i).style.display = "block";
+                    }
+                }
             }
         });
 
         cancelButton.style.display = "none";
+    
+    let selectedURL, selectedArticle, selectedAuthor, selectedPublishedDate, selectedSummary;
     
     function selectingSources() {
         if (document.getElementById("sources__button" + "0") !== null) {
@@ -239,28 +254,47 @@ document.addEventListener("DOMContentLoaded", function() {
                         changeBackground.style.backgroundColor = "#a293ad";
                         project1Title.style.display = "none";
 
+                        const selectedButton = document.querySelectorAll(".selected__button");
+
                         if (document.getElementById("sources__button" + i).style.color === "orange") {
                             document.getElementById("sources__button" + i).style.color = "black";
                             document.getElementById("selected__button" + i).style.display = "none";
                             document.getElementById("numberCounter" + i).style.display = "block";
 
-                            const selectedButtons = document.querySelectorAll(".selected__button");
-                            const allHidden = Array.from(selectedButtons).every(button => button.style.display === "none");
+                            
+                            const allHidden = Array.from(selectedButton).every(button => button.style.display === "none");
 
                             if (allHidden) {
-                                clearProject1URL.style.display = "block";
-                                deleteProject1URL.style.display = "none";
-                                cancelButton.style.display = "none";
-                                changeBackground.style.backgroundColor = "#f0f8ff";
-                                project1Title.style.display = "block";
-                            }
+                                cancelButton.click();
+                            } 
+
                         } else {
                             document.getElementById("sources__button" + i).style.color = "orange";
                             document.getElementById("selected__button" + i).style.display = "block";
                             document.getElementById("numberCounter" + i).style.display = "none";
                         }
 
-                        //const allSourcesButtons = document.querySelectorAll(".sources__button");
+                        selectedURL = [];
+                        selectedArticle = [];
+                        selectedAuthor = [];
+                        selectedPublishedDate = [];
+                        selectedSummary = [];
+
+                        for (let i = 0; i < Project1URL.length; i++) {
+                            if (selectedButton[i].style.display === "block") {
+                                selectedURL.push(Project1URL[i]);
+                                selectedArticle.push(Project1Article[i]);
+                                selectedAuthor.push(Project1Author[i]);
+                                selectedPublishedDate.push(Project1PublishedDate[i]);
+                                selectedSummary.push(Project1Summary[i]);
+                            }
+                        }
+
+                        console.log("Selected URL:", selectedURL);
+                        console.log("Selected Article:", selectedArticle);
+                        console.log("Selected Author:", selectedAuthor);
+                        console.log("Selected Published Date:", selectedPublishedDate);
+                        console.log("Selected Summary:", selectedSummary);
 
                     }, 100);
                 });
