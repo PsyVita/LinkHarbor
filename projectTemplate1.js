@@ -35,88 +35,108 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const toggleProject1 = document.getElementById("toggleProject1");
 
-    chrome.storage.local.get(["selectedProject", "LHProject1URL", "LHProject1Article", "LHProject1Author", "LHProject1PublishedDate", "LHProject1Summary", "LHProject1"], function(result) {
-        let Project1URL = result.LHProject1URL;
-        let Project1Article = result.LHProject1Article;
-        let Project1Author = result.LHProject1Author;
-        let Project1PublishedDate = result.LHProject1PublishedDate;
-        let Project1Summary = result.LHProject1Summary;
+    let Project1URL, Project1Article, Project1Author, Project1PublishedDate, Project1Summary;
 
-        
+    updateStorageInformation();
 
-        if (Project1URL.length > 0 || Project1Article.length > 0) {
-            addMoreSources.style.display = "none";
-
+    function updateStorageInformation () {
+        chrome.storage.local.get(["selectedProject", "LHProject1URL", "LHProject1Article", "LHProject1Author", "LHProject1PublishedDate", "LHProject1Summary", "LHProject1"], function(result) {
+            console.log("Result:", result);
             
+            Project1URL = result.LHProject1URL || [];
+            Project1Article = result.LHProject1Article || [];
+            Project1Author = result.LHProject1Author || [];
+            Project1PublishedDate = result.LHProject1PublishedDate || [];
+            Project1Summary = result.LHProject1Summary || [];
+    
+            sourceDisplay();
+            selectingSources();
+        });
+    }
+    
 
-            for (let i = 0; i < Project1URL.length; i++) {
-                const numberCounter = document.createElement("span");
-                numberCounter.textContent = i + 1 + ".";
-                numberCounter.className = "numberCounter";
-                numberCounter.id = "numberCounter" + i;
+        function sourceDisplay() {
 
-                const articleRow = document.createElement("div");
-                articleRow.className = "article_complete";
-                articleRow.id = "article_complete" + i;
-                articleRow.style.display = "flex";
-                articleRow.style.flexDirection = "row";
+            //deleteeverything in the article_complete div
+            const articleComplete = document.getElementById("article_complete");
+            while (articleComplete.firstChild) {
+                articleComplete.removeChild(articleComplete.firstChild);
+            }
 
-                const articleButton = document.createElement("button");
-                articleButton.className = "sources__button";
-                articleButton.id = "sources__button" + i;
+            articleComplete.appendChild(addMoreSources);
+            addMoreSources.style.display = "block";
 
-                const articleSummary = document.createElement("button");
-                articleSummary.id = "article__summary" + i;
-                articleSummary.className = "article__summary";
-                articleSummary.textContent = "S";
+            console.log("Project1URLlength:", Project1URL.length);
+            if (Project1URL.length > 0) {
+                addMoreSources.style.display = "none";
+                for (let i = 0; i < Project1URL.length; i++) {
+                    const numberCounter = document.createElement("span");
+                    numberCounter.textContent = i + 1 + ".";
+                    numberCounter.className = "numberCounter";
+                    numberCounter.id = "numberCounter" + i;
 
-                const selectedButton = document.createElement("img");
-                selectedButton.src = "images/checked.png";
-                selectedButton.className = "selected__button";
-                selectedButton.id = "selected__button" + i;
-                selectedButton.style.display = "none";
+                    const articleRow = document.createElement("div");
+                    articleRow.className = "article_complete";
+                    articleRow.id = "article_complete" + i;
+                    articleRow.style.display = "flex";
+                    articleRow.style.flexDirection = "row";
 
-                document.getElementById('article_complete').appendChild(articleRow);
-                document.getElementById('article_complete' + i).appendChild(selectedButton);
-                document.getElementById('article_complete' + i).append(numberCounter);
-                document.getElementById('article_complete' + i).appendChild(articleButton);
-                document.getElementById('article_complete' + i).appendChild(articleSummary);
+                    const articleButton = document.createElement("button");
+                    articleButton.className = "sources__button";
+                    articleButton.id = "sources__button" + i;
 
+                    const articleSummary = document.createElement("button");
+                    articleSummary.id = "article__summary" + i;
+                    articleSummary.className = "article__summary";
+                    articleSummary.textContent = "S";
 
-                const articleTextSummary = document.createElement("p");
-                articleTextSummary.textContent = Project1Summary[i];
-                articleTextSummary.className = "article__text__summary";
-                articleTextSummary.id = "article__text__summary" + i;
-                document.getElementById('sources__button' + i).appendChild(articleTextSummary);
-                articleTextSummary.style.display = "none";
+                    const selectedButton = document.createElement("img");
+                    selectedButton.src = "images/checked.png";
+                    selectedButton.className = "selected__button";
+                    selectedButton.id = "selected__button" + i;
+                    selectedButton.style.display = "none";
 
-                const articleTitle = document.createElement("h4");
-                articleTitle.textContent = Project1Article[i];
-                articleTitle.id = "article__title" + i;
-                articleTitle.className = "article__title";
-                document.getElementById('sources__button' + i).appendChild(articleTitle);
-
-                const articleURL = document.createElement("p");
-                articleURL.textContent = Project1URL[i];
-                articleURL.className = "article__URL";
-                articleURL.id = "article__URL" + i;
-                document.getElementById('sources__button' + i).appendChild(articleURL);
-
-                const APAformat = document.createElement("p");
-                APAformat.id = "APA__format" + i;
-                APAformat.className = "APA__format";
-                document.getElementById('sources__button' + i).appendChild(APAformat);
+                    document.getElementById('article_complete').appendChild(articleRow);
+                    document.getElementById('article_complete' + i).appendChild(selectedButton);
+                    document.getElementById('article_complete' + i).append(numberCounter);
+                    document.getElementById('article_complete' + i).appendChild(articleButton);
+                    document.getElementById('article_complete' + i).appendChild(articleSummary);
 
 
-                chrome.storage.local.get(["SavedType"], function(result) {
-                    if (Project1URL[i].length > 32) {
-                        const shortenedURL =  Project1URL[i].slice(0, 32) + '...';
-                    
-                    if (result.SavedType === "normal") {
-                        APAformat.innerHTML = `${Project1Author[i]}. (${Project1PublishedDate[i]}). <i>${Project1Article[i]}. </i>${shortenedURL}\n\n`;
-                    } else if (result.SavedType === "YouTube") {
-                        APAformat.innerHTML = `${Project1Author[i]}. (${Project1PublishedDate[i]}). <i>${Project1Article[i]}. </i>[Video]. YouTube. ${shortenedURL}\n\n`;
-                    }
+                    const articleTextSummary = document.createElement("p");
+                    articleTextSummary.textContent = Project1Summary[i];
+                    articleTextSummary.className = "article__text__summary";
+                    articleTextSummary.id = "article__text__summary" + i;
+                    document.getElementById('sources__button' + i).appendChild(articleTextSummary);
+                    articleTextSummary.style.display = "none";
+
+                    const articleTitle = document.createElement("h4");
+                    articleTitle.textContent = Project1Article[i];
+                    articleTitle.id = "article__title" + i;
+                    articleTitle.className = "article__title";
+                    document.getElementById('sources__button' + i).appendChild(articleTitle);
+
+                    const articleURL = document.createElement("p");
+                    articleURL.textContent = Project1URL[i];
+                    articleURL.className = "article__URL";
+                    articleURL.id = "article__URL" + i;
+                    document.getElementById('sources__button' + i).appendChild(articleURL);
+
+                    const APAformat = document.createElement("p");
+                    APAformat.id = "APA__format" + i;
+                    APAformat.className = "APA__format";
+                    document.getElementById('sources__button' + i).appendChild(APAformat);
+
+
+                    chrome.storage.local.get(["SavedType"], function(result) {
+                        if (Project1URL[i].length > 32) {
+                            const shortenedURL =  Project1URL[i].slice(0, 32) + '...';
+                        
+                        if (result.SavedType === "normal") {
+                            APAformat.innerHTML = `${Project1Author[i]}. (${Project1PublishedDate[i]}). <i>${Project1Article[i]}. </i>${shortenedURL}\n\n`;
+                        } else if (result.SavedType === "YouTube") {
+                            APAformat.innerHTML = `${Project1Author[i]}. (${Project1PublishedDate[i]}). <i>${Project1Article[i]}. </i>[Video]. YouTube. ${shortenedURL}\n\n`;
+                        }
                 } else {
                     if (result.SavedType === "normal") {
                         APAformat.innerHTML = `${Project1Author[i]}. (${Project1PublishedDate[i]}). <i>${Project1Article[i]}. </i>${Project1URL[i]}\n\n`;
@@ -124,7 +144,10 @@ document.addEventListener("DOMContentLoaded", function() {
                         APAformat.innerHTML = `${Project1Author[i]}. (${Project1PublishedDate[i]}). <i>${Project1Article[i]}. </i>[Video]. YouTube. ${shortenedURL}\n\n`;
                     }
                 }
-                });
+            });
+
+
+            
 
                
                 const normalFormatElements = document.querySelectorAll(".article__title, .article__URL");
@@ -178,8 +201,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 toggleProject1.dispatchEvent(new Event("change"));
             }
         } else {
-            addMoreSources.style.display = "visible";
+            addMoreSources.style.display = "block";
         }
+
+    };
+
 
         const cancelButton = document.getElementById("cancelButton");
         cancelButton.addEventListener("click", function() {
@@ -188,21 +214,24 @@ document.addEventListener("DOMContentLoaded", function() {
             cancelButton.style.display = "none";
             changeBackground.style.backgroundColor = "#f0f8ff";
             project1Title.style.display = "block";
-            selectedButtons.style.display = "none";
+            if (selectedButtons) {
+                selectedButtons.style.display = "none";
+            }
             for (let i = 0; i < Project1URL.length; i++) {
                 document.getElementById("sources__button" + i).style.color = "black";
             }
         });
 
         cancelButton.style.display = "none";
-
+    
+    function selectingSources() {
         if (document.getElementById("sources__button" + "0") !== null) {
             // Selecting projects
             for (let i = 0; i < Project1URL.length; i++) {
                 document.getElementById("sources__button" + i).addEventListener("click", function(event) {
                     clearTimeout(clickTimeout);
 
-                    clickTimeout = setTimeout(function() {
+                        clickTimeout = setTimeout(function() {
                         clearProject1URL.style.display = "none";
                         deleteProject1URL.style.display = "block";
 
@@ -237,30 +266,55 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
             }
         }
-    });
+    }
 
     // Clear Project1URL when the delete button is clicked
     clearProject1URL.addEventListener("click", function() {
-        const userConfirmed = confirm("Are you sure you want to reset the entire project? All saved URLs in this project will be permanently lost. Once cleared, the extension will close automatically.");
+        if (Project1URL.length > 0) {
+            const userConfirmed = confirm("Are you sure you want to reset the entire project? All saved URLs in this project will be permanently lost. This action cannot be undone.");
 
-        if (userConfirmed) {
-            chrome.storage.local.set({
-                LHProject1URL: [],
-                LHProject1Article: [],
-                LHProject1Author: [],
-                LHProject1PublishedDate: [],
-                LHProject1Summary: [],
-                LHproject1TitleStorage: "Project #1"
-            }, function() {
-                console.log("URLs and articles are cleared.");
-                chrome.runtime.sendMessage({ action: "closePopup" });
-            });
+            if (userConfirmed) {
+                chrome.storage.local.set({
+                    LHProject1URL: [],
+                    LHProject1Article: [],
+                    LHProject1Author: [],
+                    LHProject1PublishedDate: [],
+                    LHProject1Summary: [],
+                    LHproject1TitleStorage: "Project #1"
+                }, function() {
+                    console.log("URLs and articles are cleared.");
+                    updateStorageInformation();
+                });
+            }
+        } else {
+            alert("There are no sources to delete.");
         }
     });
 
     // Delete individual sources
     deleteProject1URL.addEventListener("click", function() {
-        // Logic to delete individual sources
+        if (Project1URL.length > 0) {
+            for (let i = 0; i < Project1URL.length; i++) {
+                if (document.getElementById("sources__button" + i).style.color === "orange") {
+                    Project1URL.splice(i, 1);
+                    Project1Article.splice(i, 1);
+                    Project1Author.splice(i, 1);
+                    Project1PublishedDate.splice(i, 1);
+                    Project1Summary.splice(i, 1);
+
+                    chrome.storage.local.set({ "LHProject1URL": Project1URL });
+                    chrome.storage.local.set({ "LHProject1Article": Project1Article });
+                    chrome.storage.local.set({ "LHProject1Author": Project1Author });
+                    chrome.storage.local.set({ "LHProject1PublishedDate": Project1PublishedDate });
+                    chrome.storage.local.set({ "LHProject1Summary": Project1Summary });
+
+                    updateStorageInformation();
+                    cancelButton.click();
+                }
+            }
+        } else {
+            alert("There are no sources to delete.");
+        }
     });
 
     chrome.storage.local.get(["LHProject1URL", "LHProject1Article", "LHProject1Author", "LHProject1PublishedDate", "LHProject1Summary"], function(result) {
@@ -380,6 +434,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     copyToClipboardButton.textContent = "Copy to Clipboard";
                 }, 2000);
 
+            } else {
+                alert("There are no sources to copy.");
             }
         });
 
@@ -411,6 +467,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 setTimeout(function() {
                     emailButton.textContent = "Share via Gmail";
                 }, 2000);
+            } else {
+                alert("There are no sources to email.");
             }
 
         });
@@ -456,6 +514,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     setTimeout(function() {
                         pdfButton.textContent = "Export to PDF";
                     }, 2000);
+            } else {
+                alert("There are no sources to export.");
             }
         });
     });
