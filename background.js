@@ -3,8 +3,11 @@
 
 chrome.runtime.onConnect.addListener(function(port) {
     console.log("Connected port name:", port.name); // Log the port name for debugging
-    console.assert(port.name === "contentScript-background");
+   // console.assert(port.name === "contentScript-background");
     
+    port.onDisconnect.addListener(() => {
+        console.log("Port disconnected");
+    });
 
     port.onMessage.addListener(function(message) {
         console.log("Message received from contentScript.js:", message);
@@ -47,3 +50,14 @@ chrome.runtime.onConnect.addListener(function(port) {
             } 
         }); 
     }); 
+
+    async function createOffscreen() {
+        await chrome.offscreen.createDocument({
+          url: 'offscreen.html',
+          reasons: ['BLOBS'],
+          justification: 'keep service worker running',
+        }).catch(() => {});
+      }
+      chrome.runtime.onStartup.addListener(createOffscreen);
+      self.onmessage = e => {}; // keepAlive
+      createOffscreen();

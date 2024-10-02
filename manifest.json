@@ -8,7 +8,7 @@
         "default_popup": "startPage.html",
         "default_title": "LinkHarbor Demo"
     },
-    "permissions": ["scripting", "tabs", "clipboardWrite", "storage", "activeTab", "bookmarks"],
+    "permissions": ["offscreen", "scripting", "tabs", "clipboardWrite", "storage", "activeTab", "bookmarks"],
     "background": {
         "service_worker": "background.js",
         "type": "module"

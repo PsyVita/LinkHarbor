@@ -33,7 +33,18 @@ const floatingButton = document.createElement("button");
 
   
     var projectPort = chrome.runtime.connect({ name: "contentScript-background" });
- // Add event listener for button click
+ 
+    projectPort.onDisconnect.addListener(function() {
+        console.error("Port disconnected. Reconnecting...");
+        reconnectPort();
+        if (projectPort) {
+            console.log("Reconnected");
+        } else {
+            console.error("Reconnection failed");
+        }
+    });
+ 
+    // Add event listener for button click
     floatingButton.addEventListener("click", function() {
 
         console.log("clicked");
