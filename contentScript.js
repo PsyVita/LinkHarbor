@@ -33,6 +33,8 @@ const floatingButton = document.createElement("button");
 
   
     var projectPort = chrome.runtime.connect({ name: "contentScript-background" });
+
+    /*
  
     projectPort.onDisconnect.addListener(function() {
         console.log("Port disconnected. Reconnecting...");
@@ -43,6 +45,8 @@ const floatingButton = document.createElement("button");
             console.log("Reconnection failed");
         }
     });
+
+    */
 
     let current_url;
 
@@ -65,9 +69,21 @@ const floatingButton = document.createElement("button");
     });
 
     */
+
+chrome.runtime.onConnect.addListener(function(port) {
+    chrome.runtime.onMessage.addListener(function(message) {
+            if (message.type === "importSavingSignal2") {
+                current_url = message.current_url;
+                console.log("Entering scrapeInfo function", current_url);
+                scrapeInfo();
+                projectPort.postMessage({ type: "normalSavingSignal" });
+            }
+    });
+});
+
  
     // Add event listener for button click
-    floatingButton.addEventListener("click", function() {
+floatingButton.addEventListener("click", function() {
 
         console.log("clicked");
         current_url = window.location.href;

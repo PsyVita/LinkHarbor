@@ -62,6 +62,21 @@ if (port.name === "contentScript-background") {
             } 
         }); 
     }; 
+
+
+
+
+if (port.name === "import-project-background") {
+    port.onMessage.addListener(function(message) {
+        console.log("Message received from project.js:", message);
+        if (message.type === "importSavingSignal") {
+            console.log("Preparing to send 'importSavingSignal2'");
+            port.postMessage({ type: "importSavingSignal2", current_url: message.current_url });
+            console.log("Message sent to contentScript.js", message);
+        }
+    });
+}
+
 });
 
     async function createOffscreen() {

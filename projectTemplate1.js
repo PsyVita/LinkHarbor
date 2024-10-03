@@ -37,6 +37,23 @@ document.addEventListener("DOMContentLoaded", function() {
       
     });
 */
+    const importButton = document.getElementById("stamp__button__import");
+    var port = chrome.runtime.connect({ name: "import-project-background" });
+    
+    importButton.addEventListener("click", function() {
+        if (savingSelect.value === "Add All Tabs") {
+            /*
+            chrome.tabs.query({}, function(tabs) {
+                tabs.forEach(tab => {
+                    projectPort.postMessage({ type: "bundleSavingSignal", current_url: savingSelect.value });
+                });
+            });
+            */
+        } else if (savableTabs.includes(savingSelect.value)) {
+            port.postMessage({ type: "importSavingSignal", current_url: savingSelect.value });
+            console.log("Sent message to background.js", savingSelect.value);
+        }
+    });
 
 
     const project1Title = document.getElementById("project1Title");
