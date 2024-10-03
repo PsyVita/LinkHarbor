@@ -46,6 +46,8 @@ const floatingButton = document.createElement("button");
 
     let current_url;
 
+    /*
+
     chrome.runtime.onConnect.addListener(function(port) {
         if (port.name === "background-contentScript") {
             port.onMessage.addListener(function(message) {
@@ -61,6 +63,8 @@ const floatingButton = document.createElement("button");
         }
         
     });
+
+    */
  
     // Add event listener for button click
     floatingButton.addEventListener("click", function() {

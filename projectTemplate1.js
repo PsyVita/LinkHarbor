@@ -22,9 +22,9 @@ document.addEventListener("DOMContentLoaded", function() {
         
     });
 
-    var projectPort = chrome.runtime.connect({ name: "project1-background" });
+   // var projectPort = chrome.runtime.connect({ name: "project1-background" });
 
-    savingSelect.addEventListener("change", function() {
+  /*  savingSelect.addEventListener("change", function() {
         if (savingSelect.value === "Add All Tabs") {
             chrome.tabs.query({}, function(tabs) {
                 tabs.forEach(tab => {
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
       
     });
-
+*/
 
 
     const project1Title = document.getElementById("project1Title");
@@ -420,15 +420,19 @@ document.addEventListener("DOMContentLoaded", function() {
                     subject = project1Title.value + " [Sources]\n\n";
                 }
             
-                if (selectedURL.length > 0) {
-                    entries = selectedURL.map((url, index) => ({
-                        author: selectedAuthor[index],
-                        publishedDate: selectedPublishedDate[index],
-                        article: selectedArticle[index],
-                        summary: selectedSummary[index],
-                        url: url,
-                        isYouTube: url.includes("https://youtube.com/watch?")
-                    }));
+                if (selectedURL) {
+                    if (selectedURL.length > 0) {
+                        entries = selectedURL.map((url, index) => ({
+                            author: selectedAuthor[index],
+                            publishedDate: selectedPublishedDate[index],
+                            article: selectedArticle[index],
+                            summary: selectedSummary[index],
+                            url: url,
+                            isYouTube: url.includes("https://youtube.com/watch?")
+                        }));
+                    }
+
+                    selectedURL = [];
                 } else {
                         
                         
