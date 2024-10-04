@@ -9,10 +9,10 @@ document.addEventListener("DOMContentLoaded", function() {
     startButton.addEventListener("mouseup", function(event) {
         
         chrome.storage.local.get(["LHVisitedTimes"], function(result) {
-            if (result.LHVisitedTimes === "LHvisitedFirstTime") {
-                window.location.href = "introduction.html";
-            } else if (result.LHVisitedTimes === "LHalreadyVisited") {
+            if (result.LHVisitedTimes === "LHalreadyVisited") {
                 window.location.href = "home.html";
+            } else {
+                window.location.href = "introduction.html";
             }
         });
     });
