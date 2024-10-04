@@ -82,11 +82,15 @@ const floatingButton = document.createElement("button");
             }
             if (message.type === "bundleImportComplete") {
                 console.log("Bundle import complete");
-                alert("All tabs have been imported successfully.");
+                alert("All tabs have been imported. Duplicate sources have been skipped.");
             }
             if (message.type === "singleImportComplete") {
                 console.log("Single import complete");
                 alert("The selected tab has been imported successfully.");
+            }
+            if (message.type === "alreadySavedOnce") {
+                console.log("This is already saved once.");
+                alert(message.repeated_URL + " <-- This source already exists in your current project.");
             }
         }
     });

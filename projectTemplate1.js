@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
         
     });
 
+
    // var projectPort = chrome.runtime.connect({ name: "project1-background" });
 
   /*  savingSelect.addEventListener("change", function() {
@@ -125,6 +126,16 @@ document.addEventListener("DOMContentLoaded", function() {
     let Project1URL, Project1Article, Project1Author, Project1PublishedDate, Project1Summary;
 
     updateStorageInformation();
+
+    /*
+    chrome.runtime.onConnect.addListener(function(port) {
+        if (port.name === "background-project1") {
+            if (port.type === "singleImportComplete") {
+                updateStorageInformation();
+            }
+        }
+    });
+    */
 
     function updateStorageInformation () {
         chrome.storage.local.get(["selectedProject", "LHProject1URL", "LHProject1Article", "LHProject1Author", "LHProject1PublishedDate", "LHProject1Summary", "LHProject1"], function(result) {
@@ -495,7 +506,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 
                 }
 
-                entries.sort((a, b) => a.author.localeCompare(b.author));
+                if (entries.length > 1) {
+                    entries.sort((a, b) => a.author.localeCompare(b.author));
+                }
 
                 console.log("Entries:", entries);
 

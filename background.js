@@ -1,5 +1,5 @@
 
-
+let statusSaved = false;
 
 chrome.runtime.onConnect.addListener(function(port) {
     console.log("Connected port name:", port.name); // Log the port name for debugging
@@ -37,29 +37,64 @@ if (port.name === "contentScript-background") {
                             let Project1Author = result.LHProject1Author || [];
                             let Project1PublishedDate = result.LHProject1PublishedDate || [];
                             let Project1Summary = result.LHProject1Summary || [];
-
+                            
 
                             if (result.selectedProject === "projectOneSelected") {
-                                Project1URL.push(result.websiteInfoSet.URL);
-                                Project1Article.push(result.websiteInfoSet.title);
-                                Project1Author.push(result.websiteInfoSet.author);
-                                Project1PublishedDate.push(result.websiteInfoSet.published_date);
-                                Project1Summary.push(result.websiteInfoSet.summary);
 
-                                chrome.storage.local.set({
-                                    LHProject1URL: Project1URL,
-                                    LHProject1Article: Project1Article,
-                                    LHProject1Author: Project1Author,
-                                    LHProject1PublishedDate: Project1PublishedDate,
-                                    LHProject1Summary: Project1Summary
-                                }, function() {
-                                    console.log("URLs and articles updated in storage");
-                                });
+                                if (Project1URL.includes(result.websiteInfoSet.URL)) {
+                                    setTimeout(() => {
+                                        let current_tab_id;
+                                        chrome.tabs.query({'active': true, 'lastFocusedWindow': true, 'currentWindow': true}, function (tabs) {
+                                        current_tab_id = tabs[0].id;
+                                        console.log("Last focused tab:", current_tab_id);
+                                        chrome.tabs.sendMessage(Number(current_tab_id), { type: "alreadySavedOnce", repeated_URL: result.websiteInfoSet.URL });
+                                    });
+                                    }, 1000);
+                                    
+                                } else {
+                                    Project1URL.push(result.websiteInfoSet.URL);
+                                    Project1Article.push(result.websiteInfoSet.title);
+                                    Project1Author.push(result.websiteInfoSet.author);
+                                    Project1PublishedDate.push(result.websiteInfoSet.published_date);
+                                    Project1Summary.push(result.websiteInfoSet.summary);
+
+                                    
+                                    setTimeout(() => {
+                                        if (statusSaved === true) {
+                                            let current_tab_id;
+                                            chrome.tabs.query({'active': true, 'lastFocusedWindow': true, 'currentWindow': true}, function (tabs) {
+                                                current_tab_id = tabs[0].id;
+                                                chrome.tabs.sendMessage(Number(current_tab_id), { type: "singleImportComplete" });
+                                                //var port = chrome.runtime.connect({ name: "background-project1" });
+                                                //port.postMessage({ type: "singleImportComplete" });
+                                                statusSaved = false;
+                                            });
+                                        }
+                                    }, 30);
+                                    
+
+                                    chrome.storage.local.set({
+                                        LHProject1URL: Project1URL,
+                                        LHProject1Article: Project1Article,
+                                        LHProject1Author: Project1Author,
+                                        LHProject1PublishedDate: Project1PublishedDate,
+                                        LHProject1Summary: Project1Summary
+                                    }, function() {
+                                        console.log("URLs and articles updated in storage");
+                                    });
+                                }
+
+                                
+
+                                
+        
                             }
                         }); 
 
                 }); 
-            } 
+           
+        
+            }
         }); 
     }; 
 
@@ -93,10 +128,13 @@ if (port.name === "import-project-background") {
             chrome.tabs.sendMessage(Number(message.current_tab_id), { type: "importSavingSignal2", current_tab_id: message.current_tab_id });
             }, 10);
 
+
             setTimeout(() => {
                 focusTab(Number(current_tab_id));
-                chrome.tabs.sendMessage(Number(current_tab_id), { type: "singleImportComplete" });
+                
             }, 20);
+
+            statusSaved = true;
 
             /*
             setTimeout(() => {
