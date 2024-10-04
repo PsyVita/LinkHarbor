@@ -135,6 +135,17 @@ html {
     padding: 2rem;
 }
 
+.checkbox {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--FS-MEDIUM);
+    padding: 1em;
+    margin: 10px;
+    border-radius: 20px;
+    font-style: italic;
+}
+
 .footer__tutorial {
     display: flex;
     justify-content: center;
@@ -386,6 +397,13 @@ html {
     justify-content: center;
     align-items: center;
 
+}
+
+.center__row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .start__button {

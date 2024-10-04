@@ -7,14 +7,23 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     startButton.addEventListener("mouseup", function(event) {
+        
         chrome.storage.local.get(["LHVisitedTimes"], function(result) {
-            if (result.LHVisitedTimes === undefined) {
+            if (result.LHVisitedTimes === "LHvisitedFirstTime") {
                 window.location.href = "introduction.html";
-                chrome.storage.local.set({ "LHVisitedTimes": "LHalreadyVisited" });
             } else if (result.LHVisitedTimes === "LHalreadyVisited") {
                 window.location.href = "home.html";
             }
         });
+    });
+
+
+    chrome.storage.local.get(["preferenceCheck"], function(result) {
+        if (result.preferenceCheck === "wantStartPage") {
+            console.log("Still want start page");
+        } else if (result.preferenceCheck === "wantHome") {
+            window.location.href = "home.html";
+        }
     });
 });
 

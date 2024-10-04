@@ -18,4 +18,25 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
+    const dontShowAgain = document.getElementById("dont__show__again");
+
+    chrome.storage.local.get(["preferenceCheck"], function(result) {
+        if (result.preferenceCheck === "wantStartPage") {
+            dontShowAgain.checked = false;
+        } else if (result.preferenceCheck === "wantHome") {
+            dontShowAgain.checked = true;
+        }
+    });
+
+    
+    dontShowAgain.addEventListener("click", function(event) {
+        if (dontShowAgain.checked) {
+            chrome.storage.local.set({ "preferenceCheck": "wantHome" });
+            chrome.action.setPopup({ popup: "home.html" });
+        } else {
+            chrome.storage.local.set({ "preferenceCheck": "wantStartPage" });
+            chrome.action.setPopup({ popup: "startPage.html" });
+        }
+    });
+
 });
