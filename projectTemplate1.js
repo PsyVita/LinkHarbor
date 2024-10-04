@@ -5,14 +5,28 @@ document.addEventListener("DOMContentLoaded", function() {
 
     savingSelect.addEventListener("focus", function() {
         savableTabs = [];
+        savableTabsURL = [];
+        // Clear all options
+        while (savingSelect.secondChild) {
+            savingSelect.removeChild(savingSelect.secondChild);
+        }
 
         chrome.tabs.query({}, function(tabs) {
-            tabs.forEach(tab => {
-                savableTabs.push(tab.url);
-                const option = document.createElement("option");
-                option.value = tab.url;
-                option.textContent = tab.title;
-                savingSelect.appendChild(option);
+            tabs.forEach(tab => { 
+                if (tab.url.startsWith("https://www.google.com/search?")) {
+                    console.log("Skip this google search tab")
+                } else {
+                    if (savableTabsURL.includes(tab.url)) {
+                        console.log("Tab already saved:", tab.url, tab.id);
+                    } else {
+                        savableTabs.push(tab.id);
+                        const option = document.createElement("option");
+                        option.value = tab.id;
+                        option.textContent = tab.title;
+                        savingSelect.appendChild(option);
+                        savableTabsURL.push(tab.url);
+                    }
+                }
                 
             });
         });
@@ -38,10 +52,12 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 */
     const importButton = document.getElementById("stamp__button__import");
-    var port = chrome.runtime.connect({ name: "import-project-background" });
+     var port = chrome.runtime.connect({ name: "import-project-background" });
     
     importButton.addEventListener("click", function() {
+        console.log(savingSelect.value);
         if (savingSelect.value === "Add All Tabs") {
+            port.postMessage({ type: "bundleSavingSignal", bundle_tabs: savableTabs });
             /*
             chrome.tabs.query({}, function(tabs) {
                 tabs.forEach(tab => {
@@ -49,12 +65,26 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
             });
             */
-        } else if (savableTabs.includes(savingSelect.value)) {
-            port.postMessage({ type: "importSavingSignal", current_url: savingSelect.value });
+        } else if (savableTabs.includes(Number(savingSelect.value))) {
+            console.log(savingSelect.value);
+            port.postMessage({ type: "importSavingSignal", current_tab_id: savingSelect.value });
+
+           // chrome.tabs.sendMessage( { type: "importSavingSignal", current_tab_id: savingSelect.value });
+            
             console.log("Sent message to background.js", savingSelect.value);
         }
     });
 
+
+    function focusTab(tabId) {
+        chrome.tabs.update(tabId, { active: true }, function(tab) {
+            if (chrome.runtime.lastError) {
+                console.error(chrome.runtime.lastError);
+            } else {
+                console.log("Focused on tab:", tab);
+            }
+        });
+    }
 
     const project1Title = document.getElementById("project1Title");
     let clickTimeout;

@@ -70,16 +70,27 @@ const floatingButton = document.createElement("button");
 
     */
 
-chrome.runtime.onConnect.addListener(function(port) {
+   
+
     chrome.runtime.onMessage.addListener(function(message) {
+        if (projectPort.name === "contentScript-background") {
             if (message.type === "importSavingSignal2") {
-                current_url = message.current_url;
+                current_url = window.location.href;
                 console.log("Entering scrapeInfo function", current_url);
                 scrapeInfo();
                 projectPort.postMessage({ type: "normalSavingSignal" });
             }
+            if (message.type === "bundleImportComplete") {
+                console.log("Bundle import complete");
+                alert("All tabs have been imported successfully.");
+            }
+            if (message.type === "singleImportComplete") {
+                console.log("Single import complete");
+                alert("The selected tab has been imported successfully.");
+            }
+        }
     });
-});
+
 
  
     // Add event listener for button click

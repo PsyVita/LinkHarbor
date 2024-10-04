@@ -65,17 +65,99 @@ if (port.name === "contentScript-background") {
 
 
 
+    function focusTab(tabId) {
+        chrome.tabs.update(tabId, { active: true }, function(tab) {
+            if (chrome.runtime.lastError) {
+                console.error(chrome.runtime.lastError);
+            } else {
+                console.log("Focused on tab:", tab);
+            }
+        });
+    }
+
 
 if (port.name === "import-project-background") {
     port.onMessage.addListener(function(message) {
         console.log("Message received from project.js:", message);
+        let current_tab_id;
+        chrome.tabs.query({'active': true, 'lastFocusedWindow': true, 'currentWindow': true}, function (tabs) {
+            current_tab_id = tabs[0].id;
+            console.log("Last focused tab:", current_tab_id);
+        });
+
         if (message.type === "importSavingSignal") {
-            console.log("Preparing to send 'importSavingSignal2'");
-            port.postMessage({ type: "importSavingSignal2", current_url: message.current_url });
-            console.log("Message sent to contentScript.js", message);
+            console.log(message.current_tab_id);
+            focusTab(Number(message.current_tab_id));
+            
+            setTimeout(() => {
+            chrome.tabs.sendMessage(Number(message.current_tab_id), { type: "importSavingSignal2", current_tab_id: message.current_tab_id });
+            }, 10);
+
+            setTimeout(() => {
+                focusTab(Number(current_tab_id));
+                chrome.tabs.sendMessage(Number(current_tab_id), { type: "singleImportComplete" });
+            }, 20);
+
+            /*
+            setTimeout(() => {
+                chrome.windows.create({
+                    url: chrome.runtime.getURL("projectTemplate1.html"), // Replace with your popup HTML file
+                    type: "popup",
+                    width: 600, // Optional: Specify dimensions
+                    height: 400
+                });
+            }, 500);
+            */
+        
+        /*    
+            
+            const targeturl = message.current_url;
+            console.log("URL received from project.js:", targeturl);
+
+            chrome.tabs.query({ url: targeturl }, function(tabs) {
+                if (tabs.length > 0) {
+                    const targetTab = tabs[0];
+                    console.log("Target tab:", targetTab, targetTab.id);
+                    
+                    chrome.tabs.sendMessage(targetTab.id, { type: "importSavingSignal2" }, function(response) {
+                        if (chrome.runtime.lastError) {
+                            console.log("Error:", chrome.runtime.lastError);
+                        } else if (response) {
+                            console.error("Response from contentScript.js:", response);
+                        }
+                    
+                    });
+
+
+                } else {
+                    console.log("No tabs found");
+                }
+            });
+            */
+        }
+
+        if (message.type === "bundleSavingSignal") {
+            console.log(message.bundle_tabs);
+            
+            for (let i = 0; i < message.bundle_tabs.length; i++) {
+                setTimeout(() => {
+                    focusTab(Number(message.bundle_tabs[i]));
+                }, 10*i);
+                setTimeout(() => {
+                    chrome.tabs.sendMessage(Number(message.bundle_tabs[i]), { type: "importSavingSignal2", current_tab_id: message.bundle_tabs[i] });
+                }, 20*i);
+            }
+
+            setTimeout(() => {
+                focusTab(Number(current_tab_id));
+                chrome.tabs.sendMessage(Number(current_tab_id), { type: "bundleImportComplete" });
+            }, (message.bundle_tabs.length * 10)+10);
+
+         
         }
     });
 }
+
 
 });
 
