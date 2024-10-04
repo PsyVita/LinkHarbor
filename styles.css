@@ -7,13 +7,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-style: --FF;
+    font-style: var(--FF);
 }
 
 input,
 button,
-textarea {
-    font: "Rubik", sans-serif;
+textarea, text, div, footer, header, section, article, aside, nav, main, ul, li, a, p, h1, h2, h3, h4, h5, h6, span, label, select, option {
+    font-family: "Rubik", sans-serif;
 }
 
 html {
@@ -50,6 +50,7 @@ html {
 
 .colorWhite {
     background-color: aliceblue;
+    height: 40px;
 }
 
 .body {
@@ -83,22 +84,26 @@ html {
     width: 80%;
     height: 10%;
     padding: 1em;
-    margin: 15px;
     border-radius: 20px;
     box-shadow: var(--DARK-COLOR) 0px 2px 8px 0px;
 }
 
 .header__home {
+    margin: 15px;
     color: rgb(85, 146, 184);
     background-color: var(--THIRD-COLOR);
 }
 
 .noleftmargin {
     margin-right: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .norightmargin {
     margin-left: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .section__p2 {
@@ -120,7 +125,7 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--DOMINANT-COLOR);
+    color: rgb(85, 146, 184);
     font-size: var(--FS-LARGE);
 }
 
@@ -221,7 +226,6 @@ html {
 
 .stamp__button {
     padding: 1em;
-    height: 52px;
     margin: 2 em;
     display: inline-block;
     cursor: pointer;
@@ -229,11 +233,19 @@ html {
     font-weight: bold;
     text-decoration: bold;
     outline: none;
-    color: var(--DOMINANT-COLOR);
+    color: rgb(98, 101, 109);
     background-color: aliceblue;
     border: none;
     border-radius: 15px;
-    box-shadow: 0 9px var(--DARK-COLOR);
+    box-shadow: 0 5px var(--DARK-COLOR);
+}
+
+.height54px {
+    height: 54px;
+}
+
+.height66px {
+    height: 66px;
 }
 
 .cancel__button {
@@ -295,10 +307,12 @@ html {
 
 .body__space {
     user-select: none;
+    color: rgb(98, 101, 109);
     height: 10%;
     padding: 1em;
-    margin: 15px;
-    margin-top: 15px;
+    margin-right: 1em;
+    margin-left: 1em;
+    margin-bottom: 1em;
     background-color: var(--THIRD-COLOR);
     border-radius: 20px;
     box-shadow: var(--DARK-COLOR) 0px 2px 8px 0px;
@@ -306,6 +320,23 @@ html {
     align-items: center;
     font-size: var(--FS-MEDIUM);
 }
+
+.extra {
+    user-select: none;
+    color: rgb(98, 101, 109);
+    height: 10%;
+    padding: 1em;
+    margin-top: 1em;
+    margin-right: 1em;
+    margin-left: 1em;
+    background-color: var(--THIRD-COLOR);
+    border-radius: 20px;
+    box-shadow: var(--DARK-COLOR) 0px 2px 8px 0px;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--FS-MEDIUM);
+}
+
 
 .body__home {
     display: flex;
@@ -362,6 +393,7 @@ html {
 
 .project__header {
     background-color: var(--THIRD-COLOR);
+    margin: 1em;
 }
       
 .project__button:active {
@@ -380,7 +412,7 @@ html {
 .stamp__button:active, 
 .stamp__button__blue:active {
     background-color: var(--SECONDARY-COLOR);
-    box-shadow: 0 5px #778da5;
+    box-shadow: 0 1px #778da5;
     transform: translateY(4px);
 }
 
@@ -406,24 +438,29 @@ html {
     align-items: center;
 }
 
+.startbody {
+    height: 330px;
+}
+
 .start__button {
-    font-size: var(--FS-MEDIUM);
+    font-size: 18px;
     text-align: center;
     padding: 0.5em;
-    width: 75%;
-    height: 35px;
-    margin: 2 em;
-    display: inline-block;
+    width: 350px;
+    margin: 1em;
     cursor: pointer;
-    text-align: center;
     font-weight: bold;
     text-decoration: bold;
     outline: none;
-    color: var(--DOMINANT-COLOR);
+    color: rgb(98, 101, 109);
     background-color: aliceblue;
     border: none;
     border-radius: 15px;
     box-shadow: 0 9px var(--DARK-COLOR);
+}
+
+.start__button__area {
+    height: 50px;
 }
 
 .title {
@@ -458,7 +495,7 @@ html {
     font-weight: bold;
     text-decoration: bold;
     outline: none;
-    color: grey;
+    color: rgb(98, 101, 109);
     background-color: aliceblue;
     border: none;
     border-radius: 15px;
@@ -486,11 +523,11 @@ html {
     height: 30px;
     margin: 0.5em;
     border-style: dotted;
-    border-color: grey;
+    border-color: rgb(98, 101, 109);
     border-radius: 50%;
     text-align: center;
     text-align: center;
-    color: grey;
+    color: rgb(98, 101, 109);
     margin-top: 20px;
 }
 
@@ -547,7 +584,7 @@ html {
     margin-left: 1em;
     margin-right: 1em;
     justify-content: center;
-    color: grey;
+    color: rgb(98, 101, 109);
     align-items: center;
     font-size: var(--FS-MEDIUM);
 }
@@ -563,7 +600,7 @@ html {
     margin-left: 1em;
     margin-right: 1em;
     justify-content: center;
-    color: grey;
+    color: rgb(98, 101, 109);
     align-items: center;
     font-style: italic;
     background-color: var(--THIRD-COLOR);
@@ -578,6 +615,11 @@ html {
 
 .main__ul {
     list-style-type: none;
+    padding: 1em;
+}
+
+.textcenter {
+    text-align: center;
 }
 
 .italics {
@@ -716,7 +758,7 @@ html {
     text-align: center;
     font-weight: bold;
     font-family: "Oswald";
-    color: grey;
+    color: rgb(98, 101, 109);
     margin-top: 14px;
     margin-left: 9px;
     margin-right: 9px;
@@ -759,7 +801,7 @@ html {
 
 .delete {
     color: white;
-    background-color: grey;
+    color: rgb(98, 101, 109);
 }
 
 
