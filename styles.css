@@ -120,6 +120,10 @@ html {
    align-items: center;
 }
 
+.learn__more__header {
+    width: 350px;
+}
+
 
 .header__h1 {
     display: flex;
@@ -650,6 +654,10 @@ html {
     right: 30px;
     bottom: 30px;
 
+}
+
+.bold {
+    font-weight: bold;
 }
 
 .body__project__template {

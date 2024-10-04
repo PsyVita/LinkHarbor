@@ -34,7 +34,7 @@ const floatingButton = document.createElement("button");
   
     var projectPort = chrome.runtime.connect({ name: "contentScript-background" });
 
-    /*
+    
  
     projectPort.onDisconnect.addListener(function() {
         console.log("Port disconnected. Reconnecting...");
@@ -46,7 +46,7 @@ const floatingButton = document.createElement("button");
         }
     });
 
-    */
+    
 
     let current_url;
 
