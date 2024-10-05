@@ -17,6 +17,51 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
+    chrome.storage.local.get("LHproject2TitleStorage", function(result) {
+        if (!result.LHproject1TitleStorage) {
+            chrome.storage.local.set({ "LHproject2TitleStorage": "Project #2" });
+            project2.innerHTML = "Project #2";
+        } else {
+            project2.innerHTML = result.LHproject1TitleStorage;
+        }
+    });
+
+    chrome.storage.local.get("LHproject3TitleStorage", function(result) {
+        if (!result.LHproject3TitleStorage) {
+            chrome.storage.local.set({ "LHproject3TitleStorage": "Project #3" });
+            project3.innerHTML = "Project #3";
+        } else {
+            project3.innerHTML = result.LHproject3TitleStorage;
+        }
+    });
+
+    chrome.storage.local.get("LHproject4TitleStorage", function(result) {
+        if (!result.LHproject4TitleStorage) {
+            chrome.storage.local.set({ "LHproject4TitleStorage": "Project #4" });
+            project4.innerHTML = "Project #4";
+        } else {
+            project4.innerHTML = result.LHproject4TitleStorage;
+        }
+    });
+
+    chrome.storage.local.get("LHproject5TitleStorage", function(result) {
+        if (!result.LHproject5TitleStorage) {
+            chrome.storage.local.set({ "LHproject5TitleStorage": "Project #5" });
+            project5.innerHTML = "Project #5";
+        } else {
+            project5.innerHTML = result.LHproject5TitleStorage;
+        }
+    });
+
+    chrome.storage.local.get("LHproject6TitleStorage", function(result) {
+        if (!result.LHproject6TitleStorage) {
+            chrome.storage.local.set({ "LHproject6TitleStorage": "Project #6" });
+            project6.innerHTML = "Project #6";
+        } else {
+            project6.innerHTML = result.LHproject6TitleStorage;
+        }
+    });
+
     // Load selected project from chrome.storage.local and highlight
     chrome.storage.local.get("selectedProject", function(result) {
         if (!result.selectedProject) {
