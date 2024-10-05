@@ -1,8 +1,8 @@
 {
-    "name": "LinkHarbor Demo",
+    "name": "LinkHarbor",
     "author": "Napat Worrasangasilp",
     "version": "1.0.0",
-    "description": "This is a demo version of LinkHarbor containing the main functions of the program.",
+    "description": "where the sea of sources is anchored to our harbor of simplicity",
     "manifest_version": 3,
     "action": {
         "default_popup": "startPage.html",
