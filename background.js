@@ -30,67 +30,212 @@ if (port.name === "contentScript-background") {
             
  
 
-                        chrome.storage.local.get(["selectedProject", "LHProject1URL", "LHProject1Article", "LHProject1Author", "LHProject1PublishedDate", "LHProject1Summary", "websiteInfoSet"], function(result) {
+                        chrome.storage.local.get(["selectedProject", "LHProject1URL", "LHProject1Article", "LHProject1Author", "LHProject1PublishedDate", "LHProject1Summary", "websiteInfoSet", ], function(result) {
                             console.log("Result:", result);
-                            
                             
 
                             if (result.selectedProject === "projectOneSelected") {
-                                let Project1URL = result.LHProject1URL || [];
-                                let Project1Article = result.LHProject1Article || [];
-                                let Project1Author = result.LHProject1Author || [];
-                                let Project1PublishedDate = result.LHProject1PublishedDate || [];
-                                let Project1Summary = result.LHProject1Summary || [];
+                                let thisProjectURL = result.LHProject1URL || [];
+                                let thisProjectArticle = result.LHProject1Article || [];
+                                let thisProjectAuthor = result.LHProject1Author || [];
+                                let thisProjectPublishedDate = result.LHProject1PublishedDate || [];
+                                let thisProjectSummary = result.LHProject1Summary || [];
 
-                                if (Project1URL.includes(result.websiteInfoSet.URL)) {
-                                    setTimeout(() => {
-                                        let current_tab_id;
-                                        chrome.tabs.query({'active': true, 'lastFocusedWindow': true, 'currentWindow': true}, function (tabs) {
-                                        current_tab_id = tabs[0].id;
-                                        console.log("Last focused tab:", current_tab_id);
-                                        chrome.tabs.sendMessage(Number(current_tab_id), { type: "alreadySavedOnce", repeated_URL: result.websiteInfoSet.URL });
-                                    });
-                                    }, 1000);
-                                    
-                                } else {
-                                    Project1URL.push(result.websiteInfoSet.URL);
-                                    Project1Article.push(result.websiteInfoSet.title);
-                                    Project1Author.push(result.websiteInfoSet.author);
-                                    Project1PublishedDate.push(result.websiteInfoSet.published_date);
-                                    Project1Summary.push(result.websiteInfoSet.summary);
+                                savetoProject();
 
-                                    
-                                    setTimeout(() => {
-                                        if (statusSaved === true) {
-                                            let current_tab_id;
-                                            console.log("Status saved now:", statusSaved);
-                                            chrome.tabs.query({'active': true, 'lastFocusedWindow': true, 'currentWindow': true}, function (tabs) {
-                                                current_tab_id = tabs[0].id;
-                                                chrome.tabs.sendMessage(Number(current_tab_id), { type: "singleImportComplete" });
-                                                //var port = chrome.runtime.connect({ name: "background-project1" });
-                                                //port.postMessage({ type: "singleImportComplete" });
-                                                statusSaved = false;
-                                            });
-                                        }
-                                    }, 30);
-                                    
+                                chrome.storage.local.set({
+                                    LHProject1URL: thisProjectURL,
+                                    LHProject1Article: thisProjectArticle,
+                                    LHProject1Author: thisProjectAuthor,
+                                    LHProject1PublishedDate: thisProjectPublishedDate,
+                                    LHProject1Summary: thisProjectSummary
+                                }, function() {
+                                    console.log("URLs and articles updated in storage");
+                                });
 
-                                    chrome.storage.local.set({
-                                        LHProject1URL: Project1URL,
-                                        LHProject1Article: Project1Article,
-                                        LHProject1Author: Project1Author,
-                                        LHProject1PublishedDate: Project1PublishedDate,
-                                        LHProject1Summary: Project1Summary
-                                    }, function() {
-                                        console.log("URLs and articles updated in storage");
-                                    });
-                                }
+                                thisProjectURL = [];
+                                thisProjectArticle = [];
+                                thisProjectAuthor = [];
+                                thisProjectPublishedDate = [];
+                                thisProjectSummary = [];
+                            }
+
+                            if (result.selectedProject === "projectTwoSelected") {
+                                let thisProjectURL = result.LHProject2URL || [];
+                                let thisProjectArticle = result.LHProject2Article || [];
+                                let thisProjectAuthor = result.LHProject2Author || [];
+                                let thisProjectPublishedDate = result.LHProject2PublishedDate || [];
+                                let thisProjectSummary = result.LHProject2Summary || [];
+
+                                savetoProject();
+
+                                chrome.storage.local.set({
+                                    LHProject2URL: thisProjectURL,
+                                    LHProject2Article: thisProjectArticle,
+                                    LHProject2Author: thisProjectAuthor,
+                                    LHProject2PublishedDate: thisProjectPublishedDate,
+                                    LHProject2Summary: thisProjectSummary
+                                }, function() {
+                                    console.log("URLs and articles updated in storage");
+                                });
+
+                                thisProjectURL = [];
+                                thisProjectArticle = [];
+                                thisProjectAuthor = [];
+                                thisProjectPublishedDate = [];
+                                thisProjectSummary = [];
+
+                            }
+
+                            if (result.selectedProject === "projectThreeSelected") {
+                                let thisProjectURL = result.LHProject3URL || [];
+                                let thisProjectArticle = result.LHProject3Article || [];
+                                let thisProjectAuthor = result.LHProject3Author || [];
+                                let thisProjectPublishedDate = result.LHProject3PublishedDate || [];
+                                let thisProjectSummary = result.LHProject3Summary || [];
+
+                                savetoProject();
+
+                                chrome.storage.local.set({
+                                    LHProject3URL: thisProjectURL,
+                                    LHProject3Article: thisProjectArticle,
+                                    LHProject3Author: thisProjectAuthor,
+                                    LHProject3PublishedDate: thisProjectPublishedDate,
+                                    LHProject3Summary: thisProjectSummary
+                                }, function() {
+                                    console.log("URLs and articles updated in storage");
+                                });
+
+                                thisProjectURL = [];
+                                thisProjectArticle = [];
+                                thisProjectAuthor = [];
+                                thisProjectPublishedDate = [];
+                                thisProjectSummary = [];
+
+                            }
+
+                            if (result.selectedProject === "projectFourSelected") {
+                                let thisProjectURL = result.LHProject4URL || [];
+                                let thisProjectArticle = result.LHProject4Article || [];
+                                let thisProjectAuthor = result.LHProject4Author || [];
+                                let thisProjectPublishedDate = result.LHProject4PublishedDate || [];
+                                let thisProjectSummary = result.LHProject4Summary || [];
+
+                                savetoProject();
+
+                                chrome.storage.local.set({
+                                    LHProject4URL: thisProjectURL,
+                                    LHProject4Article: thisProjectArticle,
+                                    LHProject4Author: thisProjectAuthor,
+                                    LHProject4PublishedDate: thisProjectPublishedDate,
+                                    LHProject4Summary: thisProjectSummary
+                                }, function() {
+                                    console.log("URLs and articles updated in storage");
+                                });
+
+                                thisProjectURL = [];
+                                thisProjectArticle = [];
+                                thisProjectAuthor = [];
+                                thisProjectPublishedDate = [];
+                                thisProjectSummary = [];
+
+                            }
+
+                            if (result.selectedProject === "projectFiveSelected") {
+                                let thisProjectURL = result.LHProject5URL || [];
+                                let thisProjectArticle = result.LHProject5Article || [];
+                                let thisProjectAuthor = result.LHProject5Author || [];
+                                let thisProjectPublishedDate = result.LHProject5PublishedDate || [];
+                                let thisProjectSummary = result.LHProject5Summary || [];
+
+                                savetoProject();
+
+                                chrome.storage.local.set({
+                                    LHProject5URL: thisProjectURL,
+                                    LHProject5Article: thisProjectArticle,
+                                    LHProject5Author: thisProjectAuthor,
+                                    LHProject5PublishedDate: thisProjectPublishedDate,
+                                    LHProject5Summary: thisProjectSummary
+                                }, function() {
+                                    console.log("URLs and articles updated in storage");
+                                });
+
+                                thisProjectURL = [];
+                                thisProjectArticle = [];
+                                thisProjectAuthor = [];
+                                thisProjectPublishedDate = [];
+                                thisProjectSummary = [];
+
+                            }
+
+                            if (result.selectedProject === "projectSixSelected") {
+                                let thisProjectURL = result.LHProject6URL || [];
+                                let thisProjectArticle = result.LHProject6Article || [];
+                                let thisProjectAuthor = result.LHProject6Author || [];
+                                let thisProjectPublishedDate = result.LHProject6PublishedDate || [];
+                                let thisProjectSummary = result.LHProject6Summary || [];
+
+                                savetoProject();
+
+                                chrome.storage.local.set({
+                                    LHProject6URL: thisProjectURL,
+                                    LHProject6Article: thisProjectArticle,
+                                    LHProject6Author: thisProjectAuthor,
+                                    LHProject6PublishedDate: thisProjectPublishedDate,
+                                    LHProject6Summary: thisProjectSummary
+                                }, function() {
+                                    console.log("URLs and articles updated in storage");
+                                });
+
+                                thisProjectURL = [];
+                                thisProjectArticle = [];
+                                thisProjectAuthor = [];
+                                thisProjectPublishedDate = [];
+                                thisProjectSummary = [];
+
+                            }
 
                                 
-
+                                function savetoProject() {
+                                    if (thisProjectURL.includes(result.websiteInfoSet.URL)) {
+                                        setTimeout(() => {
+                                            let current_tab_id;
+                                            chrome.tabs.query({'active': true, 'lastFocusedWindow': true, 'currentWindow': true}, function (tabs) {
+                                            current_tab_id = tabs[0].id;
+                                            console.log("Last focused tab:", current_tab_id);
+                                            chrome.tabs.sendMessage(Number(current_tab_id), { type: "alreadySavedOnce", repeated_URL: result.websiteInfoSet.URL });
+                                        });
+                                        }, 1000);
+                                        
+                                    } else {
+                                        thisProjectURL.push(result.websiteInfoSet.URL);
+                                        thisProjectArticle.push(result.websiteInfoSet.title);
+                                        thisProjectAuthor.push(result.websiteInfoSet.author);
+                                        thisProjectPublishedDate.push(result.websiteInfoSet.published_date);
+                                        thisProjectSummary.push(result.websiteInfoSet.summary);
+    
+                                        
+                                        setTimeout(() => {
+                                            if (statusSaved === true) {
+                                                let current_tab_id;
+                                                console.log("Status saved now:", statusSaved);
+                                                chrome.tabs.query({'active': true, 'lastFocusedWindow': true, 'currentWindow': true}, function (tabs) {
+                                                    current_tab_id = tabs[0].id;
+                                                    chrome.tabs.sendMessage(Number(current_tab_id), { type: "singleImportComplete" });
+                                                    //var port = chrome.runtime.connect({ name: "background-project1" });
+                                                    //port.postMessage({ type: "singleImportComplete" });
+                                                    statusSaved = false;
+                                                });
+                                            }
+                                        }, 30);
+                                    }
                                 
         
                             }
+
+                            
+
+
                         }); 
 
                 }); 
