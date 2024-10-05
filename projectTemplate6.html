@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="author" content="Napat Worrasangasilp">
+    <meta name="description" content="LinkHarbor - Project 6 Page">
+    <title>Project Template Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="projectTemplate6.js" defer></script>
+</head>
+<body class="body">
+    <div class="stamp header__space">
+        <a href="home.html">
+            <button class="stamp__button  space_noright height54px"><</button>
+        </a>
+        <header class="header project__header move" id="project__header">
+            <button class="cancel__button" id="cancelButton">Click to UNSELECT ALL</button>
+            <input spellcheck="false" class="editableTitle" type="text" id="project6Title" name="project6Title"  value="Project #6"></input>
+        </header>
+        <div class="tutorial-myaccount">
+            <a class="stamp__link move" href="learnMore.html">Learn More</a>
+            <a href="introduction.html">
+                <button class="stamp__button__tutorial ">User Guide</button>
+            </a>
+        </div>
+        </div>
+    </div>
+    
+    <hr>
+    
+    <div class="body__project__template move">
+            <div class="save-method">
+                <select class="lrbspace" name="saving-methods" id="saving_select">     <option value="Add more sources" disabled selected>Add more sources...</option>
+                <option value="Add All Tabs">Add All Tabs</option>
+                </select>
+                <button id="stamp__button__import" class="stamp__button__import">Import</button>
+                <label class="switch space">
+                    <input type="checkbox" id="toggleProject6">
+                    <span id="switch" class="slider"></span>
+                </label>
+            </div>
+        
+        <main class="main lrspace projects">
+            <div class="article_complete" id="article_complete">
+               <p id="add__more__sources">Sources will appear here once anchored!</p>
+            </div>
+            <br>
+            <div id="testing">
+            </div>
+        </main>
+      
+    </div>
+
+    <hr class="fixed">
+
+    <footer class="footer space fixed fixed__footer">
+        <p class="export__footer">Choose your export option:</p>
+        <div class="border">
+            <div class="footer__3B">
+                <button class="f3B" id="copyToClipboard">Copy to Clipboard</button>
+                <button class="f3B" id="emailButton">Share via Gmail</button>
+                <button class="f3B" id="pdfButton">Export to PDF</button>
+                <button id="deleteButton" class="f3B delete" >Delete Selected</button>
+                <button id="clearButton" class="f3B delete" >Clear Project</button>
+            </div>
+        </div>
+        
+    </footer>
+    
+    
+</body>
+</html>

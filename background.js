@@ -32,14 +32,15 @@ if (port.name === "contentScript-background") {
 
                         chrome.storage.local.get(["selectedProject", "LHProject1URL", "LHProject1Article", "LHProject1Author", "LHProject1PublishedDate", "LHProject1Summary", "websiteInfoSet"], function(result) {
                             console.log("Result:", result);
-                            let Project1URL = result.LHProject1URL || [];
-                            let Project1Article = result.LHProject1Article || [];
-                            let Project1Author = result.LHProject1Author || [];
-                            let Project1PublishedDate = result.LHProject1PublishedDate || [];
-                            let Project1Summary = result.LHProject1Summary || [];
+                            
                             
 
                             if (result.selectedProject === "projectOneSelected") {
+                                let Project1URL = result.LHProject1URL || [];
+                                let Project1Article = result.LHProject1Article || [];
+                                let Project1Author = result.LHProject1Author || [];
+                                let Project1PublishedDate = result.LHProject1PublishedDate || [];
+                                let Project1Summary = result.LHProject1Summary || [];
 
                                 if (Project1URL.includes(result.websiteInfoSet.URL)) {
                                     setTimeout(() => {
