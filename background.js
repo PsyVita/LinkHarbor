@@ -38,14 +38,19 @@ if (port.name === "contentScript-background") {
                         "LHProject6URL", "LHProject6Article", "LHProject6Author", "LHProject6PublishedDate", "LHProject6Summary"
                         ], function(result) {
                             console.log("Result:", result);
+                            thisProjectURL = [];
+                            thisProjectArticle = [];
+                            thisProjectAuthor = [];
+                            thisProjectPublishedDate = [];
+                            thisProjectSummary = [];
                             
 
                             if (result.selectedProject === "projectOneSelected") {
-                                let thisProjectURL = result.LHProject1URL || [];
-                                let thisProjectArticle = result.LHProject1Article || [];
-                                let thisProjectAuthor = result.LHProject1Author || [];
-                                let thisProjectPublishedDate = result.LHProject1PublishedDate || [];
-                                let thisProjectSummary = result.LHProject1Summary || [];
+                                thisProjectURL = result.LHProject1URL || [];
+                                thisProjectArticle = result.LHProject1Article || [];
+                                thisProjectAuthor = result.LHProject1Author || [];
+                                thisProjectPublishedDate = result.LHProject1PublishedDate || [];
+                                thisProjectSummary = result.LHProject1Summary || [];
 
                                 savetoProject();
 
@@ -67,11 +72,11 @@ if (port.name === "contentScript-background") {
                             }
 
                             if (result.selectedProject === "projectTwoSelected") {
-                                let thisProjectURL = result.LHProject2URL || [];
-                                let thisProjectArticle = result.LHProject2Article || [];
-                                let thisProjectAuthor = result.LHProject2Author || [];
-                                let thisProjectPublishedDate = result.LHProject2PublishedDate || [];
-                                let thisProjectSummary = result.LHProject2Summary || [];
+                                thisProjectURL = result.LHProject2URL || [];
+                                thisProjectArticle = result.LHProject2Article || [];
+                                thisProjectAuthor = result.LHProject2Author || [];
+                                thisProjectPublishedDate = result.LHProject2PublishedDate || [];
+                                thisProjectSummary = result.LHProject2Summary || [];
 
                                 savetoProject();
 
@@ -94,11 +99,11 @@ if (port.name === "contentScript-background") {
                             }
 
                             if (result.selectedProject === "projectThreeSelected") {
-                                let thisProjectURL = result.LHProject3URL || [];
-                                let thisProjectArticle = result.LHProject3Article || [];
-                                let thisProjectAuthor = result.LHProject3Author || [];
-                                let thisProjectPublishedDate = result.LHProject3PublishedDate || [];
-                                let thisProjectSummary = result.LHProject3Summary || [];
+                                thisProjectURL = result.LHProject3URL || [];
+                                thisProjectArticle = result.LHProject3Article || [];
+                                thisProjectAuthor = result.LHProject3Author || [];
+                                thisProjectPublishedDate = result.LHProject3PublishedDate || [];
+                                thisProjectSummary = result.LHProject3Summary || [];
 
                                 savetoProject();
 
@@ -121,11 +126,11 @@ if (port.name === "contentScript-background") {
                             }
 
                             if (result.selectedProject === "projectFourSelected") {
-                                let thisProjectURL = result.LHProject4URL || [];
-                                let thisProjectArticle = result.LHProject4Article || [];
-                                let thisProjectAuthor = result.LHProject4Author || [];
-                                let thisProjectPublishedDate = result.LHProject4PublishedDate || [];
-                                let thisProjectSummary = result.LHProject4Summary || [];
+                                thisProjectURL = result.LHProject4URL || [];
+                                thisProjectArticle = result.LHProject4Article || [];
+                                thisProjectAuthor = result.LHProject4Author || [];
+                                thisProjectPublishedDate = result.LHProject4PublishedDate || [];
+                                thisProjectSummary = result.LHProject4Summary || [];
 
                                 savetoProject();
 
@@ -148,11 +153,11 @@ if (port.name === "contentScript-background") {
                             }
 
                             if (result.selectedProject === "projectFiveSelected") {
-                                let thisProjectURL = result.LHProject5URL || [];
-                                let thisProjectArticle = result.LHProject5Article || [];
-                                let thisProjectAuthor = result.LHProject5Author || [];
-                                let thisProjectPublishedDate = result.LHProject5PublishedDate || [];
-                                let thisProjectSummary = result.LHProject5Summary || [];
+                                thisProjectURL = result.LHProject5URL || [];
+                                thisProjectArticle = result.LHProject5Article || [];
+                                thisProjectAuthor = result.LHProject5Author || [];
+                                thisProjectPublishedDate = result.LHProject5PublishedDate || [];
+                                thisProjectSummary = result.LHProject5Summary || [];
 
                                 savetoProject();
 
@@ -175,11 +180,11 @@ if (port.name === "contentScript-background") {
                             }
 
                             if (result.selectedProject === "projectSixSelected") {
-                                let thisProjectURL = result.LHProject6URL || [];
-                                let thisProjectArticle = result.LHProject6Article || [];
-                                let thisProjectAuthor = result.LHProject6Author || [];
-                                let thisProjectPublishedDate = result.LHProject6PublishedDate || [];
-                                let thisProjectSummary = result.LHProject6Summary || [];
+                                thisProjectURL = result.LHProject6URL || [];
+                                thisProjectArticle = result.LHProject6Article || [];
+                                thisProjectAuthor = result.LHProject6Author || [];
+                                thisProjectPublishedDate = result.LHProject6PublishedDate || [];
+                                thisProjectSummary = result.LHProject6Summary || [];
 
                                 savetoProject();
 
