@@ -62,6 +62,7 @@ if (port.name === "contentScript-background") {
                                     setTimeout(() => {
                                         if (statusSaved === true) {
                                             let current_tab_id;
+                                            console.log("Status saved now:", statusSaved);
                                             chrome.tabs.query({'active': true, 'lastFocusedWindow': true, 'currentWindow': true}, function (tabs) {
                                                 current_tab_id = tabs[0].id;
                                                 chrome.tabs.sendMessage(Number(current_tab_id), { type: "singleImportComplete" });
@@ -135,6 +136,7 @@ if (port.name === "import-project-background") {
             }, 20);
 
             statusSaved = true;
+            console.log("Status saved:", statusSaved);
 
             /*
             setTimeout(() => {
