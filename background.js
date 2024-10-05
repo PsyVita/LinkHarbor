@@ -38,11 +38,11 @@ if (port.name === "contentScript-background") {
                         "LHProject6URL", "LHProject6Article", "LHProject6Author", "LHProject6PublishedDate", "LHProject6Summary"
                         ], function(result) {
                             console.log("Result:", result);
-                            thisProjectURL = [];
-                            thisProjectArticle = [];
-                            thisProjectAuthor = [];
-                            thisProjectPublishedDate = [];
-                            thisProjectSummary = [];
+                            let thisProjectURL = [];
+                            let thisProjectArticle = [];
+                            let thisProjectAuthor = [];
+                            let thisProjectPublishedDate = [];
+                            let thisProjectSummary = [];
                             
 
                             if (result.selectedProject === "projectOneSelected") {
