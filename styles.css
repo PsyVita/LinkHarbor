@@ -140,8 +140,18 @@ html {
     font-size: var(--FS-LARGE);
 }
 
+.center__new {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
 .section__h2, .main__h2, .footer__h2 {
     padding: 2rem;
+}
+
+.red {
+    color: var(--SECONDARY-COLOR)
 }
 
 .checkbox {
