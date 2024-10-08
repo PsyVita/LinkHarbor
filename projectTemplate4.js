@@ -402,21 +402,25 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Clear Project1URL when the delete button is clicked
     clearProject4URL.addEventListener("click", function() {
-        if (Project4URL.length > 0) {
-            const userConfirmed = confirm("Are you sure you want to reset the entire project? All saved URLs in this project will be permanently lost. This action cannot be undone.");
-
-            if (userConfirmed) {
-                chrome.storage.local.set({
-                    LHProject4URL: [],
-                    LHProject4Article: [],
-                    LHProject4Author: [],
-                    LHProject4PublishedDate: [],
-                    LHProject4Summary: [],
-                    LHproject4TitleStorage: "Project #4"
-                }, function() {
-                    console.log("URLs and articles are cleared.");
-                    updateStorageInformation();
-                });
+        if (Project4URL) {
+            if (Project4URL.length > 0) {
+                const userConfirmed = confirm("Are you sure you want to reset the entire project? All saved URLs in this project will be permanently lost. This action cannot be undone.");
+    
+                if (userConfirmed) {
+                    chrome.storage.local.set({
+                        LHProject4URL: [],
+                        LHProject4Article: [],
+                        LHProject4Author: [],
+                        LHProject4PublishedDate: [],
+                        LHProject4Summary: [],
+                        LHproject4TitleStorage: "Project #4"
+                    }, function() {
+                        console.log("URLs and articles are cleared.");
+                        updateStorageInformation();
+                    });
+                }
+            } else {
+                alert("There are no sources to delete.");
             }
         } else {
             alert("There are no sources to delete.");
