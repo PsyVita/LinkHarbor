@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const toggleProject2 = document.getElementById("toggleProject2");
 
-    let Project2URL, Project2Article, Project2Author, Project2PublishedDate, Project2Summary;
+    let Project2URL, Project2Article, Project2Author, Project2PublishedDate, Project2Summary = [];
 
     updateStorageInformation();
 
@@ -402,21 +402,25 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Clear Project1URL when the delete button is clicked
     clearProject2URL.addEventListener("click", function() {
-        if (Project2URL.length > 0) {
-            const userConfirmed = confirm("Are you sure you want to reset the entire project? All saved URLs in this project will be permanently lost. This action cannot be undone.");
-
-            if (userConfirmed) {
-                chrome.storage.local.set({
-                    LHProject2URL: [],
-                    LHProject2Article: [],
-                    LHProject2Author: [],
-                    LHProject2PublishedDate: [],
-                    LHProject2Summary: [],
-                    LHproject2TitleStorage: "Project #2"
-                }, function() {
-                    console.log("URLs and articles are cleared.");
-                    updateStorageInformation();
-                });
+        if (Project2URL) {
+            if (Project2URL.length > 0) {
+                const userConfirmed = confirm("Are you sure you want to reset the entire project? All saved URLs in this project will be permanently lost. This action cannot be undone.");
+    
+                if (userConfirmed) {
+                    chrome.storage.local.set({
+                        LHProject2URL: [],
+                        LHProject2Article: [],
+                        LHProject2Author: [],
+                        LHProject2PublishedDate: [],
+                        LHProject2Summary: [],
+                        LHproject2TitleStorage: "Project #2"
+                    }, function() {
+                        console.log("URLs and articles are cleared.");
+                        updateStorageInformation();
+                    });
+                }
+            } else {
+                alert("There are no sources to delete.");
             }
         } else {
             alert("There are no sources to delete.");
@@ -425,24 +429,28 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Delete individual sources
     deleteProject2URL.addEventListener("click", function() {
-        if (Project2URL.length > 0) {
-            for (let i = 0; i < Project2URL.length; i++) {
-                if (document.getElementById("sources__button" + i).style.color === "orange") {
-                    Project2URL.splice(i, 1);
-                    Project2Article.splice(i, 1);
-                    Project2Author.splice(i, 1);
-                    Project2PublishedDate.splice(i, 1);
-                    Project2Summary.splice(i, 1);
-
-                    chrome.storage.local.set({ "LHProject2URL": Project2URL });
-                    chrome.storage.local.set({ "LHProject2Article": Project2Article });
-                    chrome.storage.local.set({ "LHProject2Author": Project2Author });
-                    chrome.storage.local.set({ "LHProject2PublishedDate": Project2PublishedDate });
-                    chrome.storage.local.set({ "LHProject2Summary": Project2Summary });
-
-                    updateStorageInformation();
-                    cancelButton.click();
+        if (Project2URL) {
+            if (Project2URL.length > 0) {
+                for (let i = 0; i < Project2URL.length; i++) {
+                    if (document.getElementById("sources__button" + i).style.color === "orange") {
+                        Project2URL.splice(i, 1);
+                        Project2Article.splice(i, 1);
+                        Project2Author.splice(i, 1);
+                        Project2PublishedDate.splice(i, 1);
+                        Project2Summary.splice(i, 1);
+    
+                        chrome.storage.local.set({ "LHProject2URL": Project2URL });
+                        chrome.storage.local.set({ "LHProject2Article": Project2Article });
+                        chrome.storage.local.set({ "LHProject2Author": Project2Author });
+                        chrome.storage.local.set({ "LHProject2PublishedDate": Project2PublishedDate });
+                        chrome.storage.local.set({ "LHProject2Summary": Project2Summary });
+    
+                        updateStorageInformation();
+                        cancelButton.click();
+                    }
                 }
+            } else {
+                alert("There are no sources to delete.");
             }
         } else {
             alert("There are no sources to delete.");
@@ -561,35 +569,39 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
         copyToClipboardButton.addEventListener("click", function() {
-            if (Project2URL.length > 0) {
-                const blobs = exportingBasics();
-
-                const combinedHTMLblob = new Blob(
-                    [
-                        `<div style="text-align: center;"><strong>${blobs.subject}</strong></div><br>`, blobs.HTMLblob, `<i>${blobs.advertisementHTML}</i>`
-                    ], 
-                    {type: 'text/html'}
-                );
-
-                const combinedPlainTextBlob = new Blob(
-                    [
-                        blobs.subject, blobs.TEXTblob, blobs.advertisementPlainText
-                    ],
-                    {type: 'text/plain'}
-                );
-
-                const clipboardItem = new ClipboardItem({ 
-                    'text/html': combinedHTMLblob, 
-                    'text/plain': combinedPlainTextBlob
-                });
-
-                navigator.clipboard.write([clipboardItem]);
-                
-                copyToClipboardButton.textContent = "Copied!";
-                setTimeout(function() {
-                    copyToClipboardButton.textContent = "Copy to Clipboard";
-                }, 2000);
-
+            if (Project2URL) {
+                if (Project2URL.length > 0) {
+                    const blobs = exportingBasics();
+    
+                    const combinedHTMLblob = new Blob(
+                        [
+                            `<div style="text-align: center;"><strong>${blobs.subject}</strong></div><br>`, blobs.HTMLblob, `<i>${blobs.advertisementHTML}</i>`
+                        ], 
+                        {type: 'text/html'}
+                    );
+    
+                    const combinedPlainTextBlob = new Blob(
+                        [
+                            blobs.subject, blobs.TEXTblob, blobs.advertisementPlainText
+                        ],
+                        {type: 'text/plain'}
+                    );
+    
+                    const clipboardItem = new ClipboardItem({ 
+                        'text/html': combinedHTMLblob, 
+                        'text/plain': combinedPlainTextBlob
+                    });
+    
+                    navigator.clipboard.write([clipboardItem]);
+                    
+                    copyToClipboardButton.textContent = "Copied!";
+                    setTimeout(function() {
+                        copyToClipboardButton.textContent = "Copy to Clipboard";
+                    }, 2000);
+    
+                } else {
+                    alert("There are no sources to copy.");
+                }
             } else {
                 alert("There are no sources to copy.");
             }
@@ -598,31 +610,35 @@ document.addEventListener("DOMContentLoaded", function() {
         const emailButton = document.getElementById("emailButton");
 
         emailButton.addEventListener("click", function() {
-            if (Project2URL.length > 0) {
-                const blobs = exportingBasics();
-
-                const reader = new FileReader();
-                reader.readAsText(blobs.TEXTblob);
-
-                reader.onload = function() {
-                    const emailBody = blobs.subject + reader.result + blobs.advertisementPlainText;
-                    const emailSubject = blobs.subject;
-
-                    if (emailBody.length > 380000 || emailSubject.length > 78) {
-                        alert("The email body is too long. Please reduce the number of sources or export in separate groups.");
-                    } else if (emailSubject.length > 78) {
-                        alert("The project title is too long. Please shorten the title then export again.");
-                    } else {
-                        const emailURL = `https://mail.google.com/mail/?view=cm&fs=1&tf=1&su=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-                        window.open(emailURL);
+            if (Project2URL) {
+                if (Project2URL.length > 0) {
+                    const blobs = exportingBasics();
+    
+                    const reader = new FileReader();
+                    reader.readAsText(blobs.TEXTblob);
+    
+                    reader.onload = function() {
+                        const emailBody = blobs.subject + reader.result + blobs.advertisementPlainText;
+                        const emailSubject = blobs.subject;
+    
+                        if (emailBody.length > 380000 || emailSubject.length > 78) {
+                            alert("The email body is too long. Please reduce the number of sources or export in separate groups.");
+                        } else if (emailSubject.length > 78) {
+                            alert("The project title is too long. Please shorten the title then export again.");
+                        } else {
+                            const emailURL = `https://mail.google.com/mail/?view=cm&fs=1&tf=1&su=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+                            window.open(emailURL);
+                        }
+                        
                     }
-                    
+    
+                    emailButton.textContent = "Opening Gmail...";
+                    setTimeout(function() {
+                        emailButton.textContent = "Share via Gmail";
+                    }, 2000);
+                } else {
+                    alert("There are no sources to email.");
                 }
-
-                emailButton.textContent = "Opening Gmail...";
-                setTimeout(function() {
-                    emailButton.textContent = "Share via Gmail";
-                }, 2000);
             } else {
                 alert("There are no sources to email.");
             }
@@ -632,44 +648,48 @@ document.addEventListener("DOMContentLoaded", function() {
         const pdfButton = document.getElementById("pdfButton");
         
         pdfButton.addEventListener("click", function() {
-            if (Project2URL.length > 0) {
-                const blobs = exportingBasics();
+            if (Project2URL) {
+                if (Project2URL.length > 0) {
+                    const blobs = exportingBasics();
+                    
+    
+                    const combinedHTML = `<div style="font-family: 'Times New Roman', Times, serif; margin: 40px; line-height: 2; font-size: 12pt; color: black;"><strong><div style="text-align: center; font-size: 16pt;">${blobs.subject}</div></strong><br>${blobs.copiedforPDF}</div>`;
+    /*
+                    const iframe = document.createElement("iframe");
+                    iframe.style.display = "none";
+                    document.body.appendChild(iframe);
+                    
+                    const iframeDoc = iframe.contentWindow.document;
+                    iframeDoc.open();
+                    iframeDoc.write(combinedHTML);
+                    iframeDoc.close();
+    
+                    iframe.onload = function() {
+                        iframe.contentWindow.focus();
+                        iframe.contentWindow.print();
+                    }
                 
-
-                const combinedHTML = `<div style="font-family: 'Times New Roman', Times, serif; margin: 40px; line-height: 2; font-size: 12pt; color: black;"><strong><div style="text-align: center; font-size: 16pt;">${blobs.subject}</div></strong><br>${blobs.copiedforPDF}</div>`;
-/*
-                const iframe = document.createElement("iframe");
-                iframe.style.display = "none";
-                document.body.appendChild(iframe);
-                
-                const iframeDoc = iframe.contentWindow.document;
-                iframeDoc.open();
-                iframeDoc.write(combinedHTML);
-                iframeDoc.close();
-
-                iframe.onload = function() {
-                    iframe.contentWindow.focus();
-                    iframe.contentWindow.print();
+    */
+                    
+                    const printWindow = window.open('','_blank');
+                    printWindow.document.open();
+                    printWindow.document.write(combinedHTML);
+    
+                    printWindow.onload = function() {
+                        printWindow.focus();
+                    }
+                    printWindow.print();
+                    printWindow.close();
+                    
+                    
+    
+                    pdfButton.textContent = "Downloading PDF...";
+                        setTimeout(function() {
+                            pdfButton.textContent = "Export to PDF";
+                        }, 2000);
+                } else {
+                    alert("There are no sources to export.");
                 }
-            
-*/
-                
-                const printWindow = window.open('','_blank');
-                printWindow.document.open();
-                printWindow.document.write(combinedHTML);
-
-                printWindow.onload = function() {
-                    printWindow.focus();
-                }
-                printWindow.print();
-                printWindow.close();
-                
-                
-
-                pdfButton.textContent = "Downloading PDF...";
-                    setTimeout(function() {
-                        pdfButton.textContent = "Export to PDF";
-                    }, 2000);
             } else {
                 alert("There are no sources to export.");
             }
