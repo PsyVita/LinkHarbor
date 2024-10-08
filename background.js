@@ -235,10 +235,14 @@ if (port.name === "contentScript-background") {
                                                     chrome.tabs.sendMessage(Number(current_tab_id), { type: "singleImportComplete" });
                                                     //var port = chrome.runtime.connect({ name: "background-project1" });
                                                     //port.postMessage({ type: "singleImportComplete" });
-                                                    statusSaved = false;
+                                                    
                                                 });
                                             }
                                         }, 30);
+                                        
+                                        setTimeout(() => {
+                                            statusSaved = false;
+                                        }, 50);
                                     }
                                 
         

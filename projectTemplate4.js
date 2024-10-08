@@ -646,6 +646,16 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 
         const pdfButton = document.getElementById("pdfButton");
+
+        const exportFooter = document.getElementById("export__footer");
+
+        pdfButton.addEventListener("mouseenter", function() {
+            exportFooter.innerHTML = "Choose your export option: A print window will be generated.<br>Please select the destination as 'Save as PDF'.";
+        });
+
+        pdfButton.addEventListener("mouseleave", function() {
+            exportFooter.innerHTML = "Choose your export option:";
+        });
         
         pdfButton.addEventListener("click", function() {
             if (Project4URL) {

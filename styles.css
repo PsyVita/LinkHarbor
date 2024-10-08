@@ -855,7 +855,7 @@ html {
 }
 
 #testing {
-    height: 70px;
+    height: 87px;
     width: 100%;
 }
 
@@ -866,7 +866,7 @@ html {
     text-align: center;
     width: 100%;
     font-style: italic;
-    color: aliceblue;
+    color: rgb(98, 101, 109);
     background-color: #ffab3d91;
 }
 
