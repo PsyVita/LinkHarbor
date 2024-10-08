@@ -18,11 +18,11 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     chrome.storage.local.get("LHproject2TitleStorage", function(result) {
-        if (!result.LHproject1TitleStorage) {
+        if (!result.LHproject2TitleStorage) {
             chrome.storage.local.set({ "LHproject2TitleStorage": "Project #2" });
             project2.innerHTML = "Project #2";
         } else {
-            project2.innerHTML = result.LHproject1TitleStorage;
+            project2.innerHTML = result.LHproject2TitleStorage;
         }
     });
 
