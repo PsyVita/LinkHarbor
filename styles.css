@@ -686,6 +686,11 @@ html {
     width: 125px;
 }
 
+.gif {
+    height: 125px;
+    border-radius: 20px;
+}
+
 .article__reliability {
     width: 30px;
     padding-top: 14px;
