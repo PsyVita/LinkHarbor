@@ -444,11 +444,15 @@ document.addEventListener("DOMContentLoaded", function() {
                         chrome.storage.local.set({ "LHProject2Author": Project2Author });
                         chrome.storage.local.set({ "LHProject2PublishedDate": Project2PublishedDate });
                         chrome.storage.local.set({ "LHProject2Summary": Project2Summary });
-    
-                        updateStorageInformation();
-                        cancelButton.click();
+
                     }
                 }
+
+                setTimeout(function() {
+                    updateStorageInformation();
+                    cancelButton.click();
+                }, 10);
+                
             } else {
                 alert("There are no sources to delete.");
             }

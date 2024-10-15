@@ -449,9 +449,11 @@ document.addEventListener("DOMContentLoaded", function() {
                     }
                 }
 
+                setTimeout(function() {
                 updateStorageInformation();
                 cancelButton.click();
-                
+                }, 10);
+
             } else {
                 alert("There are no sources to delete.");
             }

@@ -445,10 +445,14 @@ document.addEventListener("DOMContentLoaded", function() {
                         chrome.storage.local.set({ "LHProject5PublishedDate": Project5PublishedDate });
                         chrome.storage.local.set({ "LHProject5Summary": Project5Summary });
     
-                        updateStorageInformation();
-                        cancelButton.click();
                     }
                 }
+
+                setTimeout(function() {
+                    updateStorageInformation();
+                    cancelButton.click();
+                }, 10);
+
             } else {
                 alert("There are no sources to delete.");
             }
