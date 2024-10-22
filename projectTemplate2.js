@@ -478,7 +478,7 @@ document.addEventListener("DOMContentLoaded", function() {
             let copiedHTMLText = '';
             let copiedforPDF = '';
             let subject = "Sources for your project";
-            const LHurl = "https://chrome.google.com/webstore/detail/linkharbor/";
+            const LHurl = "https://chromewebstore.google.com/detail/linkharbor/abbjllenkjbbklkehmljabjdjmpgclob";
             let advertisementHTML = `This source list was generated using the <strong>LinkHarbor</strong> Chrome Extension. <a href="${LHurl}"><br>Download the extension today</a> to save your sources and generate APA citations with ease!`;
             let advertisementPlainText = "This source list was generated using the LinkHarbor Chrome Extension.\nDownload the extension today to save your sources and generate APA citations with ease! Click the link below!\n" + LHurl;
             let entries;

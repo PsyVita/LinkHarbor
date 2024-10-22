@@ -1,7 +1,7 @@
 {
     "name": "LinkHarbor",
     "author": "Napat Worrasangasilp",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "where the sea of sources is anchored to our harbor of simplicity",
     "manifest_version": 3,
     "action": {
